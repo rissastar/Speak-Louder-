@@ -6,48 +6,70 @@
   <title>Login - Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="bg-gradient-to-r from-purple-700 via-indigo-700 to-pink-700 min-h-screen flex flex-col items-center justify-center text-white px-4">
 
-  <header>
-    <h1>🔐 Login</h1>
-  </header>
+  <main class="max-w-md w-full bg-purple-900 bg-opacity-80 rounded-xl p-6 shadow-lg">
+    <h1 class="text-3xl font-bold mb-6 text-center">Welcome Back</h1>
 
-  <main>
-    <form id="login-form">
-      <label for="email">Email</label>
-      <input type="email" id="email" required />
+    <form id="login-form" class="space-y-5">
+      <label class="block">
+        <span>Email</span>
+        <input
+          type="email"
+          id="email"
+          required
+          placeholder="you@example.com"
+          class="w-full mt-1 px-3 py-2 rounded-md text-gray-900"
+        />
+      </label>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" required />
+      <label class="block">
+        <span>Password</span>
+        <input
+          type="password"
+          id="password"
+          required
+          placeholder="••••••••"
+          class="w-full mt-1 px-3 py-2 rounded-md text-gray-900"
+        />
+      </label>
 
-      <button type="submit" class="button">Log In</button>
+      <button
+        type="submit"
+        class="w-full bg-pink-600 hover:bg-pink-700 font-semibold py-2 rounded-md transition"
+      >
+        Log In
+      </button>
     </form>
 
-    <p class="link-text">Don't have an account? <a href="register.html">Register here</a></p>
-    <p id="login-message" class="message"></p>
-  </main>
+    <p class="mt-6 text-center text-sm">
+      Don't have an account?
+      <a href="register.html" class="text-pink-400 hover:underline font-semibold">Register here</a>
+    </p>
 
-  <footer>
-    <p>🌌 Speak Louder, Love Harder</p>
-  </footer>
+    <p id="error-msg" class="mt-4 text-red-400 text-center"></p>
+  </main>
 
   <script src="auth.js"></script>
   <script>
-    const form = document.getElementById("login-form");
-    const message = document.getElementById("login-message");
+    const loginForm = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
 
-    form.addEventListener("submit", async (e) => {
+    loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = form.email.value;
-      const password = form.password.value;
+      errorMsg.textContent = '';
 
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
 
-      if (error) {
-        message.textContent = "⚠️ " + error.message;
-      } else {
-        message.textContent = "✅ Login successful! Redirecting...";
-        setTimeout(() => window.location.href = "feed.html", 1500);
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+
+        // On success redirect to profile
+        window.location.href = 'profile.html';
+      } catch (err) {
+        errorMsg.textContent = err.message || 'Failed to log in. Please try again.';
       }
     });
   </script>
