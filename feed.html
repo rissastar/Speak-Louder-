@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,39 +8,39 @@
 </head>
 <body>
 
-<header>
-  <h1>Feed</h1>
-  <nav class="auth-nav" id="authNav">
-    <!-- dynamically populated based on auth -->
-  </nav>
-</header>
+  <header>
+    <h1>🔥 Healing Feed</h1>
+  </header>
 
-<main>
-  <section class="post-creation">
-    <h2>Create a Post</h2>
-    <form id="postForm">
-      <textarea id="postText" rows="3" placeholder="Write your healing message..."></textarea>
-      <select id="postTopic" required>
-        <option value="" disabled selected>Select Topic</option>
+  <main>
+    <form id="post-form">
+      <textarea id="post-content" placeholder="Share your story..." required></textarea>
+      <select id="topic-select" required>
+        <option value="">Choose Topic</option>
         <option value="mental-health">Mental Health</option>
         <option value="addiction">Addiction</option>
         <option value="abuse">Abuse</option>
         <option value="terminal-illness">Terminal Illness</option>
+        <option value="worksheets">Worksheets</option>
+        <option value="quotes">Quotes</option>
+        <option value="affirmations">Affirmations</option>
+        <option value="grounding-techniques">Grounding</option>
       </select>
-      <input type="file" id="postImage" accept="image/*" />
-      <button type="submit">Post</button>
+      <button type="submit" class="button">Post</button>
     </form>
-  </section>
 
-  <section id="feedContainer" class="feed-container">
-    <!-- posts will load here dynamically -->
-  </section>
-</main>
+    <section id="feed-posts"></section>
+  </main>
 
-<footer>
-  <p>© 2025 Speak Louder, Love Harder • <a href="https://linktr.ee/rissastar" target="_blank" rel="noopener">Linktree</a></p>
-</footer>
+  <footer>
+    <nav>
+      <a href="feed.html">🏠</a>
+      <a href="profile.html">👤</a>
+      <a href="settings.html">⚙️</a>
+      <a href="logout.html">🚪</a>
+    </nav>
+  </footer>
 
-<script type="module" src="feed.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
