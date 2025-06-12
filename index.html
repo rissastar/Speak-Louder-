@@ -1,25 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="header">
+
+  <header>
     <h1>Speak Louder, Love Harder</h1>
-    <p class="tagline">Bold. Vibrant. Supportive. Safe. Healing-focused.</p>
+    <nav class="topic-nav">
+      <button aria-haspopup="true" aria-expanded="false" id="topicDropdownBtn">Topics ▼</button>
+      <ul id="topicDropdown" class="dropdown" hidden>
+        <li><a href="mental-health.html">Mental Health</a></li>
+        <li><a href="addiction.html">Addiction</a></li>
+        <li><a href="abuse.html">Abuse</a></li>
+        <li><a href="terminal-illness.html">Terminal Illness</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main class="landing-main">
-    <section class="intro">
-      <p>Welcome to your soulful healing community. Connect, share, heal.</p>
-    </section>
-
-    <section class="auth-links">
-      <a href="login.html" class="btn btn-primary">Login</a>
-      <a href="register.html" class="btn btn-secondary">Sign Up</a>
+  <main>
+    <section class="welcome-section">
+      <h2>Welcome to Speak Louder, Love Harder</h2>
+      <p>A mobile-only social platform designed for soulful healing, peer support, and personal growth.</p>
     </section>
 
     <section class="topics-preview">
@@ -29,13 +34,19 @@
         <a href="addiction.html" class="topic-link">Addiction</a>
         <a href="abuse.html" class="topic-link">Abuse</a>
         <a href="terminal-illness.html" class="topic-link">Terminal Illness</a>
-        <a href="pitbull-love.html" class="topic-link">Pitbull Love</a>
       </nav>
+    </section>
+
+    <section class="auth-actions">
+      <a href="login.html" class="btn primary-btn">Login</a>
+      <a href="register.html" class="btn secondary-btn">Register</a>
     </section>
   </main>
 
-  <footer class="footer">
-    <p>© 2025 Speak Louder, Love Harder | <a href="https://linktr.ee/yourprofile" target="_blank" rel="noopener">Linktree</a></p>
+  <footer>
+    <p>© 2025 Speak Louder, Love Harder • <a href="https://linktr.ee/rissastar" target="_blank" rel="noopener">Linktree</a></p>
   </footer>
+
+  <script type="module" src="auth.js"></script>
 </body>
 </html>
