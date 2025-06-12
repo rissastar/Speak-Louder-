@@ -157,3 +157,36 @@ input {
   margin-top: 1rem;
   font-weight: bold;
 }
+
+textarea, select, input[type="file"] {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+#feed-posts, #user-posts {
+  margin-top: 1.5rem;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 1rem auto;
+  display: block;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  background: #2a1a6d;
+  padding: 1rem 0;
+}
+
+nav a {
+  color: #fff;
+  font-size: 1.5rem;
+}
