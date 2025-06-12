@@ -1,4 +1,4 @@
-/* === Mobile-First Global Reset and Base Styles === */
+/* === Reset & Mobile-First Styles === */
 *,
 *::before,
 *::after {
@@ -7,133 +7,109 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', 'Segoe UI', sans-serif;
-  background: #f2f0ff;
-  color: #2a1a6d;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #10002b;
+  color: #ffffff;
   line-height: 1.6;
+  padding-bottom: 60px;
 }
 
-/* === Header === */
-.header {
-  background-color: #3a0ca3;
-  color: white;
-  padding: 1rem;
+header {
+  background: #240046;
+  color: #fff;
   text-align: center;
-  position: relative;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.header h1 {
+header h1 {
   margin: 0;
   font-size: 1.5rem;
 }
 
-.topic-nav {
-  margin-top: 1rem;
+#nav-menu {
+  margin-top: 0.5rem;
 }
 
-.topic-nav button {
-  background: #7209b7;
+#dropdownToggle {
+  background: #5a189a;
   color: #fff;
   border: none;
   padding: 0.5rem 1rem;
   font-weight: bold;
   border-radius: 5px;
-  cursor: pointer;
 }
 
-/* === Dropdown === */
-.dropdown {
-  background-color: #3a0ca3;
-  position: absolute;
-  top: 4.5rem;
-  right: 1rem;
-  padding: 0.5rem;
-  border-radius: 8px;
+#topicDropdown {
   list-style: none;
-  z-index: 10;
-}
-
-.dropdown li {
+  padding: 0;
   margin: 0.5rem 0;
+  background: #3c096c;
+  border-radius: 8px;
 }
 
-.dropdown a {
-  color: white;
+#topicDropdown li a {
+  display: block;
+  padding: 0.75rem;
+  color: #fff;
   text-decoration: none;
-  font-weight: 500;
+  border-bottom: 1px solid #5a189a;
+}
+
+#topicDropdown li:last-child a {
+  border-bottom: none;
 }
 
 .hidden {
   display: none;
 }
 
-/* === Main Content === */
-.landing {
-  padding: 1.5rem;
-  text-align: center;
+#authNav {
+  margin-top: 0.5rem;
 }
 
-.intro h2 {
-  color: #560bad;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.cta-buttons {
-  margin-top: 1rem;
-}
-
-.btn,
-.btn-outline {
-  display: inline-block;
-  margin: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 5px;
+#authNav a {
+  color: #ffd6ff;
+  margin: 0 0.5rem;
   font-weight: bold;
   text-decoration: none;
-  font-size: 1rem;
 }
 
-.btn {
-  background-color: #7209b7;
-  color: white;
-}
-
-.btn-outline {
-  background: transparent;
-  border: 2px solid #7209b7;
-  color: #7209b7;
-}
-
-.features {
-  margin-top: 2rem;
-  text-align: left;
-}
-
-.features h3 {
-  font-size: 1.4rem;
-  color: #3f37c9;
-  margin-bottom: 1rem;
-}
-
-.features ul {
-  padding-left: 1rem;
-}
-
-.features li {
-  margin-bottom: 0.5rem;
-}
-
-/* === Footer === */
-.footer {
-  background-color: #3f37c9;
-  color: white;
+main {
   padding: 1rem;
-  text-align: center;
-  margin-top: 2rem;
 }
 
-.footer a {
-  color: #ffd6ff;
-  text-decoration: underline;
+section {
+  margin-bottom: 2rem;
+}
+
+section h3 {
+  color: #ffb4ed;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
+
+.button {
+  background: #9d4edd;
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+footer {
+  background: #3c096c;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
