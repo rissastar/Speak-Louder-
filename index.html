@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,11 +8,12 @@
 </head>
 <body>
 
-  <header>
+  <!-- Header Navigation -->
+  <header class="header">
     <h1>Speak Louder, Love Harder</h1>
     <nav class="topic-nav">
-      <button aria-haspopup="true" aria-expanded="false" id="topicDropdownBtn">Topics ▼</button>
-      <ul id="topicDropdown" class="dropdown" hidden>
+      <button id="topicDropdownBtn">Topics ▼</button>
+      <ul id="topicDropdown" class="dropdown hidden">
         <li><a href="mental-health.html">Mental Health</a></li>
         <li><a href="addiction.html">Addiction</a></li>
         <li><a href="abuse.html">Abuse</a></li>
@@ -21,32 +22,38 @@
     </nav>
   </header>
 
-  <main>
-    <section class="welcome-section">
-      <h2>Welcome to Speak Louder, Love Harder</h2>
-      <p>A mobile-only social platform designed for soulful healing, peer support, and personal growth.</p>
+  <!-- Landing Content -->
+  <main class="landing">
+    <section class="intro">
+      <h2>Welcome to Your Healing Space</h2>
+      <p>A vibrant, mobile-only social platform for support, growth, and soulful connection.</p>
+      <div class="cta-buttons">
+        <a href="register.html" class="btn">Join Now</a>
+        <a href="login.html" class="btn-outline">Log In</a>
+      </div>
     </section>
 
-    <section class="topics-preview">
-      <h2>Explore Healing Topics</h2>
-      <nav class="topic-links">
-        <a href="mental-health.html" class="topic-link">Mental Health</a>
-        <a href="addiction.html" class="topic-link">Addiction</a>
-        <a href="abuse.html" class="topic-link">Abuse</a>
-        <a href="terminal-illness.html" class="topic-link">Terminal Illness</a>
-      </nav>
-    </section>
-
-    <section class="auth-actions">
-      <a href="login.html" class="btn primary-btn">Login</a>
-      <a href="register.html" class="btn secondary-btn">Register</a>
+    <section class="features">
+      <h3>✨ Features</h3>
+      <ul>
+        <li>📱 Mobile-first soul healing platform</li>
+        <li>📝 Post your story under healing topics</li>
+        <li>🫂 Connect with Supporters (friends)</li>
+        <li>💬 Real-time feed, likes, hugs, comments</li>
+        <li>📥 Save affirmations, quotes, worksheets</li>
+        <li>📆 Emotional Check-ins, Healing Calendar</li>
+        <li>🛟 Panic Mode, Anonymous Story Wall</li>
+        <li>🏅 Healing badges and achievements</li>
+      </ul>
     </section>
   </main>
 
-  <footer>
-    <p>© 2025 Speak Louder, Love Harder • <a href="https://linktr.ee/rissastar" target="_blank" rel="noopener">Linktree</a></p>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Made with 💜 for your healing journey</p>
+    <a href="https://linktr.ee/speaklouderloveharder" target="_blank">Linktree</a>
   </footer>
 
-  <script type="module" src="auth.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
