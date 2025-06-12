@@ -1,32 +1,34 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+// === Supabase Auth ===
+const supabaseUrl = "https://zgjfbbfnldxlvzstnfzy.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
+// Update nav on auth state
+supabase.auth.getSession().then(({ data: { session } }) => {
+  updateAuthNav(session);
+});
 
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+supabase.auth.onAuthStateChange((_event, session) => {
+  updateAuthNav(session);
+});
 
-// Example: Check if user is logged in
-export async function getUser() {
-  const { data: { user } } = await supabase.auth.getUser();
-  return user;
+function updateAuthNav(session) {
+  const nav = document.getElementById("authNav");
+  if (session) {
+    nav.innerHTML = `
+      <a href="feed.html">Feed</a>
+      <a href="profile.html">Profile</a>
+      <a href="settings.html">Settings</a>
+      <a href="#" onclick="logout()">Logout</a>
+    `;
+  } else {
+    nav.innerHTML = `
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    `;
+  }
 }
 
-// Example login function
-export async function login(email, password) {
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) throw error;
-  return data.user;
-}
-
-// Example logout function
-export async function logout() {
-  const { error } = await supabase.auth.signOut();
-  if (error) throw error;
-}
-
-// Example signup function
-export async function signUp(email, password) {
-  const { data, error } = await supabase.auth.signUp({ email, password });
-  if (error) throw error;
-  return data.user;
+function logout() {
+  supabase.auth.signOut();
 }
