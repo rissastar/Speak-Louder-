@@ -1,4 +1,4 @@
-/* === Mobile-First Global Reset === */
+/* === Mobile-First Global Reset and Base Styles === */
 *,
 *::before,
 *::after {
@@ -7,150 +7,133 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #1a033d; /* deep galaxy blue */
-  color: #e0d7f5; /* soft lavender */
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  background: #f2f0ff;
+  color: #2a1a6d;
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 1rem;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #3a0ca3; /* bright violet */
+/* === Header === */
+.header {
+  background-color: #3a0ca3;
+  color: white;
   padding: 1rem;
-  border-radius: 8px;
-  color: #fff;
+  text-align: center;
+  position: relative;
 }
 
-header h1 {
+.header h1 {
   margin: 0;
-  font-weight: 900;
   font-size: 1.5rem;
 }
 
-.topic-nav button {
-  background: none;
-  border: none;
-  color: #f72585; /* vivid pink */
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.topic-nav .dropdown {
-  list-style: none;
-  margin: 0;
-  padding: 0.5rem 0;
-  background: #720026; /* rich magenta */
-  border-radius: 6px;
-  position: absolute;
-  z-index: 10;
-}
-
-.topic-nav .dropdown li {
-  padding: 0.5rem 1rem;
-}
-
-.topic-nav .dropdown li a {
-  color: #ffb703; /* golden */
-  text-decoration: none;
-  font-weight: 600;
-}
-
-main {
-  flex: 1;
+.topic-nav {
   margin-top: 1rem;
 }
 
-.welcome-section {
-  background-color: #560bad; /* deep purple */
-  border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
+.topic-nav button {
+  background: #7209b7;
   color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* === Dropdown === */
+.dropdown {
+  background-color: #3a0ca3;
+  position: absolute;
+  top: 4.5rem;
+  right: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  list-style: none;
+  z-index: 10;
+}
+
+.dropdown li {
+  margin: 0.5rem 0;
+}
+
+.dropdown a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hidden {
+  display: none;
+}
+
+/* === Main Content === */
+.landing {
+  padding: 1.5rem;
   text-align: center;
 }
 
-.topics-preview {
-  margin-bottom: 1.5rem;
+.intro h2 {
+  color: #560bad;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
 }
 
-.topic-links {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
+.cta-buttons {
+  margin-top: 1rem;
 }
 
-.topic-link {
-  background-color: #720026;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  color: #f9f871; /* soft yellow */
-  font-weight: 700;
+.btn,
+.btn-outline {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 5px;
+  font-weight: bold;
   text-decoration: none;
-  box-shadow: 0 0 5px #f72585;
-  transition: background-color 0.3s ease;
-}
-
-.topic-link:hover {
-  background-color: #f72585;
-  color: #fff;
-}
-
-.auth-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  font-size: 1rem;
 }
 
 .btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  border: none;
-  text-decoration: none;
-  text-align: center;
+  background-color: #7209b7;
+  color: white;
 }
 
-.primary-btn {
-  background-color: #3a0ca3;
-  color: #fff;
-  box-shadow: 0 0 10px #3a0ca3;
+.btn-outline {
+  background: transparent;
+  border: 2px solid #7209b7;
+  color: #7209b7;
 }
 
-.primary-btn:hover {
-  background-color: #720026;
-  box-shadow: 0 0 15px #f72585;
-}
-
-.secondary-btn {
-  background-color: transparent;
-  color: #f72585;
-  border: 2px solid #f72585;
-  transition: background-color 0.3s ease;
-}
-
-.secondary-btn:hover {
-  background-color: #f72585;
-  color: #fff;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem 0;
-  background-color: #3a0ca3;
-  color: #fff;
-  font-size: 0.9rem;
-  border-radius: 8px;
+.features {
   margin-top: 2rem;
+  text-align: left;
+}
+
+.features h3 {
+  font-size: 1.4rem;
+  color: #3f37c9;
+  margin-bottom: 1rem;
+}
+
+.features ul {
+  padding-left: 1rem;
+}
+
+.features li {
+  margin-bottom: 0.5rem;
+}
+
+/* === Footer === */
+.footer {
+  background-color: #3f37c9;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.footer a {
+  color: #ffd6ff;
+  text-decoration: underline;
 }
