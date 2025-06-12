@@ -4,16 +4,19 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Redirect if already logged in
-async function checkSession() {
+// Redirect to profile if already logged in
+async function redirectIfLoggedIn() {
   const { data: { session } } = await supabase.auth.getSession();
-  if (session && window.location.pathname.includes("login") || window.location.pathname.includes("register")) {
-    window.location.href = "profile.html";
+  if (session) {
+    const pathname = window.location.pathname;
+    if (pathname.includes("login") || pathname.includes("register")) {
+      window.location.href = "profile.html";
+    }
   }
 }
-checkSession();
+redirectIfLoggedIn();
 
-// Handle Login
+// Handle Login Form
 if (window.location.pathname.includes("login")) {
   document.getElementById("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -22,14 +25,14 @@ if (window.location.pathname.includes("login")) {
 
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      alert(error.message);
+      alert("Login failed: " + error.message);
     } else {
       window.location.href = "profile.html";
     }
   });
 }
 
-// Handle Register
+// Handle Register Form
 if (window.location.pathname.includes("register")) {
   document.getElementById("register-form").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -38,15 +41,15 @@ if (window.location.pathname.includes("register")) {
 
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) {
-      alert(error.message);
+      alert("Sign-up failed: " + error.message);
     } else {
-      alert("Check your email to confirm registration!");
+      alert("Check your email to confirm your account.");
       window.location.href = "profile.html";
     }
   });
 }
 
-// Handle Logout (logout.html)
+// Handle Logout Page
 if (window.location.pathname.includes("logout")) {
   supabase.auth.signOut().then(() => {
     document.body.innerHTML = `
