@@ -4,20 +4,12 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 
 const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-// Login function example
+// Login function
 async function login(email, password) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  return { data, error };
+  return await supabase.auth.signInWithPassword({ email, password });
 }
 
-// Register function example
+// Register function
 async function register(email, password) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-  });
-  return { data, error };
+  return await supabase.auth.signUp({ email, password });
 }
