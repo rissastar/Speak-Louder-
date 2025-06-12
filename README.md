@@ -6,7 +6,7 @@ Inspired by Facebook, Instagram, and Pinterest—but focused entirely on emotion
 ---
 
 ## 🔗 Live Site  
-[https://rissastar.github.io/Speak-Louder-Love-Harder/](https://rissastar.github.io/Speak-Louder-Love-Harder/)
+[https://rissastar.github.io/Speak-Louder-/](https://rissastar.github.io/Speak-Louder-/)
 
 ---
 
