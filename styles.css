@@ -113,3 +113,47 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  background: #3c096c;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+label {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+input {
+  padding: 0.75rem;
+  margin-top: 0.25rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+
+.button {
+  margin-top: 1.5rem;
+  background: #9d4edd;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.link-text {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.message {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: bold;
+}
