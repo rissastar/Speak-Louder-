@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feed - Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header>
+  <h1>Feed</h1>
+  <nav class="auth-nav" id="authNav">
+    <!-- dynamically populated based on auth -->
+  </nav>
+</header>
+
+<main>
+  <section class="post-creation">
+    <h2>Create a Post</h2>
+    <form id="postForm">
+      <textarea id="postText" rows="3" placeholder="Write your healing message..."></textarea>
+      <select id="postTopic" required>
+        <option value="" disabled selected>Select Topic</option>
+        <option value="mental-health">Mental Health</option>
+        <option value="addiction">Addiction</option>
+        <option value="abuse">Abuse</option>
+        <option value="terminal-illness">Terminal Illness</option>
+      </select>
+      <input type="file" id="postImage" accept="image/*" />
+      <button type="submit">Post</button>
+    </form>
+  </section>
+
+  <section id="feedContainer" class="feed-container">
+    <!-- posts will load here dynamically -->
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 Speak Louder, Love Harder • <a href="https://linktr.ee/rissastar" target="_blank" rel="noopener">Linktree</a></p>
+</footer>
+
+<script type="module" src="feed.js"></script>
+</body>
+</html>
