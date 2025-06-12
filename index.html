@@ -8,52 +8,69 @@
 </head>
 <body>
 
-  <!-- Header Navigation -->
-  <header class="header">
-    <h1>Speak Louder, Love Harder</h1>
-    <nav class="topic-nav">
-      <button id="topicDropdownBtn">Topics ▼</button>
-      <ul id="topicDropdown" class="dropdown hidden">
+  <header>
+    <h1>💜 Speak Louder, Love Harder</h1>
+    <nav id="nav-menu">
+      <button id="dropdownToggle">☰ Topics</button>
+      <ul id="topicDropdown" class="hidden">
         <li><a href="mental-health.html">Mental Health</a></li>
         <li><a href="addiction.html">Addiction</a></li>
         <li><a href="abuse.html">Abuse</a></li>
         <li><a href="terminal-illness.html">Terminal Illness</a></li>
+        <li><a href="worksheets.html">Worksheets</a></li>
+        <li><a href="quotes.html">Quotes</a></li>
+        <li><a href="affirmations.html">Affirmations</a></li>
+        <li><a href="grounding-techniques.html">Grounding</a></li>
       </ul>
     </nav>
+    <div id="authNav">
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
   </header>
 
-  <!-- Landing Content -->
-  <main class="landing">
+  <main>
     <section class="intro">
-      <h2>Welcome to Your Healing Space</h2>
-      <p>A vibrant, mobile-only social platform for support, growth, and soulful connection.</p>
-      <div class="cta-buttons">
-        <a href="register.html" class="btn">Join Now</a>
-        <a href="login.html" class="btn-outline">Log In</a>
-      </div>
+      <h2>Bold. Vibrant. Supportive. Safe. Healing-focused.</h2>
+      <p>Speak Louder, Love Harder is a soulful, mobile-first support platform built for emotional wellness and connection.</p>
     </section>
 
     <section class="features">
-      <h3>✨ Features</h3>
+      <h3>Platform Overview</h3>
       <ul>
-        <li>📱 Mobile-first soul healing platform</li>
-        <li>📝 Post your story under healing topics</li>
-        <li>🫂 Connect with Supporters (friends)</li>
-        <li>💬 Real-time feed, likes, hugs, comments</li>
-        <li>📥 Save affirmations, quotes, worksheets</li>
-        <li>📆 Emotional Check-ins, Healing Calendar</li>
-        <li>🛟 Panic Mode, Anonymous Story Wall</li>
-        <li>🏅 Healing badges and achievements</li>
+        <li>📱 Mobile-Only Design</li>
+        <li>🎨 Bold galaxy colors, easy-to-read fonts</li>
+        <li>🔐 Supabase Authentication & Storage</li>
+        <li>🧭 Topic-based Navigation</li>
+        <li>🫂 Peer Support & Messaging</li>
+        <li>💖 Healing-Centered Features</li>
       </ul>
+    </section>
+
+    <section class="highlights">
+      <h3>Healing Features</h3>
+      <ul>
+        <li>📝 Post under topics with text + images</li>
+        <li>🤗 Real-time hug system</li>
+        <li>📘 Daily mood check-ins</li>
+        <li>📅 Healing calendar + journaling</li>
+        <li>🔐 Anonymous stories & Q&A</li>
+        <li>🫧 Panic button & grounding tools</li>
+      </ul>
+    </section>
+
+    <section class="cta">
+      <p>Ready to start your healing journey?</p>
+      <a href="register.html" class="button">Join Now</a>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>Made with 💜 for your healing journey</p>
-    <a href="https://linktr.ee/speaklouderloveharder" target="_blank">Linktree</a>
+  <footer>
+    <p>🌌 Speak Louder, Love Harder</p>
+    <a href="https://linktr.ee/rissastar">Linktree</a>
   </footer>
 
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
