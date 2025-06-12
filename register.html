@@ -7,49 +7,23 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header>
+    <h1>💜 Register</h1>
+  </header>
 
-  <main class="auth-container">
-    <h1>Register</h1>
-    <form id="register-form">
-      <label for="email">Email</label>
-      <input type="email" id="email" required />
-      
-      <label for="password">Password</label>
-      <input type="password" id="password" required minlength="6" />
-      
+  <main>
+    <form id="register-form" class="auth-form">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
       <button type="submit">Register</button>
     </form>
-    <p>Already have an account? <a href="login.html">Login here</a></p>
-    <div id="register-error" class="error-message"></div>
+    <p class="auth-link">Already have an account? <a href="login.html">Login here</a></p>
   </main>
 
-  <!-- Supabase JS library -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <!-- Auth logic -->
+  <footer>
+    <a href="index.html">← Back to Home</a>
+  </footer>
+
   <script src="auth.js"></script>
-  <script>
-    const form = document.getElementById('register-form');
-    const errorDiv = document.getElementById('register-error');
-
-    form.addEventListener('submit', async e => {
-      e.preventDefault();
-      errorDiv.textContent = '';
-      const email = form.email.value.trim();
-      const password = form.password.value.trim();
-
-      if (!email || !password) {
-        errorDiv.textContent = 'Please fill in both fields.';
-        return;
-      }
-
-      const { data, error } = await register(email, password);
-      if (error) {
-        errorDiv.textContent = error.message;
-      } else {
-        // Redirect to profile on success
-        window.location.href = 'profile.html';
-      }
-    });
-  </script>
 </body>
 </html>
