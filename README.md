@@ -32,11 +32,6 @@ This platform features:
 - ✅ Image uploads (profile pics, post images)
 - ✅ Privacy controls: Public, Friends (Supporters), Private
 
-**Supabase URL:** `https://zgjfbbfnldxlvzstnfzy.supabase.co`  
-**Anon Key:**  
-`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU`
-
----
 
 ## 🗂️ Folder Structure
 Speak-Louder-Love-Harder/
