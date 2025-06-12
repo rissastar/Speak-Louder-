@@ -2,7 +2,12 @@
 document.getElementById("dropdownToggle").addEventListener("click", () => {
   const dropdown = document.getElementById("topicDropdown");
   dropdown.classList.toggle("hidden");
+
+  // Update aria-expanded for accessibility
+  const expanded = dropdown.classList.contains("hidden") ? "false" : "true";
+  document.getElementById("dropdownToggle").setAttribute("aria-expanded", expanded);
 });
+
 // Supabase client init
 const SUPABASE_URL = "https://zgjfbbfnldxlvzstnfzy.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU";
@@ -11,18 +16,17 @@ const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Utility: get current logged in user
 async function getCurrentUser() {
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user }, error } = await supabase.auth.getUser();
+  if (error) {
+    console.error("Error getting current user:", error);
+    return null;
+  }
   return user;
 }
 
 // On page load: fetch and render all shared content
 async function loadSharedContent() {
   const user = await getCurrentUser();
-
-  // For each content type, fetch from Supabase and render filtered by privacy:
-  // Public content visible to all
-  // Friends-only visible only if viewer is supporter
-  // Private visible only if viewer is owner
 
   // Helper to check if viewer can see content based on privacy
   function canViewContent(content) {
@@ -31,7 +35,6 @@ async function loadSharedContent() {
     if (content.user_id === user.id) return true; // Owner sees private content
     if (content.privacy === "supporters") {
       // TODO: Check if viewer is supporter of content owner (friends)
-      // For now, let's assume false (implement friends logic separately)
       return false;
     }
     return false;
@@ -41,6 +44,7 @@ async function loadSharedContent() {
   function renderList(containerId, items, renderItem) {
     const container = document.getElementById(containerId);
     container.innerHTML = "";
+    if (!items) return;
     items.forEach(item => {
       if (canViewContent(item)) {
         container.appendChild(renderItem(item));
@@ -48,7 +52,7 @@ async function loadSharedContent() {
     });
   }
 
-  // Story
+  // Stories
   let { data: stories, error } = await supabase
     .from("stories")
     .select("*")
@@ -72,7 +76,7 @@ async function loadSharedContent() {
   renderList("worksheet-list", worksheets, ws => {
     const div = document.createElement("div");
     div.classList.add("worksheet-item");
-    div.innerHTML = `<strong>${ws.title}</strong><p>${ws.content}</p>`;
+    div.innerHTML = `<strong>${escapeHtml(ws.title)}</strong><p>${escapeHtml(ws.content)}</p>`;
     return div;
   });
 
@@ -119,158 +123,21 @@ async function loadSharedContent() {
   });
 }
 
-// Handle form submissions for each content type
-function setupFormHandlers() {
-  const userPromise = getCurrentUser();
-
-  // Helper for insert
-  async function insertContent(table, data) {
-    const { error } = await supabase.from(table).insert([data]);
-    if (error) {
-      alert("Error submitting content: " + error.message);
-      console.error(error);
-    } else {
-      alert("Submitted successfully!");
-      loadSharedContent();
-    }
-  }
-
-  // Story form
-  document.getElementById("story-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    const user = await userPromise;
-    if (!user) {
-      alert("Please log in to submit.");
-      return;
-    }
-
-    const content = e.target["story-content"].value.trim();
-    const privacy = e.target["story-privacy"].value;
-
-    if (!content) {
-      alert("Please enter your story.");
-      return;
-    }
-
-    insertContent("stories", {
-      user_id: user.id,
-      content,
-      privacy,
-      created_at: new Date().toISOString()
-    });
-
-    e.target.reset();
-  });
-
-  // Worksheet form
-  document.getElementById("worksheet-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    const user = await userPromise;
-    if (!user) {
-      alert("Please log in to submit.");
-      return;
-    }
-    const title = e.target["worksheet-title"].value.trim();
-    const content = e.target["worksheet-content"].value.trim();
-    const privacy = e.target["worksheet-privacy"].value;
-
-    if (!title || !content) {
-      alert("Please fill out all worksheet fields.");
-      return;
-    }
-
-    insertContent("worksheets", {
-      user_id: user.id,
-      title,
-      content,
-      privacy,
-      created_at: new Date().toISOString()
-    });
-
-    e.target.reset();
-  });
-
-  // Quote form
-  document.getElementById("quote-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    const user = await userPromise;
-    if (!user) {
-      alert("Please log in to submit.");
-      return;
-    }
-    const content = e.target["quote-content"].value.trim();
-    const privacy = e.target["quote-privacy"].value;
-
-    if (!content) {
-      alert("Please enter a quote.");
-      return;
-    }
-
-    insertContent("quotes", {
-      user_id: user.id,
-      content,
-      privacy,
-      created_at: new Date().toISOString()
-    });
-
-    e.target.reset();
-  });
-
-  // Affirmation form
-  document.getElementById("affirmation-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    const user = await userPromise;
-    if (!user) {
-      alert("Please log in to submit.");
-      return;
-    }
-    const content = e.target["affirmation-content"].value.trim();
-    const privacy = e.target["affirmation-privacy"].value;
-
-    if (!content) {
-      alert("Please enter an affirmation.");
-      return;
-    }
-
-    insertContent("affirmations", {
-      user_id: user.id,
-      content,
-      privacy,
-      created_at: new Date().toISOString()
-    });
-
-    e.target.reset();
-  });
-
-  // Grounding form
-  document.getElementById("grounding-form").addEventListener("submit", async e => {
-    e.preventDefault();
-    const user = await userPromise;
-    if (!user) {
-      alert("Please log in to submit.");
-      return;
-    }
-    const content = e.target["grounding-content"].value.trim();
-    const privacy = e.target["grounding-privacy"].value;
-
-    if (!content) {
-      alert("Please enter a grounding technique.");
-      return;
-    }
-
-    insertContent("grounding_techniques", {
-      user_id: user.id,
-      content,
-      privacy,
-      created_at: new Date().toISOString()
-    });
-
-    e.target.reset();
+// Helper to escape HTML to prevent injection (for title/content display)
+function escapeHtml(text) {
+  if (!text) return "";
+  return text.replace(/[&<>"']/g, function (m) {
+    return {
+      '&': "&amp;",
+      '<': "&lt;",
+      '>': "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[m];
   });
 }
 
-// Initialize page functionality
+// Initialize
 document.addEventListener("DOMContentLoaded", () => {
-  setupFormHandlers();
   loadSharedContent();
 });
