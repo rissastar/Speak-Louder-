@@ -1,48 +1,125 @@
 // script.js
 
-// Supabase initialization (update keys if needed)
+// Supabase Client Setup
 const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
 
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// DOM elements
-const navAuth = document.getElementById('nav-auth');
+// Function to load content dynamically
+async function loadContent(page) {
+    const mainContent = document.getElementById('main-content');
+    switch (page) {
+        case 'login':
+            mainContent.innerHTML = `
+                <h2>Login</h2>
+                <input type="email" id="login-email" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Password">
+                <button onclick="login()">Login</button>
+            `;
+            break;
+        case 'register':
+            mainContent.innerHTML = `
+                <h2>Register</h2>
+                <input type="email" id="register-email" placeholder="Email">
+                <input type="password" id="register-password" placeholder="Password">
+                <button onclick="register()">Register</button>
+            `;
+            break;
+        case 'profile':
+            // Fetch user data from Supabase and populate the profile
+            const user = supabase.auth.user();
+            if (user) {
+                const { data, error } = await supabase
+                    .from('profiles') // Assuming you have a 'profiles' table
+                    .select('*')
+                    .eq('id', user.id)
+                    .single();
 
-async function checkUser() {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (user) {
-    // User is logged in, show profile, feed, settings, logout links
-    navAuth.innerHTML = `
-      <a href="profile.html">Profile</a>
-      <a href="feed.html">Feed</a>
-      <a href="settings.html">Settings</a>
-      <a href="#" id="logout-link">Logout</a>
-    `;
-
-    document.getElementById('logout-link').addEventListener('click', async (e) => {
-      e.preventDefault();
-      await supabase.auth.signOut();
-      location.reload();
-    });
-
-  } else {
-    // User not logged in, show login and register
-    navAuth.innerHTML = `
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-    `;
-  }
+                if (error) {
+                    console.error("Error fetching profile:", error);
+                    mainContent.innerHTML = `<p>Error loading profile.</p>`;
+                } else {
+                    mainContent.innerHTML = `
+                        <h2>Welcome, ${data.username || 'User'}!</h2>
+                        <p>Email: ${user.email}</p>
+                        <!-- Display other profile information -->
+                        <button onclick="logout()">Logout</button>
+                    `;
+                }
+            } else {
+                window.location.href = 'login.html'; // Redirect to login if not authenticated
+            }
+            break;
+        // Add more cases for other pages (e.g., feed, settings, topic pages)
+        default:
+            mainContent.innerHTML = `<h2>Welcome!</h2><p>This is the main page.</p>`;
+            break;
+    }
 }
 
-checkUser();
+// Authentication functions
+async function register() {
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
 
+    const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+    });
 
-// Optional: Add click handlers for topic links (if you want to do any tracking or logging)
-const topicLinks = document.querySelectorAll('.topic-link');
-topicLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    // Example: console log clicked topic
-    console.log(`Navigating to topic: ${link.textContent.trim()}`);
-  });
-});
+    if (error) {
+        alert(error.message);
+    } else {
+        alert('Registration successful! Check your email to verify.');
+        // Optionally, redirect to login page
+        window.location.href = 'login.html';
+    }
+}
+
+async function login() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+    });
+
+    if (error) {
+        alert(error.message);
+    } else {
+        alert('Login successful!');
+        // Redirect to the main feed or profile page
+        window.location.href = 'profile.html';
+    }
+}
+
+async function logout() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+        alert(error.message);
+    } else {
+        alert('Logout successful!');
+        // Redirect to the login page
+        window.location.href = 'login.html';
+    }
+}
+
+// Initial setup: Check if the user is logged in
+async function checkAuth() {
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (user) {
+        // User is logged in
+        document.getElementById('auth-links').innerHTML = `<button onclick="logout()">Logout</button>`;
+        loadContent('profile');
+    } else {
+        // User is not logged in
+        loadContent('welcome'); // Or any default page for logged-out users
+    }
+}
+
+// Event listener for DOMContentLoaded to run initial setup
+document.addEventListener('DOMContentLoaded', checkAuth);
