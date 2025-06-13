@@ -1,89 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Caveat&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>Healing Space</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>You are safe here. Healing begins with honesty.</h1>
+      <p>Explore tools, stories, and remembrance that speak to your soul.</p>
+      <button id="cta-btn"></button>
+    </section>
 
-  <!-- Navigation -->
-  <header class="main-header">
-    <nav class="nav-bar">
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="mental-health.html">Mental Health</a></li>
-        <li><a href="addiction.html">Addiction</a></li>
-        <li><a href="abuse.html">Abuse</a></li>
-        <li><a href="grief.html">Grief</a></li>
-        <li><a href="pitbull-love.html">Pitbull Love</a></li>
-        <li><a href="terminal-illness.html">Terminal Illness</a></li>
-        <li><a href="grounding-techniques.html">Grounding Techniques</a></li>
-        <li><a href="affirmations.html">Affirmations</a></li>
-        <li><a href="worksheets.html">Worksheets</a></li>
-        <li><a href="quotes.html">Quotes</a></li>
-        <li><a href="memorial-wall.html" class="highlight">🕯️ Memorial Wall</a></li>
-        <li><a href="profile.html" class="logged-in-only">Profile</a></li>
-        <li><a href="feed.html" class="logged-in-only">Visit Feed</a></li>
-        <li id="auth-links"><a href="login.html">Login</a> / <a href="register.html">Register</a></li>
-      </ul>
-    </nav>
-  </header>
+    <!-- Quote Rotator -->
+    <section class="quotes">
+      <blockquote id="quote-text"></blockquote>
+    </section>
 
-  <!-- Hero Section -->
-  <<!-- HERO SECTION -->
-<section class="hero">
-  <h1 class="hero-title">Speak Louder, Love Harder 💜</h1>
-  <p class="hero-subtitle">A safe place for healing, growth, and support.</p>
-  <a href="#topics" class="hero-btn">Explore Topics</a>
-  <div class="hero-buttons">
-        <a href="register.html" id="join-btn" class="btn">💖 Join the Community</a>
-        <a href="feed.html" id="feed-btn" class="btn logged-in-only">🌿 Visit Feed</a>
-      </div>
-    </div>
-</section>
+    <!-- Topic Grid -->
+    <section class="topic-grid">
+      <!-- Tiles will be injected by JS -->
+    </section>
 
-<!-- TOPIC GRID -->
-<section id="topics" class="topics-grid">
-  <a href="mental-health.html" class="topic-card mental">Mental Health</a>
-  <a href="addiction.html" class="topic-card addiction">Addiction</a>
-  <a href="abuse.html" class="topic-card abuse">Abuse</a>
-  <a href="grief.html" class="topic-card grief">Grief</a>
-  <a href="terminal-illness.html" class="topic-card illness">Terminal Illness</a>
-  <a href="grounding-techniques.html" class="topic-card grounding">Grounding</a>
-  <a href="affirmations.html" class="topic-card affirm">Affirmations</a>
-  <a href="quotes.html" class="topic-card quotes">Quotes</a>
-  <a href="worksheets.html" class="topic-card worksheets">Worksheets</a>
-  <a href="pitbull-love.html" class="topic-card pitbull">Pitbull Love 🐾</a>
-</section>
+    <!-- Memorial Wall Button -->
+    <section class="memorial-section">
+      <button class="memorial-btn" onclick="window.location.href='memorial-wall.html'">🕯️ Light a Candle for a Loved One</button>
+    </section>
+  </main>
 
-  <!-- Quote Rotator -->
-  <section class="quote-rotator" id="quote-rotator">
-    <blockquote id="quote-text">"You are stronger than you think."</blockquote>
-    <cite id="quote-author">– Unknown</cite>
-  </section>
-
-  <!-- Panic Button -->
-  <button id="panicBtn" class="panic-button">🚨 I Need Help</button>
+  <!-- Panic Button (Sticky) -->
+  <button class="panic-btn" id="panic-btn">🚨 I Need Help</button>
 
   <!-- Panic Modal -->
-  <div id="panicModal" class="modal">
+  <div class="modal" id="panic-modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      <h2>Take a Deep Breath</h2>
-      <p>Here are some things to help right now:</p>
-      <ul>
-        <li>🧘 Try 5-4-3-2-1 grounding technique</li>
-        <li>🎧 Listen to a calming playlist</li>
-        <li>📖 Write a journal entry</li>
-        <li>📞 Reach out to a support line</li>
-        <li>🖼️ Look at calming images or draw</li>
-      </ul>
+      <button class="close-modal" id="close-modal">&times;</button>
+      <h2>Take a Breath. You're Not Alone.</h2>
+      <div class="modal-section">
+        <h3>Distractions</h3>
+        <ul>
+          <li><a href="https://www.youtube.com/results?search_query=calming+music" target="_blank">Playlists</a></li>
+          <li><a href="https://www.journaling.com/" target="_blank">Journaling Prompt</a></li>
+          <li>Draw something on paper</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h3>Grounding</h3>
+        <p>5-4-3-2-1: Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.</p>
+        <img src="breathing.gif" alt="Breathing GIF" class="breathing-gif">
+      </div>
+      <div class="modal-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="tel:988">988 Suicide & Crisis Lifeline</a></li>
+          <li><a href="https://www.crisistextline.org/" target="_blank">Crisis Text Line</a></li>
+        </ul>
+      </div>
     </div>
+  </div>
 
-  <script src="script.js"></script>
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <!-- Nav items will be injected by JS -->
+  </nav>
+
+  <script src="index.js"></script>
 </body>
 </html>
