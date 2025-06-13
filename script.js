@@ -1,61 +1,61 @@
-// Supabase initialization
+// Load Supabase client library via CDN before this script:
+// <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+
 const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
 
-// Auth State Listener
-supabase.auth.onAuthStateChange((_event, session) => {
-    if (session?.user) {
-        showProfileSection();
-        loadProfile(session.user.id);
-    } else {
-        showAuthSection();
-    }
-});
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Sign In / Sign Up
-document.getElementById('signInForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) alert(error.message);
-});
-document.getElementById('signUpBtn').addEventListener('click', async () => {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) alert(error.message);
-    else alert("Check your email for confirmation!");
-});
-document.getElementById('signOutBtn').addEventListener('click', async () => {
-    await supabase.auth.signOut();
-});
+// === QUOTE ROTATOR ===
+const quotes = [
+  { text: "You are stronger than you think.", author: "Unknown" },
+  { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+  { text: "Every day is a second chance.", author: "Unknown" },
+  { text: "Your story isn't over yet.", author: "Unknown" },
+  { text: "Healing is not linear, and that's okay.", author: "Anonymous" },
+];
 
-// Show/Hide sections
-function showProfileSection() {
-    document.getElementById('authSection').style.display = 'none';
-    document.getElementById('profileSection').style.display = '';
+let currentQuote = 0;
+function showQuote() {
+  const quote = quotes[currentQuote];
+  document.getElementById('quote-text').textContent = `"${quote.text}"`;
+  document.getElementById('quote-author').textContent = `– ${quote.author}`;
+  currentQuote = (currentQuote + 1) % quotes.length;
 }
-function showAuthSection() {
-    document.getElementById('authSection').style.display = '';
-    document.getElementById('profileSection').style.display = 'none';
+setInterval(showQuote, 8000);
+showQuote(); // initial load
+
+// === CHECK LOGIN STATE & SHOW/HIDE NAV LINKS ===
+async function checkUser() {
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error('Supabase auth error:', error.message);
+  }
+
+  const loggedInEls = document.querySelectorAll('.logged-in-only');
+  const authLinks = document.getElementById('auth-links');
+
+  if (user) {
+    loggedInEls.forEach(el => el.style.display = 'inline-block');
+    if (authLinks) authLinks.style.display = 'none';
+  } else {
+    loggedInEls.forEach(el => el.style.display = 'none');
+    if (authLinks) authLinks.style.display = 'inline-block';
+  }
 }
 
-// Profile loading
-async function loadProfile(userId) {
-    const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
-    if (data) {
-        document.getElementById('profileInfo').innerHTML = `
-            <h3>Welcome, ${data.display_name || 'New Member'}!</h3>
-            <p>${data.bio || ''}</p>
-            <img src="${data.avatar_url ? supabase.storage.from('avatars').getPublicUrl(data.avatar_url).data.publicUrl : ''}" style="width:60px;border-radius:50%;">
-        `;
-    } else {
-        document.getElementById('profileInfo').innerHTML = `<p>Welcome! Complete your profile soon 💜</p>`;
-    }
+checkUser();
+
+// === PANIC BUTTON MODAL ===
+const panicModal = document.getElementById('panicModal');
+const panicBtn = document.getElementById('panicBtn');
+const closeBtn = document.querySelector('.close-btn');
+
+panicBtn.onclick = () => panicModal.style.display = 'block';
+function closeModal() {
+  panicModal.style.display = 'none';
+}
+window.onclick = (e) => {
+  if (e.target === panicModal) closeModal();
 }
