@@ -2,93 +2,682 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speak Louder, Love Harder</title>
-    <link rel="stylesheet" href="styles.css">  <!-- Main Stylesheet -->
-    <script src="https://cdn.supabase.com/supabase-js-v2.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-purple: #6B46C1;
+            --deep-purple: #4C1D95;
+            --cosmic-pink: #EC4899;
+            --galaxy-blue: #1E40AF;
+            --star-gold: #F59E0B;
+            --healing-green: #10B981;
+            --soft-lavender: #C4B5FD;
+            --dark-space: #0F0A1F;
+            --light-cosmic: #1F1B2E;
+            --pure-white: #FFFFFF;
+            --text-light: #E5E7EB;
+            --text-muted: #9CA3AF;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--dark-space) 0%, var(--deep-purple) 25%, var(--galaxy-blue) 50%, var(--cosmic-pink) 75%, var(--primary-purple) 100%);
+            background-size: 400% 400%;
+            animation: galaxyMove 15s ease infinite;
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes galaxyMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Animated stars background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, var(--star-gold), transparent),
+                radial-gradient(2px 2px at 40px 70px, var(--pure-white), transparent),
+                radial-gradient(1px 1px at 90px 40px, var(--cosmic-pink), transparent),
+                radial-gradient(1px 1px at 130px 80px, var(--healing-green), transparent),
+                radial-gradient(2px 2px at 160px 30px, var(--star-gold), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 10s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--cosmic-pink), var(--star-gold), var(--healing-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(236, 72, 153, 0.5);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--soft-lavender);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        /* Navigation Cards */
+        .nav-grid {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-card:hover::before {
+            left: 100%;
+        }
+
+        .nav-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+            border-color: var(--cosmic-pink);
+        }
+
+        .nav-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .nav-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--pure-white);
+        }
+
+        .nav-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Auth Buttons */
+        .auth-section {
+            margin: 2rem 0;
+        }
+
+        .auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--cosmic-pink), var(--primary-purple));
+            color: var(--pure-white);
+            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--pure-white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--cosmic-pink);
+            transform: translateY(-2px);
+        }
+
+        /* Features Section */
+        .features {
+            margin: 3rem 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--healing-green), var(--star-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--cosmic-pink), var(--primary-purple));
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+            color: var(--pure-white);
+        }
+
+        .feature-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        /* Topics Section */
+        .topics {
+            margin: 3rem 0;
+        }
+
+        .topics h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--cosmic-pink), var(--galaxy-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .topic-card .emoji {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .topic-card h4 {
+            font-size: 0.9rem;
+            color: var(--pure-white);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+        }
+
+        .footer-quote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--soft-lavender);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .footer-credit {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .heart {
+            color: var(--cosmic-pink);
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 380px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .topic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Pulse animation for interactive elements */
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Floating elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Glow effects */
+        .glow {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Loading spinner for future use */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--cosmic-pink);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo floating">🌌 Speak Louder, Love Harder</h1>
+            <p class="tagline">A mobile-first social platform built for healing, support, and soulful connection</p>
+            <p class="subtitle">Inspired by Facebook, Instagram, and Pinterest—but focused entirely on emotional wellness and mutual support</p>
+        </header>
 
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">Speak Louder, Love Harder</div>
-            <div class="dropdown">
-                <button class="dropdown-button">Topics</button>
-                <div class="dropdown-content">
-                    <a href="mental-health.html">Mental Health</a>
-                    <a href="addiction.html">Addiction</a>
-                    <a href="abuse.html">Abuse</a>
-                    <a href="terminal-illness.html">Terminal Illness</a>
-                    <a href="pitbull-love.html">Pitbull Love</a>
-                    <!-- More Topics -->
+        <!-- Auth Section -->
+        <section class="auth-section">
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-primary pulse" onclick="navigateTo('login')">🚀 Join Our Galaxy</a>
+                <a href="#" class="btn btn-secondary" onclick="navigateTo('register')">✨ Create New Account</a>
+            </div>
+        </section>
+
+        <!-- Main Navigation -->
+        <section class="nav-grid">
+            <div class="nav-card glow" onclick="navigateTo('feed')">
+                <span class="icon">🌟</span>
+                <h3>Community Feed</h3>
+                <p>Share your journey and connect with others in real-time</p>
+            </div>
+            
+            <div class="nav-card" onclick="navigateTo('worksheets')">
+                <span class="icon">📝</span>
+                <h3>Healing Tools</h3>
+                <p>Worksheets, affirmations, and grounding techniques</p>
+            </div>
+            
+            <div class="nav-card" onclick="navigateTo('profile')">
+                <span class="icon">👤</span>
+                <h3>Your Space</h3>
+                <p>Customize your profile and track your healing journey</p>
+            </div>
+        </section>
+
+        <!-- Topics Section -->
+        <section class="topics">
+            <h2>🎯 Support Topics</h2>
+            <div class="topic-grid">
+                <div class="topic-card" onclick="navigateTo('mental-health')">
+                    <span class="emoji">🧠</span>
+                    <h4>Mental Health</h4>
+                </div>
+                <div class="topic-card" onclick="navigateTo('abuse')">
+                    <span class="emoji">🛡️</span>
+                    <h4>Abuse Recovery</h4>
+                </div>
+                <div class="topic-card" onclick="navigateTo('addiction')">
+                    <span class="emoji">🔓</span>
+                    <h4>Addiction Support</h4>
+                </div>
+                <div class="topic-card" onclick="navigateTo('terminal-illness')">
+                    <span class="emoji">💝</span>
+                    <h4>Terminal Illness</h4>
+                </div>
+                <div class="topic-card" onclick="navigateTo('pitbull-love')">
+                    <span class="emoji">🐕</span>
+                    <h4>Pitbull Love</h4>
+                </div>
+                <div class="topic-card" onclick="navigateTo('quotes')">
+                    <span class="emoji">💭</span>
+                    <h4>Daily Quotes</h4>
                 </div>
             </div>
-            <div id="auth-links">
-                <a href="login.html" id="login-link">Login</a>
-                <a href="register.html" id="register-link">Register</a>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2>✨ Healing Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">💜</div>
+                    <div class="feature-text">
+                        <h4>Send Hugs</h4>
+                        <p>Gentle pokes and virtual support when words aren't enough</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🌙</div>
+                    <div class="feature-text">
+                        <h4>Daily Check-ins</h4>
+                        <p>Track your emotional journey with mood-based features</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-text">
+                        <h4>Privacy First</h4>
+                        <p>Share publicly, with supporters only, or keep it private</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🎁</div>
+                    <div class="feature-text">
+                        <h4>Virtual Gifts</h4>
+                        <p>Send flowers, candles, and hearts to show you care</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🆘</div>
+                    <div class="feature-text">
+                        <h4>Panic Mode</h4>
+                        <p>Safe space buttons and emergency grounding techniques</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🕯️</div>
+                    <div class="feature-text">
+                        <h4>Memorial Wall</h4>
+                        <p>Light candles and share tributes for those we've lost</p>
+                    </div>
+                </div>
             </div>
-        </nav>
-    </header>
+        </section>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Content will dynamically load here based on the page -->
-    </main>
-    
-    <!-- In your main HTML (e.g., index.html) -->
-<button id="panic-button">Panic Mode / Safe Space</button>
-
-<!-- Add this modal/overlay to your HTML (ideally near the end of the <body>) -->
-<div id="safe-space-overlay" class="overlay">
-  <div class="safe-space-content">
-    <span class="close-button" onclick="closeSafeSpace()">&times;</span>
-    <h2>Safe Space</h2>
-
-    <!-- Calming UI Elements (adjust as needed) -->
-    <div class="calming-ui">
-      <p>Take a deep breath...</p>
-
-      <!-- Breathing Exercise -->
-      <div id="breathing-exercise">
-        <div class="inhale">Inhale</div>
-        <div class="hold">Hold</div>
-        <div class="exhale">Exhale</div>
-      </div>
-
-      <!-- Grounding Exercise -->
-      <h3>5-4-3-2-1 Grounding Exercise</h3>
-      <p>Name 5 things you can see...</p>
-      <p>Name 4 things you can touch...</p>
-      <p>Name 3 things you can hear...</p>
-      <p>Name 2 things you can smell...</p>
-      <p>Name 1 thing you can taste...</p>
-
-      <!-- Support Resources -->
-      <h3>Support Resources</h3>
-      <ul>
-        <li><a href="#">Crisis Text Line: Text HOME to 741741</a></li>
-        <li><a href="#">Suicide Prevention Lifeline: 988</a></li>
-        <li><a href="#">The Trevor Project: 1-866-488-7386</a></li>
-        <!-- Add more resources as needed -->
-      </ul>
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-quote">"In a world that asks us to shrink, this space asks you to speak louder and love harder."</p>
+            <p class="footer-credit">Made with <span class="heart">💜</span> by Larissa</p>
+        </footer>
     </div>
 
-    <!-- Icon Navigation Bar -->
-    <nav id="icon-nav">
-        <a href="#worksheets"><img src="icons/worksheet.png" alt="Worksheets"></a>
-        <a href="#quotes"><img src="icons/quote.png" alt="Quotes"></a>
-        <a href="#affirmations"><img src="icons/affirmation.png" alt="Affirmations"></a>
-        <a href="#grounding"><img src="icons/grounding.png" alt="Grounding"></a>
-    </nav>
+    <script>
+        // Navigation function
+        function navigateTo(page) {
+            // For demo purposes, we'll show an alert
+            // In a real app, this would navigate to the actual page
+            const messages = {
+                'login': 'Redirecting to login page... 🚀',
+                'register': 'Opening registration form... ✨',
+                'feed': 'Loading community feed... 🌟',
+                'worksheets': 'Opening healing tools... 📝',
+                'profile': 'Loading your profile... 👤',
+                'mental-health': 'Opening Mental Health support... 🧠',
+                'abuse': 'Opening Abuse Recovery support... 🛡️',
+                'addiction': 'Opening Addiction Support... 🔓',
+                'terminal-illness': 'Opening Terminal Illness support... 💝',
+                'pitbull-love': 'Opening Pitbull Love community... 🐕',
+                'quotes': 'Loading daily quotes... 💭'
+            };
+            
+            alert(messages[page] || 'Navigation feature coming soon!');
+            
+            // Add a loading effect
+            const spinner = document.createElement('div');
+            spinner.className = 'spinner';
+            document.body.appendChild(spinner);
+            
+            setTimeout(() => {
+                document.body.removeChild(spinner);
+            }, 2000);
+        }
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Speak Louder, Love Harder</p>
-        <a href="https://linktr.ee/">Linktree</a>
-        <a href="contact.html">Contact</a>
-    </footer>
+        // Add interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click ripple effect to cards
+            const cards = document.querySelectorAll('.nav-card, .topic-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const ripple = document.createElement('div');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        background: rgba(236, 72, 153, 0.3);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s ease-out;
+                        pointer-events: none;
+                    `;
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                });
+            });
 
-    <script src="script.js"></script>
+            // Random floating animation delays
+            const floatingElements = document.querySelectorAll('.floating');
+            floatingElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.5}s`;
+            });
+
+            // Add glow effect on hover to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 0 30px rgba(236, 72, 153, 0.6)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    if (this.classList.contains('btn-primary')) {
+                        this.style.boxShadow = '0 5px 20px rgba(236, 72, 153, 0.4)';
+                    } else {
+                        this.style.boxShadow = 'none';
+                    }
+                });
+            });
+
+            // Add sparkle effect on page load
+            setTimeout(() => {
+                const sparkles = ['✨', '⭐', '💫', '🌟'];
+                for (let i = 0; i < 5; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+                    sparkle.style.cssText = `
+                        position: fixed;
+                        top: ${Math.random() * 100}vh;
+                        left: ${Math.random() * 100}vw;
+                        font-size: 1.5rem;
+                        pointer-events: none;
+                        animation: sparkle 3s ease-out forwards;
+                        z-index: 1000;
+                    `;
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        if (sparkle.parentNode) {
+                            sparkle.parentNode.removeChild(sparkle);
+                        }
+                    }, 3000);
+                }
+            }, 1000);
+        });
+
+        // Add CSS for ripple and sparkle animations
+        const additionalStyles = document.createElement('style');
+        additionalStyles.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes sparkle {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1) rotate(180deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(additionalStyles);
+    </script>
 </body>
 </html>
