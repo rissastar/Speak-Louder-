@@ -144,3 +144,49 @@ function initPostForm() {
         if (!error) e.target.reset();
     });
 }
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN') {
+    handleAuthenticatedUser(session.user);
+  } else if (event === 'SIGNED_OUT') {
+    handleUnauthenticated();
+  }
+});
+const healingFeed = supabase
+  .channel('healing-feed')
+  .on('postgres_changes', {
+    event: 'INSERT',
+    schema: 'public',
+    table: 'posts'
+  }, (payload) => {
+    addPostToFeed(payload.new);
+  })
+  .subscribe();
+
+async function updateProfile(updates) {
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  const { error } = await supabase
+    .from('profiles')
+    .update({
+      ...updates,
+      updated_at: new Date()
+    })
+    .eq('id', user.id);
+
+  if (!error) showSuccess('Profile updated!');
+}
+
+async function uploadAvatar(file) {
+  const fileName = `${supabase.auth.user().id}-${Date.now()}`;
+  
+  const { error } = await supabase.storage
+    .from('avatars')
+    .upload(fileName, file);
+
+  if (!error) {
+    await supabase
+      .from('profiles')
+      .update({ avatar_url: fileName })
+      .eq('id', supabase.auth.user().id);
+  }
+}
