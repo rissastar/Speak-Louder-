@@ -1,26 +1,38 @@
 /* style.css */
 
-/* General Styles (Remember: Galaxy-inspired colors, vibrant fonts) */
+/*  ✨ General Styles: Galaxy-Inspired ✨ */
 body {
-    font-family: sans-serif; /* Example font */
+    font-family: 'Nunito', sans-serif; /* A fun, readable font - consider adding via Google Fonts */
     margin: 0;
     padding: 0;
-    background-color: #000; /* Example background */
-    color: #fff; /* Example text color */
+    background: linear-gradient(to bottom, #1a237e, #512da8, #c62828); /* Deep space gradient */
+    color: #fff; /* Light text for contrast */
+    overflow-x: hidden; /* Hide horizontal scrollbar if any */
 }
 
-/* Header Styles */
+/* Add Nunito from Google Fonts (or your chosen font) */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+/*  🌠 Header Styles 🌠 */
 header {
-    background-color: #333; /* Example header background */
-    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* Translucent header */
+    padding: 15px 0; /* More padding */
     color: white;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
 nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 0 20px; /* Add padding to the nav */
+}
+
+.logo {
+    font-size: 1.5em; /* Larger logo */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Emphasize the logo */
 }
 
 .dropdown {
@@ -29,77 +41,113 @@ nav {
 }
 
 .dropdown-button {
-    background-color: #4CAF50;
+    background-color: #673ab7; /* Vibrant purple */
     color: white;
-    padding: 10px;
+    padding: 12px 20px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.dropdown-button:hover {
+    background-color: #512da8;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.95); /* Translucent dropdown */
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    border-radius: 5px;
 }
 
 .dropdown-content a {
-    color: black;
+    color: #333; /* Darker text for contrast */
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
 
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-
-/* Main Content Styles */
+/* 💫 Main Content Styles 💫 */
 #main-content {
-    padding: 20px;
+    padding: 30px;
+    text-align: center;
     /* Add styles for different sections */
 }
 
-/* Icon Navigation Styles */
+/*  ✨ Icon Navigation Styles ✨ */
 #icon-nav {
     display: flex;
     justify-content: space-around;
-    background-color: #222;
-    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3); /* Darker translucent background */
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px auto; /* Center the nav */
+    max-width: 80%; /* Limit width */
 }
 
 #icon-nav a img {
-    width: 30px; /* Adjust as needed */
+    width: 40px; /* Larger icons */
     height: auto;
+    transition: transform 0.3s ease; /* Smooth transform */
 }
 
-/* Footer Styles */
+#icon-nav a:hover img {
+    transform: scale(1.2); /* Slight zoom on hover */
+}
+
+/*  🌌 Footer Styles 🌌 */
 footer {
-    background-color: #333;
-    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5); /* Even darker background */
+    padding: 15px;
     text-align: center;
     color: white;
     position: fixed;
     bottom: 0;
     width: 100%;
+    border-radius: 10px 10px 0 0; /* Rounded top corners */
 }
 
-/* Responsive Design */
+footer a {
+    color: #bbdefb; /* Lighter link color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+/*  📱 Responsive Design 📱 */
 @media (max-width: 600px) {
     nav {
         flex-direction: column;
     }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+
     .dropdown {
         width: 100%;
         text-align: center;
         margin-bottom: 10px;
     }
+
     .dropdown-content {
         position: static;
         display: none;
@@ -117,190 +165,255 @@ footer {
     .dropdown:hover .dropdown-content {
         display: block;
     }
+
+    #icon-nav {
+        flex-direction: row; /* Keep icons in a row on very small screens */
+        margin: 10px auto;
+    }
 }
 
+/*  🔑 Authentication Form Styles 🔑 */
 .auth-form {
     width: 80%;
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Slightly wider form */
+    margin: 30px auto; /* More top margin */
+    padding: 30px; /* More padding */
+    background-color: rgba(255, 255, 255, 0.9); /* Lighter background */
+    border-radius: 10px; /* More rounded */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow */
     text-align: center;
+    color: #333; /* Darker text */
 }
 
 .auth-form h2 {
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 25px; /* More space below heading */
+    color: #673ab7; /* Purple heading */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* More spacing */
     text-align: left;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px; /* More space */
     color: #555;
+    font-weight: bold; /* Bolder label */
 }
 
 .form-group input {
     width: 100%;
-    padding: 8px;
+    padding: 12px; /* Larger input fields */
     border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box; /* Important: Keeps padding inside the width */
+    border-radius: 5px;
+    box-sizing: border-box; /* Keeps padding inside the width */
+    font-size: 16px; /* Larger font */
 }
 
 .auth-form button {
-    background-color: #4CAF50; /* Example color */
+    background-color: #7e57c2; /* Different shade of purple */
     color: white;
-    padding: 10px 20px;
+    padding: 14px 25px; /* Larger button */
     border: none;
-    border-radius: 4px;
+    border-radius: 8px; /* More rounded */
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px; /* Larger font */
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .auth-form button:hover {
-    background-color: #45a049;
+    background-color: #5e35b1;
 }
 
 .auth-form p {
-    margin-top: 15px;
+    margin-top: 20px;
     color: #777;
+    font-size: 1.1em; /* Slightly larger text */
 }
 
 .auth-form a {
-    color: #007bff;
+    color: #9c27b0; /* Another purple shade */
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .auth-form a:hover {
     text-decoration: underline;
+    color: #673ab7;
 }
 
-/* Profile Section Styles */
+/*  👤 Profile Section Styles 👤 */
 #profile-section {
     width: 80%;
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 700px; /* Wider profile section */
+    margin: 30px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
+    color: #333;
 }
 
 #profile-data {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 #profile-data p {
-    margin: 5px 0;
+    margin: 8px 0; /* More spacing */
     color: #555;
+    font-size: 1.2em; /* Slightly larger text */
 }
 
-/* Style the panic button */
+/*  🚨 Panic Button Styles 🚨 */
 #panic-button {
-    background-color: #ff4d4d; /* Example color */
+    background-color: #f44336; /* Bright red */
     color: white;
-    padding: 10px 20px;
+    padding: 15px 30px; /* Larger button */
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
+    font-size: 18px;
+    border-radius: 8px;
     position: fixed;
-    bottom: 20px; /* Adjust position as needed */
-    right: 20px; /* Adjust position as needed */
+    bottom: 30px; /* Adjust position as needed */
+    right: 30px; /* Adjust position as needed */
     z-index: 1000; /* Ensure it's on top of other elements */
-  }
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease; /* Subtle animation */
+}
 
-  /* Overlay Styles */
-  .overlay {
+#panic-button:hover {
+    transform: scale(1.05);
+}
+
+/*  ✨ Overlay Styles (Safe Space) ✨ */
+.overlay {
     display: none; /* Hidden by default */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    background-color: rgba(74, 20, 140, 0.8); /* Semi-transparent background */
     z-index: 1001; /* Higher than most elements */
-  }
+    backdrop-filter: blur(5px); /* Add a blur effect */
+}
 
-  .safe-space-content {
+.safe-space-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 80%;
-    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.95); /* Glassmorphism effect */
+    padding: 40px;
+    border-radius: 15px;
+    width: 90%; /* Take up more screen space */
+    max-width: 800px;
     text-align: center;
-    color: black; /* Ensure text is readable */
-  }
+    color: #333; /* Ensure text is readable */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
 
-  .close-button {
+.close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
     cursor: pointer;
-    color: black;
-  }
+    color: #555;
+    transition: color 0.3s ease;
+}
 
-  /* Calming UI Styles (customize as needed) */
-  .calming-ui {
-    margin-top: 20px;
-  }
+.close-button:hover {
+    color: #000;
+}
 
-  /* Breathing Exercise Styles */
-  #breathing-exercise {
-    width: 100px;
-    height: 100px;
+/*  🌀 Calming UI Styles (customize as needed) 🌀 */
+.calming-ui {
+    margin-top: 30px;
+}
+
+.calming-ui h3 {
+    color: #7e57c2;
+    margin-bottom: 15px;
+}
+
+.calming-ui p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.calming-ui ul {
+    list-style: none;
+    padding: 0;
+}
+
+.calming-ui li {
+    margin-bottom: 10px;
+}
+
+.calming-ui a {
+    color: #9c27b0;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.calming-ui a:hover {
+    text-decoration: underline;
+    color: #673ab7;
+}
+
+/*  🧘‍♀️ Breathing Exercise Styles 🧘‍♀️ */
+#breathing-exercise {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    margin: 20px auto;
+    margin: 30px auto;
     position: relative;
-  }
+    background-color: rgba(156, 39, 176, 0.2);
+    box-shadow: 0 0 10px rgba(156, 39, 176, 0.5);
+}
 
-  #breathing-exercise div {
+#breathing-exercise div {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 18px;
-  }
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
 
-  .inhale {
+.inhale {
     animation: inhale 4s infinite;
-  }
+}
 
-  .hold {
+.hold {
     animation: hold 4s infinite;
     animation-delay: 1s;
-  }
+}
 
-  .exhale {
+.exhale {
     animation: exhale 4s infinite;
     animation-delay: 2s;
-  }
+}
 
-  @keyframes inhale {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    25% { transform: translate(-50%, -50%) scale(1.2); }
-  }
+@keyframes inhale {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    25% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+}
 
-  @keyframes hold {
-    25% { opacity: 1; }
-    50% { opacity: 1; }
+@keyframes hold {
+    25% { opacity: 0.8; }
+    50% { opacity: 0.8; }
     75% { opacity: 0; }
-  }
+}
 
-  @keyframes exhale {
-    50% { transform: translate(-50%, -50%) scale(1.2); }
-    75% { transform: translate(-50%, -50%) scale(1); }
-  }
+@keyframes exhale {
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+    75% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
