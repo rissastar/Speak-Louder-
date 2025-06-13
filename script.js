@@ -174,3 +174,34 @@ function renderNav() {
       btn.className = 'nav-item' + (item.special ? ' special-btn' : '');
       btn.innerHTML = `<span class="nav-icon">${item.icon}</span>${item.label}`;
       if (item.id === "panic-nav") {
+        btn.onclick = () => openModal();
+      } else if (item.label === "Login/Register") {
+        btn.onclick = () => openAuthModal(true);
+      } else {
+        btn.onclick = () => window.location.href = item.link;
+      }
+      nav.appendChild(btn);
+    }
+  });
+}
+
+// --- Panic Button Modal ---
+const panicBtn = document.getElementById('panic-btn');
+const modal = document.getElementById('panic-modal');
+const closeModalBtn = document.getElementById('close-modal');
+function openModal() {
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+panicBtn.onclick = openModal;
+closeModalBtn.onclick = closeModal;
+modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+
+// --- Logout (optional, add to profile page or nav if you wish) ---
+// Example: 
+// async function logout() { await supabase.auth.signOut(); }
+
