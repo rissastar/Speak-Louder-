@@ -119,3 +119,106 @@ footer {
     }
 }
 
+/* In your style.css */
+
+/* Style the panic button */
+#panic-button {
+  background-color: #ff4d4d; /* Example color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 20px; /* Adjust position as needed */
+  right: 20px; /* Adjust position as needed */
+  z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+/* Overlay Styles */
+.overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  z-index: 1001; /* Higher than most elements */
+}
+
+.safe-space-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  color: black; /* Ensure text is readable */
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: black;
+}
+
+/* Calming UI Styles (customize as needed) */
+.calming-ui {
+  margin-top: 20px;
+}
+
+/* Breathing Exercise Styles */
+#breathing-exercise {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 20px auto;
+  position: relative;
+}
+
+#breathing-exercise div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+
+.inhale {
+  animation: inhale 4s infinite;
+}
+
+.hold {
+  animation: hold 4s infinite;
+  animation-delay: 1s;
+}
+
+.exhale {
+  animation: exhale 4s infinite;
+  animation-delay: 2s;
+}
+
+@keyframes inhale {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  25% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+@keyframes hold {
+  25% { opacity: 1; }
+  50% { opacity: 1; }
+  75% { opacity: 0; }
+}
+
+@keyframes exhale {
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+  75% { transform: translate(-50%, -50%) scale(1); }
+}
