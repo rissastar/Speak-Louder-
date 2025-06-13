@@ -1,164 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speak Louder, Love Harder – Larissa Star</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="icon" href="https://emojiapi.dev/api/v1/1f30c/64.png">
-    <meta name="description" content="Speak Louder, Love Harder – a healing, supportive space created by Larissa Star for anyone on a journey toward emotional wellness.">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Caveat&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <img src="https://avatars.githubusercontent.com/u/1093742?v=4" alt="Larissa Star" style="width:90px; border-radius:50%; margin-bottom:1rem; box-shadow:0 4px 20px #EC4899AA;">
-            <h1 class="logo floating">🌌 Speak Louder, Love Harder</h1>
-            <p class="tagline">A mobile-first social platform built for healing, support, and soulful connection</p>
-            <p class="subtitle">Created by <strong>Larissa Wood</strong> (aka <strong>Larissa Star</strong>)</p>
-        </header>
 
-        <!-- About Section -->
-        <section class="about-section">
-            <h2 class="about-title">🌈 About Larissa – Creator of Speak Louder, Love Harder</h2>
-            <p>
-                I’m <strong>Larissa Wood</strong>, and I built Speak Louder, Love Harder from scratch — not just as a website, but as a safe space for people like me.<br><br>
-                This isn’t a brand. This is personal.<br><br>
-                I’ve lived through anxiety, exhaustion, burnout, and survival mode. I’ve had to learn how to take care of my mental and physical health with limited resources, no roadmap, and no one handing me solutions. Everything I’ve built — from the mood tracker to the affirmations, the journal to the guestbook — came from my own healing journey.<br><br>
-                I’m self-taught in design, coding, and coping. I made this site by myself, piece by piece, with the goal of creating what I wish I had when I was struggling most:<br>
-                <em class="about-emph">A space that feels warm, honest, and supportive — where you don’t have to pretend to be okay to belong.</em>
-            </p>
-            <blockquote class="about-quote">
-                “I am mine before I am anyone else’s. Before the world asks me to shrink or be softer or quieter — I choose to belong to myself.”
-            </blockquote>
-            <p>
-                I’m not here to fix you. I’m just here to remind you that you’re not alone, you’re not broken, and you’re allowed to take up space — especially when it’s hard.<br><br>
-                Thanks for being here. Keep going. Keep feeling.<br>
-                And always, speak louder and love harder — especially toward yourself.<br>
-                <span class="about-heart">💜</span>
-            </p>
-        </section>
+  <!-- Navigation -->
+  <header class="main-header">
+    <nav class="nav-bar">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="mental-health.html">Mental Health</a></li>
+        <li><a href="addiction.html">Addiction</a></li>
+        <li><a href="abuse.html">Abuse</a></li>
+        <li><a href="grief.html">Grief</a></li>
+        <li><a href="pitbull-love.html">Pitbull Love</a></li>
+        <li><a href="terminal-illness.html">Terminal Illness</a></li>
+        <li><a href="grounding-techniques.html">Grounding Techniques</a></li>
+        <li><a href="affirmations.html">Affirmations</a></li>
+        <li><a href="worksheets.html">Worksheets</a></li>
+        <li><a href="quotes.html">Quotes</a></li>
+        <li><a href="memorial-wall.html" class="highlight">🕯️ Memorial Wall</a></li>
+        <li><a href="profile.html" class="logged-in-only">Profile</a></li>
+        <li><a href="feed.html" class="logged-in-only">Visit Feed</a></li>
+        <li id="auth-links"><a href="login.html">Login</a> / <a href="register.html">Register</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <!-- Auth Section -->
-        <section class="auth-section">
-            <div class="auth-buttons">
-                <a href="#" class="btn btn-primary pulse" onclick="navigateTo('login')">🚀 Join Our Galaxy</a>
-                <a href="#" class="btn btn-secondary" onclick="navigateTo('register')">✨ Create New Account</a>
-            </div>
-        </section>
-
-        <!-- Main Navigation -->
-        <section class="nav-grid">
-            <div class="nav-card glow" onclick="navigateTo('feed')">
-                <span class="icon">🌟</span>
-                <h3>Community Feed</h3>
-                <p>Share your journey and connect with others in real-time</p>
-            </div>
-            
-            <div class="nav-card" onclick="navigateTo('worksheets')">
-                <span class="icon">📝</span>
-                <h3>Healing Tools</h3>
-                <p>Worksheets, affirmations, and grounding techniques</p>
-            </div>
-            
-            <div class="nav-card" onclick="navigateTo('profile')">
-                <span class="icon">👤</span>
-                <h3>Your Space</h3>
-                <p>Customize your profile and track your healing journey</p>
-            </div>
-        </section>
-
-        <!-- Topics Section -->
-        <section class="topics">
-            <h2>🎯 Support Topics</h2>
-            <div class="topic-grid">
-                <div class="topic-card" onclick="navigateTo('mental-health')">
-                    <span class="emoji">🧠</span>
-                    <h4>Mental Health</h4>
-                </div>
-                <div class="topic-card" onclick="navigateTo('abuse')">
-                    <span class="emoji">🛡️</span>
-                    <h4>Abuse Recovery</h4>
-                </div>
-                <div class="topic-card" onclick="navigateTo('addiction')">
-                    <span class="emoji">🔓</span>
-                    <h4>Addiction Support</h4>
-                </div>
-                <div class="topic-card" onclick="navigateTo('terminal-illness')">
-                    <span class="emoji">💝</span>
-                    <h4>Terminal Illness</h4>
-                </div>
-                <div class="topic-card" onclick="navigateTo('pitbull-love')">
-                    <span class="emoji">🐕</span>
-                    <h4>Pitbull Love</h4>
-                </div>
-                <div class="topic-card" onclick="navigateTo('quotes')">
-                    <span class="emoji">💭</span>
-                    <h4>Daily Quotes</h4>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="features">
-            <h2>✨ Healing Features</h2>
-            <div class="feature-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">💜</div>
-                    <div class="feature-text">
-                        <h4>Send Hugs</h4>
-                        <p>Gentle pokes and virtual support when words aren't enough</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🌙</div>
-                    <div class="feature-text">
-                        <h4>Daily Check-ins</h4>
-                        <p>Track your emotional journey with mood-based features</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🔒</div>
-                    <div class="feature-text">
-                        <h4>Privacy First</h4>
-                        <p>Share publicly, with supporters only, or keep it private</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🎁</div>
-                    <div class="feature-text">
-                        <h4>Virtual Gifts</h4>
-                        <p>Send flowers, candles, and hearts to show you care</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🆘</div>
-                    <div class="feature-text">
-                        <h4>Panic Mode</h4>
-                        <p>Safe space buttons and emergency grounding techniques</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🕯️</div>
-                    <div class="feature-text">
-                        <h4>Memorial Wall</h4>
-                        <p>Light candles and share tributes for those we've lost</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p class="footer-quote">"In a world that asks us to shrink, this space asks you to speak louder and love harder."</p>
-            <div class="footer-links">
-                <a href="https://linktr.ee/rissa.star" target="_blank" class="footer-link-resources">🌱 Resources & Links</a>
-                <a href="https://www.facebook.com/share/1C1YhHsgY2/?mibextid=wwXIfr" target="_blank" class="footer-link-facebook">📘 Facebook</a>
-            </div>
-            <p class="footer-credit">Made with <span class="heart">💜</span> by Larissa Star</p>
-        </footer>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Healing starts with honesty. 💜</h1>
+      <p>You are not alone. Join a compassionate community, explore healing tools, and light a candle in memory.</p>
+      <div class="hero-buttons">
+        <a href="register.html" id="join-btn" class="btn">💖 Join the Community</a>
+        <a href="feed.html" id="feed-btn" class="btn logged-in-only">🌿 Visit Feed</a>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </section>
+
+  <!-- Quote Rotator -->
+  <section class="quote-rotator" id="quote-rotator">
+    <blockquote id="quote-text">"You are stronger than you think."</blockquote>
+    <cite id="quote-author">– Unknown</cite>
+  </section>
+
+  <!-- Topic Grid -->
+  <section class="topic-grid">
+    <a href="mental-health.html" class="topic-card">Mental Health</a>
+    <a href="addiction.html" class="topic-card">Addiction</a>
+    <a href="abuse.html" class="topic-card">Abuse</a>
+    <a href="grief.html" class="topic-card">Grief</a>
+    <a href="pitbull-love.html" class="topic-card">Pitbull Love</a>
+    <a href="terminal-illness.html" class="topic-card">Terminal Illness</a>
+    <a href="grounding-techniques.html" class="topic-card">Grounding</a>
+    <a href="affirmations.html" class="topic-card">Affirmations</a>
+    <a href="worksheets.html" class="topic-card">Worksheets</a>
+    <a href="quotes.html" class="topic-card">Quotes</a>
+  </section>
+
+  <!-- Panic Button -->
+  <button id="panicBtn" class="panic-button">🚨 I Need Help</button>
+
+  <!-- Panic Modal -->
+  <div id="panicModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2>Take a Deep Breath</h2>
+      <p>Here are some things to help right now:</p>
+      <ul>
+        <li>🧘 Try 5-4-3-2-1 grounding technique</li>
+        <li>🎧 Listen to a calming playlist</li>
+        <li>📖 Write a journal entry</li>
+        <li>📞 Reach out to a support line</li>
+        <li>🖼️ Look at calming images or draw</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
