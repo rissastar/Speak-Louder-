@@ -1,193 +1,121 @@
-/* styles.css – Bold, Mobile-First Galaxy Theme */
+/* style.css */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
+/* General Styles (Remember: Galaxy-inspired colors, vibrant fonts) */
 body {
-  margin: 0;
-  font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
-  background-color: #0a032e;
-  color: #fff;
-  padding: 0 1rem;
-  line-height: 1.6;
+    font-family: sans-serif; /* Example font */
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Example background */
+    color: #fff; /* Example text color */
 }
 
+/* Header Styles */
 header {
-  text-align: center;
-  padding: 1.5rem 0;
-  background-color: #1a0645;
-  border-bottom: 2px solid #5c2d91;
+    background-color: #333; /* Example header background */
+    padding: 10px;
+    color: white;
+    text-align: center;
 }
 
-header h1 {
-  font-size: 1.75rem;
-  margin: 0;
-  color: #ffb3f3;
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-nav#nav-auth {
-  margin-top: 0.5rem;
+.dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-nav#nav-auth a {
-  color: #ffe066;
-  text-decoration: none;
-  margin: 0 0.75rem;
-  font-weight: bold;
+.dropdown-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
-nav#nav-auth a:hover {
-  text-decoration: underline;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-main {
-  max-width: 600px;
-  margin: auto;
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
-section.hero {
-  background-color: #1f094e;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin: 1.5rem 0;
-  text-align: center;
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
-section.hero h2 {
-  color: #ffb3f3;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+
+/* Main Content Styles */
+#main-content {
+    padding: 20px;
+    /* Add styles for different sections */
 }
 
-section.hero p {
-  font-size: 1rem;
-  color: #e0e0ff;
+/* Icon Navigation Styles */
+#icon-nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #222;
+    padding: 10px;
 }
 
-section.features,
-section.topics {
-  margin: 2rem 0;
+#icon-nav a img {
+    width: 30px; /* Adjust as needed */
+    height: auto;
 }
 
-section.features h3,
-section.topics h3 {
-  color: #ffe066;
-  font-size: 1.3rem;
-  margin-bottom: 0.5rem;
-}
-
-section.features ul,
-section.topics ul {
-  list-style: none;
-  padding: 0;
-}
-
-section.features li,
-section.topics li {
-  background-color: #320a5f;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-}
-
-section.topics li a {
-  color: #b3f7ff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-section.topics li a:hover {
-  text-decoration: underline;
-}
-
+/* Footer Styles */
 footer {
-  text-align: center;
-  padding: 1rem 0;
-  background-color: #1a0645;
-  margin-top: 2rem;
-  font-size: 0.9rem;
-  color: #999;
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
-footer a {
-  color: #ffb3f3;
-  text-decoration: none;
+/* Responsive Design */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+    }
+    .dropdown {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .dropdown-content {
+        position: static;
+        display: none;
+        box-shadow: none;
+        background-color: transparent;
+    }
+
+    .dropdown-content a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 5px 0;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 }
 
-
-/* ===============================
-   Colorful, fun topic links with galaxy vibes
-================================= */
-
-.colorful-section {
-  margin: 2rem 0;
-  padding: 1rem;
-  background: #2a1361;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 0 15px rgba(150, 70, 255, 0.6);
-}
-
-.colorful-section h3 {
-  font-size: 1.5rem;
-  color: #ffccff;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 0 5px #e600e6;
-  letter-spacing: 1.2px;
-}
-
-.colorful-section p {
-  color: #d3b3ff;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.colorful-section ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.8rem;
-}
-
-.colorful-section li {
-  flex: 1 1 130px;
-}
-
-.topic-link {
-  display: block;
-  padding: 0.8rem 1.2rem;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 1.05rem;
-  text-decoration: none;
-  color: white;
-  box-shadow: 0 0 8px #7a4dff;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  user-select: none;
-}
-
-.topic-link:hover,
-.topic-link:focus {
-  transform: scale(1.05);
-  box-shadow:
-    0 0 12px #ff99ff,
-    0 0 18px #ff66cc,
-    0 0 25px #cc33ff;
-  outline: none;
-}
-
-/* Different colors for each topic for vibrant variety */
-.topic-link.mh { background-color: #9b59b6; }  /* purple */
-.topic-link.ad { background-color: #e74c3c; }  /* red */
-.topic-link.ab { background-color: #3498db; }  /* blue */
-.topic-link.ti { background-color: #f39c12; }  /* orange */
-.topic-link.ws { background-color: #1abc9c; }  /* teal */
-.topic-link.qu { background-color: #8e44ad; }  /* dark purple */
-.topic-link.af { background-color: #27ae60; }  /* green */
-.topic-link.gt { background-color: #d35400; }  /* dark orange */
