@@ -1,6 +1,6 @@
-/* script.js (Updated Authentication functions and auth check) */
+/* script.js */
 
-// Supabase Client Setup (Make sure you have this at the top of your script.js)
+// Supabase Client Setup
 const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
 
@@ -117,141 +117,69 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProfile();  // Load the profile data when the page loads
 });
 
-
-// Function to load content dynamically
-async function loadContent(page) {
-    const mainContent = document.getElementById('main-content');
-    switch (page) {
-        case 'login':
-            mainContent.innerHTML = `
-                <h2>Login</h2>
-                <input type="email" id="login-email" placeholder="Email">
-                <input type="password" id="login-password" placeholder="Password">
-                <button onclick="login()">Login</button>
-            `;
-            break;
-        case 'register':
-            mainContent.innerHTML = `
-                <h2>Register</h2>
-                <input type="email" id="register-email" placeholder="Email">
-                <input type="password" id="register-password" placeholder="Password">
-                <button onclick="register()">Register</button>
-            `;
-            break;
-        case 'profile':
-            // Fetch user data from Supabase and populate the profile
-            const user = supabase.auth.user();
-            if (user) {
-                const { data, error } = await supabase
-                    .from('profiles') // Assuming you have a 'profiles' table
-                    .select('*')
-                    .eq('id', user.id)
-                    .single();
-
-                if (error) {
-                    console.error("Error fetching profile:", error);
-                    mainContent.innerHTML = `<p>Error loading profile.</p>`;
-                } else {
-                    mainContent.innerHTML = `
-                        <h2>Welcome, ${data.username || 'User'}!</h2>
-                        <p>Email: ${user.email}</p>
-                        <!-- Display other profile information -->
-                        <button onclick="logout()">Logout</button>
-                    `;
-                }
-            } else {
-                window.location.href = 'login.html'; // Redirect to login if not authenticated
-            }
-            break;
-        // Add more cases for other pages (e.g., feed, settings, topic pages)
-        default:
-            mainContent.innerHTML = `<h2>Welcome!</h2><p>This is the main page.</p>`;
-            break;
-    }
+// ----------------------------------------------------------------------------
+// Option 2:  Simple Console Logging (Easy, but limited)
+// ----------------------------------------------------------------------------
+function trackEventConsole(eventName, properties = {}) {
+    console.log(`[Analytics Event] ${eventName}`, properties);
 }
 
-// Authentication functions
-async function register() {
-    const email = document.getElementById('register-email').value;
-    const password = document.getElementById('register-password').value;
-
-    const { data, error } = await supabase.auth.signUp({
-        email: email,
-        password: password,
-    });
-
-    if (error) {
-        alert(error.message);
-    } else {
-        alert('Registration successful! Check your email to verify.');
-        // Optionally, redirect to login page
-        window.location.href = 'login.html';
-    }
-}
-
-async function login() {
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password,
-    });
-
-    if (error) {
-        alert(error.message);
-    } else {
-        alert('Login successful!');
-        // Redirect to the main feed or profile page
-        window.location.href = 'profile.html';
-    }
-}
-
-async function logout() {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-        alert(error.message);
-    } else {
-        alert('Logout successful!');
-        // Redirect to the login page
-        window.location.href = 'login.html';
-    }
-}
-
-// Initial setup: Check if the user is logged in
-async function checkAuth() {
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (user) {
-        // User is logged in
-        document.getElementById('auth-links').innerHTML = `<button onclick="logout()">Logout</button>`;
-        loadContent('profile');
-    } else {
-        // User is not logged in
-        loadContent('welcome'); // Or any default page for logged-out users
-    }
-}
-
-// Event listener for DOMContentLoaded to run initial setup
-document.addEventListener('DOMContentLoaded', checkAuth);
-
-/* In your script.js */
-
-// Open Safe Space
+// ----------------------------------------------------------------------------
+// Open Safe Space (Modified to Track)
+// ----------------------------------------------------------------------------
 function openSafeSpace() {
   document.getElementById('safe-space-overlay').style.display = 'block';
+
+  // Choose which tracking to use (or both)
+  // trackEvent('panic_button_clicked');  // Supabase
+  trackEventConsole('panic_button_clicked'); // Console Logging
 }
 
-// Close Safe Space
+// ----------------------------------------------------------------------------
+// Close Safe Space (Modified to Track)
+// ----------------------------------------------------------------------------
 function closeSafeSpace() {
   document.getElementById('safe-space-overlay').style.display = 'none';
+
+  // Choose which tracking to use (or both)
+  // trackEvent('safe_space_closed');  // Supabase
+  trackEventConsole('safe_space_closed'); // Console Logging
 }
 
-// Attach event listener to the panic button
+// ----------------------------------------------------------------------------
+// Track Usage of Resources within the Safe Space (Example)
+// ----------------------------------------------------------------------------
+function trackResourceUsed(resourceName) {
+  // Choose which tracking to use (or both)
+  // trackEvent('safe_space_resource_used', { resource: resourceName }); // Supabase
+  trackEventConsole('safe_space_resource_used', { resource: resourceName }); // Console Logging
+}
+
+// Example Usage:  Let's say you have clickable links to resources
+document.addEventListener('DOMContentLoaded', function() {
+  const crisisLineLink = document.querySelector('#safe-space-overlay a[href*="741741"]'); // Crisis Text Line example
+  if (crisisLineLink) {
+    crisisLineLink.addEventListener('click', function(event) {
+      trackResourceUsed('Crisis Text Line');
+    });
+  }
+
+  const suicideLineLink = document.querySelector('#safe-space-overlay a[href*="988"]'); // Suicide Prevention Lifeline example
+  if (suicideLineLink) {
+    suicideLineLink.addEventListener('click', function(event) {
+      trackResourceUsed('Suicide Prevention Lifeline');
+    });
+  }
+});
+
+// ----------------------------------------------------------------------------
+// Attach Event Listener to the Panic Button (as before)
+// ----------------------------------------------------------------------------
 document.getElementById('panic-button').addEventListener('click', openSafeSpace);
 
-// Optional: Close the safe space if the user clicks outside of the content area
+// ----------------------------------------------------------------------------
+// Optional: Close the safe space if the user clicks outside of the content area (as before)
+// ----------------------------------------------------------------------------
 window.onclick = function(event) {
   const modal = document.getElementById('safe-space-overlay');
   if (event.target == modal) {
