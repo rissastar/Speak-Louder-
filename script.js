@@ -59,3 +59,64 @@ function closeModal() {
 window.onclick = (e) => {
   if (e.target === panicModal) closeModal();
 }
+
+// DARK MODE TOGGLE
+const darkToggle = document.createElement('div');
+darkToggle.className = 'dark-mode-toggle';
+darkToggle.textContent = '🌓 Toggle Theme';
+document.body.appendChild(darkToggle);
+
+darkToggle.onclick = () => {
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+};
+
+if (localStorage.getItem('darkMode') === 'true') {
+  document.body.classList.add('dark-mode');
+}
+
+const candleForm = document.getElementById('candleForm');
+const memorials = document.getElementById('memorials');
+
+candleForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const message = document.getElementById('message').value;
+  const file = document.getElementById('photo').files[0];
+
+  const user = supabase.auth.getUser();
+
+  let imageUrl = '';
+  if (file) {
+    const fileName = `candles/${Date.now()}_${file.name}`;
+    const { data, error } = await supabase.storage.from('candles').upload(fileName, file);
+    if (!error) {
+      const { data: urlData } = supabase.storage.from('candles').getPublicUrl(fileName);
+      imageUrl = urlData.publicUrl;
+    }
+  }
+
+  const candleData = { name, message, image: imageUrl, timestamp: new Date().toISOString() };
+
+  // Save to Supabase if logged in
+  const { data: sessionData } = await supabase.auth.getSession();
+  if (sessionData.session) {
+    await supabase.from('memorials').insert([candleData]);
+  }
+
+  // Display locally either way
+  displayCandle(candleData);
+
+  candleForm.reset();
+});
+
+function displayCandle({ name, message, image }) {
+  const card = document.createElement('div');
+  card.className = 'candle-card';
+  card.innerHTML = `
+    ${image ? `<img src="${image}" alt="${name}'s photo" />` : ''}
+    <h3>🕯️ ${name}</h3>
+    <p>${message}</p>
+  `;
+  memorials.prepend(card);
+}
