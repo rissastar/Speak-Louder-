@@ -123,3 +123,26 @@ async function checkAuth() {
 
 // Event listener for DOMContentLoaded to run initial setup
 document.addEventListener('DOMContentLoaded', checkAuth);
+
+/* In your script.js */
+
+// Open Safe Space
+function openSafeSpace() {
+  document.getElementById('safe-space-overlay').style.display = 'block';
+}
+
+// Close Safe Space
+function closeSafeSpace() {
+  document.getElementById('safe-space-overlay').style.display = 'none';
+}
+
+// Attach event listener to the panic button
+document.getElementById('panic-button').addEventListener('click', openSafeSpace);
+
+// Optional: Close the safe space if the user clicks outside of the content area
+window.onclick = function(event) {
+  const modal = document.getElementById('safe-space-overlay');
+  if (event.target == modal) {
+    closeSafeSpace();
+  }
+}
