@@ -35,6 +35,44 @@
     <main id="main-content">
         <!-- Content will dynamically load here based on the page -->
     </main>
+    
+    <!-- In your main HTML (e.g., index.html) -->
+<button id="panic-button">Panic Mode / Safe Space</button>
+
+<!-- Add this modal/overlay to your HTML (ideally near the end of the <body>) -->
+<div id="safe-space-overlay" class="overlay">
+  <div class="safe-space-content">
+    <span class="close-button" onclick="closeSafeSpace()">&times;</span>
+    <h2>Safe Space</h2>
+
+    <!-- Calming UI Elements (adjust as needed) -->
+    <div class="calming-ui">
+      <p>Take a deep breath...</p>
+
+      <!-- Breathing Exercise -->
+      <div id="breathing-exercise">
+        <div class="inhale">Inhale</div>
+        <div class="hold">Hold</div>
+        <div class="exhale">Exhale</div>
+      </div>
+
+      <!-- Grounding Exercise -->
+      <h3>5-4-3-2-1 Grounding Exercise</h3>
+      <p>Name 5 things you can see...</p>
+      <p>Name 4 things you can touch...</p>
+      <p>Name 3 things you can hear...</p>
+      <p>Name 2 things you can smell...</p>
+      <p>Name 1 thing you can taste...</p>
+
+      <!-- Support Resources -->
+      <h3>Support Resources</h3>
+      <ul>
+        <li><a href="#">Crisis Text Line: Text HOME to 741741</a></li>
+        <li><a href="#">Suicide Prevention Lifeline: 988</a></li>
+        <li><a href="#">The Trevor Project: 1-866-488-7386</a></li>
+        <!-- Add more resources as needed -->
+      </ul>
+    </div>
 
     <!-- Icon Navigation Bar -->
     <nav id="icon-nav">
