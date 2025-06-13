@@ -3,417 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speak Louder, Love Harder</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-purple: #6B46C1;
-            --deep-purple: #4C1D95;
-            --cosmic-pink: #EC4899;
-            --galaxy-blue: #1E40AF;
-            --star-gold: #F59E0B;
-            --healing-green: #10B981;
-            --soft-lavender: #C4B5FD;
-            --dark-space: #0F0A1F;
-            --light-cosmic: #1F1B2E;
-            --pure-white: #FFFFFF;
-            --text-light: #E5E7EB;
-            --text-muted: #9CA3AF;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, var(--dark-space) 0%, var(--deep-purple) 25%, var(--galaxy-blue) 50%, var(--cosmic-pink) 75%, var(--primary-purple) 100%);
-            background-size: 400% 400%;
-            animation: galaxyMove 15s ease infinite;
-            color: var(--text-light);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        @keyframes galaxyMove {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* Animated stars background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(2px 2px at 20px 30px, var(--star-gold), transparent),
-                radial-gradient(2px 2px at 40px 70px, var(--pure-white), transparent),
-                radial-gradient(1px 1px at 90px 40px, var(--cosmic-pink), transparent),
-                radial-gradient(1px 1px at 130px 80px, var(--healing-green), transparent),
-                radial-gradient(2px 2px at 160px 30px, var(--star-gold), transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: twinkle 10s linear infinite;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            padding: 2rem 0;
-            position: relative;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--cosmic-pink), var(--star-gold), var(--healing-green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 30px rgba(236, 72, 153, 0.5);
-        }
-
-        .tagline {
-            font-size: 1.1rem;
-            color: var(--soft-lavender);
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 2rem;
-        }
-
-        /* Navigation Cards */
-        .nav-grid {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .nav-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .nav-card:hover::before {
-            left: 100%;
-        }
-
-        .nav-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
-            border-color: var(--cosmic-pink);
-        }
-
-        .nav-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .nav-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--pure-white);
-        }
-
-        .nav-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        /* Auth Buttons */
-        .auth-section {
-            margin: 2rem 0;
-        }
-
-        .auth-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--cosmic-pink), var(--primary-purple));
-            color: var(--pure-white);
-            box-shadow: 0 5px 20px rgba(236, 72, 153, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--pure-white);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: var(--cosmic-pink);
-            transform: translateY(-2px);
-        }
-
-        /* Features Section */
-        .features {
-            margin: 3rem 0;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, var(--healing-green), var(--star-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .feature-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 1.5rem;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, var(--cosmic-pink), var(--primary-purple));
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .feature-text h4 {
-            font-size: 1rem;
-            margin-bottom: 0.25rem;
-            color: var(--pure-white);
-        }
-
-        .feature-text p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.3;
-        }
-
-        /* Topics Section */
-        .topics {
-            margin: 3rem 0;
-        }
-
-        .topics h2 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            background: linear-gradient(45deg, var(--cosmic-pink), var(--galaxy-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .topic-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-
-        .topic-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 1rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .topic-card:hover {
-            background: rgba(255, 255, 255, 0.15);
-            transform: scale(1.05);
-        }
-
-        .topic-card .emoji {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .topic-card h4 {
-            font-size: 0.9rem;
-            color: var(--pure-white);
-            font-weight: 600;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 3rem;
-        }
-
-        .footer-quote {
-            font-style: italic;
-            font-size: 1.1rem;
-            color: var(--soft-lavender);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .footer-credit {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .heart {
-            color: var(--cosmic-pink);
-            animation: heartbeat 2s ease-in-out infinite;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 380px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .logo {
-                font-size: 2rem;
-            }
-            
-            .topic-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Pulse animation for interactive elements */
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Floating elements */
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Glow effects */
-        .glow {
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
-        }
-
-        /* Loading spinner for future use */
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            border-left: 4px solid var(--cosmic-pink);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    <title>Speak Louder, Love Harder – Larissa Star</title>
+    <link rel="icon" href="https://emojiapi.dev/api/v1/1f30c/64.png">
+    <meta name="description" content="Speak Louder, Love Harder – a healing, supportive space created by Larissa Star for anyone on a journey toward emotional wellness.">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <header class="header">
+            <img src="https://avatars.githubusercontent.com/u/1093742?v=4" alt="Larissa Star" style="width:90px; border-radius:50%; margin-bottom:1rem; box-shadow:0 4px 20px #EC4899AA;">
             <h1 class="logo floating">🌌 Speak Louder, Love Harder</h1>
             <p class="tagline">A mobile-first social platform built for healing, support, and soulful connection</p>
-            <p class="subtitle">Inspired by Facebook, Instagram, and Pinterest—but focused entirely on emotional wellness and mutual support</p>
+            <p class="subtitle">Created by <strong>Larissa Wood</strong> (aka <strong>Larissa Star</strong>)</p>
         </header>
+
+        <!-- About Section -->
+        <section class="about-section">
+            <h2 class="about-title">🌈 About Larissa – Creator of Speak Louder, Love Harder</h2>
+            <p>
+                I’m <strong>Larissa Wood</strong>, and I built Speak Louder, Love Harder from scratch — not just as a website, but as a safe space for people like me.<br><br>
+                This isn’t a brand. This is personal.<br><br>
+                I’ve lived through anxiety, exhaustion, burnout, and survival mode. I’ve had to learn how to take care of my mental and physical health with limited resources, no roadmap, and no one handing me solutions. Everything I’ve built — from the mood tracker to the affirmations, the journal to the guestbook — came from my own healing journey.<br><br>
+                I’m self-taught in design, coding, and coping. I made this site by myself, piece by piece, with the goal of creating what I wish I had when I was struggling most:<br>
+                <em class="about-emph">A space that feels warm, honest, and supportive — where you don’t have to pretend to be okay to belong.</em>
+            </p>
+            <blockquote class="about-quote">
+                “I am mine before I am anyone else’s. Before the world asks me to shrink or be softer or quieter — I choose to belong to myself.”
+            </blockquote>
+            <p>
+                I’m not here to fix you. I’m just here to remind you that you’re not alone, you’re not broken, and you’re allowed to take up space — especially when it’s hard.<br><br>
+                Thanks for being here. Keep going. Keep feeling.<br>
+                And always, speak louder and love harder — especially toward yourself.<br>
+                <span class="about-heart">💜</span>
+            </p>
+        </section>
 
         <!-- Auth Section -->
         <section class="auth-section">
@@ -486,7 +110,6 @@
                         <p>Gentle pokes and virtual support when words aren't enough</p>
                     </div>
                 </div>
-                
                 <div class="feature-item">
                     <div class="feature-icon">🌙</div>
                     <div class="feature-text">
@@ -494,7 +117,6 @@
                         <p>Track your emotional journey with mood-based features</p>
                     </div>
                 </div>
-                
                 <div class="feature-item">
                     <div class="feature-icon">🔒</div>
                     <div class="feature-text">
@@ -502,7 +124,6 @@
                         <p>Share publicly, with supporters only, or keep it private</p>
                     </div>
                 </div>
-                
                 <div class="feature-item">
                     <div class="feature-icon">🎁</div>
                     <div class="feature-text">
@@ -510,7 +131,6 @@
                         <p>Send flowers, candles, and hearts to show you care</p>
                     </div>
                 </div>
-                
                 <div class="feature-item">
                     <div class="feature-icon">🆘</div>
                     <div class="feature-text">
@@ -518,7 +138,6 @@
                         <p>Safe space buttons and emergency grounding techniques</p>
                     </div>
                 </div>
-                
                 <div class="feature-item">
                     <div class="feature-icon">🕯️</div>
                     <div class="feature-text">
@@ -532,152 +151,13 @@
         <!-- Footer -->
         <footer class="footer">
             <p class="footer-quote">"In a world that asks us to shrink, this space asks you to speak louder and love harder."</p>
-            <p class="footer-credit">Made with <span class="heart">💜</span> by Larissa</p>
+            <div class="footer-links">
+                <a href="https://linktr.ee/rissa.star" target="_blank" class="footer-link-resources">🌱 Resources & Links</a>
+                <a href="https://www.facebook.com/share/1C1YhHsgY2/?mibextid=wwXIfr" target="_blank" class="footer-link-facebook">📘 Facebook</a>
+            </div>
+            <p class="footer-credit">Made with <span class="heart">💜</span> by Larissa Star</p>
         </footer>
     </div>
-
-    <script>
-        // Navigation function
-        function navigateTo(page) {
-            // For demo purposes, we'll show an alert
-            // In a real app, this would navigate to the actual page
-            const messages = {
-                'login': 'Redirecting to login page... 🚀',
-                'register': 'Opening registration form... ✨',
-                'feed': 'Loading community feed... 🌟',
-                'worksheets': 'Opening healing tools... 📝',
-                'profile': 'Loading your profile... 👤',
-                'mental-health': 'Opening Mental Health support... 🧠',
-                'abuse': 'Opening Abuse Recovery support... 🛡️',
-                'addiction': 'Opening Addiction Support... 🔓',
-                'terminal-illness': 'Opening Terminal Illness support... 💝',
-                'pitbull-love': 'Opening Pitbull Love community... 🐕',
-                'quotes': 'Loading daily quotes... 💭'
-            };
-            
-            alert(messages[page] || 'Navigation feature coming soon!');
-            
-            // Add a loading effect
-            const spinner = document.createElement('div');
-            spinner.className = 'spinner';
-            document.body.appendChild(spinner);
-            
-            setTimeout(() => {
-                document.body.removeChild(spinner);
-            }, 2000);
-        }
-
-        // Add interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click ripple effect to cards
-            const cards = document.querySelectorAll('.nav-card, .topic-card');
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    const ripple = document.createElement('div');
-                    const rect = this.getBoundingClientRect();
-                    const size = Math.max(rect.width, rect.height);
-                    const x = e.clientX - rect.left - size / 2;
-                    const y = e.clientY - rect.top - size / 2;
-                    
-                    ripple.style.cssText = `
-                        position: absolute;
-                        width: ${size}px;
-                        height: ${size}px;
-                        left: ${x}px;
-                        top: ${y}px;
-                        background: rgba(236, 72, 153, 0.3);
-                        border-radius: 50%;
-                        transform: scale(0);
-                        animation: ripple 0.6s ease-out;
-                        pointer-events: none;
-                    `;
-                    
-                    this.style.position = 'relative';
-                    this.style.overflow = 'hidden';
-                    this.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        if (ripple.parentNode) {
-                            ripple.parentNode.removeChild(ripple);
-                        }
-                    }, 600);
-                });
-            });
-
-            // Random floating animation delays
-            const floatingElements = document.querySelectorAll('.floating');
-            floatingElements.forEach((el, index) => {
-                el.style.animationDelay = `${index * 0.5}s`;
-            });
-
-            // Add glow effect on hover to buttons
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    this.style.boxShadow = '0 0 30px rgba(236, 72, 153, 0.6)';
-                });
-                
-                btn.addEventListener('mouseleave', function() {
-                    if (this.classList.contains('btn-primary')) {
-                        this.style.boxShadow = '0 5px 20px rgba(236, 72, 153, 0.4)';
-                    } else {
-                        this.style.boxShadow = 'none';
-                    }
-                });
-            });
-
-            // Add sparkle effect on page load
-            setTimeout(() => {
-                const sparkles = ['✨', '⭐', '💫', '🌟'];
-                for (let i = 0; i < 5; i++) {
-                    const sparkle = document.createElement('div');
-                    sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
-                    sparkle.style.cssText = `
-                        position: fixed;
-                        top: ${Math.random() * 100}vh;
-                        left: ${Math.random() * 100}vw;
-                        font-size: 1.5rem;
-                        pointer-events: none;
-                        animation: sparkle 3s ease-out forwards;
-                        z-index: 1000;
-                    `;
-                    document.body.appendChild(sparkle);
-                    
-                    setTimeout(() => {
-                        if (sparkle.parentNode) {
-                            sparkle.parentNode.removeChild(sparkle);
-                        }
-                    }, 3000);
-                }
-            }, 1000);
-        });
-
-        // Add CSS for ripple and sparkle animations
-        const additionalStyles = document.createElement('style');
-        additionalStyles.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(2);
-                    opacity: 0;
-                }
-            }
-            
-            @keyframes sparkle {
-                0% {
-                    transform: scale(0) rotate(0deg);
-                    opacity: 1;
-                }
-                50% {
-                    transform: scale(1) rotate(180deg);
-                    opacity: 1;
-                }
-                100% {
-                    transform: scale(0) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(additionalStyles);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
