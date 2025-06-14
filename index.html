@@ -5,106 +5,256 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <title>Healing Space | Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+  <!-- Animated Space Background -->
+  <div class="stars-bg">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+  </div>
+
   <main>
     <!-- Hero Section -->
     <section class="hero">
-      <h1>You are safe here. Healing begins with honesty.</h1>
-      <p>Explore tools, stories, and remembrance that speak to your soul.</p>
-      <button id="cta-btn" onclick="document.getElementById('auth-modal').style.display='flex'">🌟 Join the Healing</button>
+      <div class="hero-content">
+        <h1 class="hero-title">You are safe here.<br><span class="highlight">Healing begins with honesty.</span></h1>
+        <p class="hero-subtitle">Explore tools, stories, and remembrance that speak to your soul.</p>
+        <button id="cta-btn" class="cta-button" onclick="document.getElementById('auth-modal').style.display='flex'">
+          <span class="btn-icon">🌟</span>
+          <span>Join the Healing</span>
+        </button>
+      </div>
     </section>
 
     <!-- Quote Rotator -->
     <section class="quotes">
-      <blockquote id="quote-text"></blockquote>
+      <div class="quote-container">
+        <blockquote id="quote-text" class="quote-text"></blockquote>
+        <div class="quote-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
     </section>
 
     <!-- Topic Grid -->
     <section class="topic-grid">
-      <h2>Explore Our Sanctuary</h2>
-      <div class="grid-links">
-        <a href="login.html">🔐 Login</a>
-        <a href="register.html">📝 Register</a>
-        <a href="logout.html">🚪 Logout</a>
-        <a href="profile.html">🙋 Profile</a>
-        <a href="settings.html">⚙️ Settings</a>
-        <a href="feed.html">🧡 Community Feed</a>
-        <a href="feed2.html">🫂 Friends-Only Feed</a>
-        <a href="mental-health.html">🧠 Mental Health</a>
-        <a href="addiction.html">💊 Addiction Support</a>
-        <a href="abuse.html">🚫 Abuse Support</a>
-        <a href="terminal-illness.html">🏥 Terminal Illness</a>
-        <a href="foster-children.html">👶 Foster Care</a>
-        <a href="grief.html">🕊️ Grief & Loss</a>
-        <a href="childhood-trauma.html">🧸 Childhood Trauma</a>
-        <a href="lgbtq-community.html">🏳️‍🌈 LGBTQ+ Safe Space</a>
-        <a href="worksheets.html">📄 Worksheets</a>
-        <a href="grounding-techniques.html">🌍 Grounding Tools</a>
-        <a href="memorial-wall.html">🕯️ Memorial Wall</a>
-        <a href="about.html">💡 About Us</a>
-        <a href="faq.html">❓ FAQ</a>
-        <a href="contact.html">📬 Contact</a>
+      <div class="container">
+        <h2 class="section-title">Explore Our Sanctuary</h2>
+        <div class="grid-links">
+          <a href="login.html" class="grid-item auth-item">
+            <span class="item-icon">🔐</span>
+            <span class="item-title">Login</span>
+            <span class="item-desc">Access your account</span>
+          </a>
+          <a href="register.html" class="grid-item auth-item">
+            <span class="item-icon">📝</span>
+            <span class="item-title">Register</span>
+            <span class="item-desc">Join our community</span>
+          </a>
+          <a href="profile.html" class="grid-item">
+            <span class="item-icon">🙋</span>
+            <span class="item-title">Profile</span>
+            <span class="item-desc">Your safe space</span>
+          </a>
+          <a href="feed.html" class="grid-item community-item">
+            <span class="item-icon">🧡</span>
+            <span class="item-title">Community Feed</span>
+            <span class="item-desc">Connect with others</span>
+          </a>
+          <a href="feed2.html" class="grid-item community-item">
+            <span class="item-icon">🫂</span>
+            <span class="item-title">Friends-Only Feed</span>
+            <span class="item-desc">Private connections</span>
+          </a>
+          <a href="mental-health.html" class="grid-item support-item">
+            <span class="item-icon">🧠</span>
+            <span class="item-title">Mental Health</span>
+            <span class="item-desc">Find your strength</span>
+          </a>
+          <a href="addiction.html" class="grid-item support-item">
+            <span class="item-icon">💊</span>
+            <span class="item-title">Addiction Support</span>
+            <span class="item-desc">Recovery resources</span>
+          </a>
+          <a href="abuse.html" class="grid-item support-item">
+            <span class="item-icon">🚫</span>
+            <span class="item-title">Abuse Support</span>
+            <span class="item-desc">You are not alone</span>
+          </a>
+          <a href="terminal-illness.html" class="grid-item support-item">
+            <span class="item-icon">🏥</span>
+            <span class="item-title">Terminal Illness</span>
+            <span class="item-desc">Comfort and care</span>
+          </a>
+          <a href="foster-children.html" class="grid-item support-item">
+            <span class="item-icon">👶</span>
+            <span class="item-title">Foster Care</span>
+            <span class="item-desc">Building new families</span>
+          </a>
+          <a href="grief.html" class="grid-item support-item">
+            <span class="item-icon">🕊️</span>
+            <span class="item-title">Grief & Loss</span>
+            <span class="item-desc">Honoring memories</span>
+          </a>
+          <a href="childhood-trauma.html" class="grid-item support-item">
+            <span class="item-icon">🧸</span>
+            <span class="item-title">Childhood Trauma</span>
+            <span class="item-desc">Healing your inner child</span>
+          </a>
+          <a href="lgbtq-community.html" class="grid-item support-item">
+            <span class="item-icon">🏳️‍🌈</span>
+            <span class="item-title">LGBTQ+ Safe Space</span>
+            <span class="item-desc">Love is love</span>
+          </a>
+          <a href="worksheets.html" class="grid-item tools-item">
+            <span class="item-icon">📄</span>
+            <span class="item-title">Worksheets</span>
+            <span class="item-desc">Self-reflection tools</span>
+          </a>
+          <a href="grounding-techniques.html" class="grid-item tools-item">
+            <span class="item-icon">🌍</span>
+            <span class="item-title">Grounding Tools</span>
+            <span class="item-desc">Find your center</span>
+          </a>
+          <a href="memorial-wall.html" class="grid-item memorial-item">
+            <span class="item-icon">🕯️</span>
+            <span class="item-title">Memorial Wall</span>
+            <span class="item-desc">Remember with love</span>
+          </a>
+          <a href="settings.html" class="grid-item">
+            <span class="item-icon">⚙️</span>
+            <span class="item-title">Settings</span>
+            <span class="item-desc">Customize your experience</span>
+          </a>
+          <a href="about.html" class="grid-item">
+            <span class="item-icon">💡</span>
+            <span class="item-title">About Us</span>
+            <span class="item-desc">Our mission</span>
+          </a>
+          <a href="faq.html" class="grid-item">
+            <span class="item-icon">❓</span>
+            <span class="item-title">FAQ</span>
+            <span class="item-desc">Get answers</span>
+          </a>
+          <a href="contact.html" class="grid-item">
+            <span class="item-icon">📬</span>
+            <span class="item-title">Contact</span>
+            <span class="item-desc">Reach out to us</span>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Memorial Button -->
+    <!-- Memorial Call-to-Action -->
     <section class="memorial-section">
-      <button class="memorial-btn" onclick="window.location.href='memorial-wall.html'">🕯️ Light a Candle for a Loved One</button>
+      <div class="memorial-content">
+        <h3>Honor a Loved One</h3>
+        <p>Light a candle in remembrance and share their story with our community</p>
+        <button class="memorial-btn" onclick="window.location.href='memorial-wall.html'">
+          <span class="btn-icon">🕯️</span>
+          <span>Light a Candle</span>
+        </button>
+      </div>
     </section>
   </main>
 
   <!-- Panic Button (Sticky) -->
-  <button class="panic-btn" id="panic-btn">🚨 I Need Help</button>
+  <button class="panic-btn" id="panic-btn">
+    <span class="panic-icon">🚨</span>
+    <span class="panic-text">I Need Help</span>
+  </button>
 
   <!-- Panic Modal -->
   <div class="modal" id="panic-modal">
-    <div class="modal-content">
+    <div class="modal-content panic-modal-content">
       <button class="close-modal" id="close-modal">&times;</button>
-      <h2>Take a Breath. You're Not Alone.</h2>
+      <h2 class="modal-title">Take a Breath. You're Not Alone.</h2>
+      
       <div class="modal-section">
-        <h3>Distractions</h3>
-        <ul>
-          <li><a href="https://www.youtube.com/results?search_query=calming+music" target="_blank">Calming Music</a></li>
-          <li><a href="https://www.journaling.com/" target="_blank">Journaling Prompt</a></li>
-          <li>Draw something on paper</li>
-        </ul>
+        <h3>Immediate Help</h3>
+        <div class="crisis-resources">
+          <a href="tel:988" class="crisis-btn primary">
+            <span>📞</span>
+            <div>
+              <strong>988 Suicide & Crisis Lifeline</strong>
+              <small>24/7 Crisis Support</small>
+            </div>
+          </a>
+          <a href="https://www.crisistextline.org/" target="_blank" class="crisis-btn">
+            <span>💬</span>
+            <div>
+              <strong>Crisis Text Line</strong>
+              <small>Text HOME to 741741</small>
+            </div>
+          </a>
+        </div>
       </div>
+
       <div class="modal-section">
-        <h3>Grounding</h3>
-        <p>5-4-3-2-1: Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.</p>
-        <img src="breathing.gif" alt="Breathing GIF" class="breathing-gif">
+        <h3>Grounding Exercise</h3>
+        <div class="grounding-exercise">
+          <p class="grounding-text">Take slow, deep breaths and try the 5-4-3-2-1 technique:</p>
+          <ul class="grounding-list">
+            <li><strong>5</strong> things you can see</li>
+            <li><strong>4</strong> things you can touch</li>
+            <li><strong>3</strong> things you can hear</li>
+            <li><strong>2</strong> things you can smell</li>
+            <li><strong>1</strong> thing you can taste</li>
+          </ul>
+          <div class="breathing-guide">
+            <div class="breathing-circle"></div>
+            <p class="breathing-text">Breathe with the circle</p>
+          </div>
+        </div>
       </div>
+
       <div class="modal-section">
-        <h3>Resources</h3>
-        <ul>
-          <li><a href="tel:988">988 Suicide & Crisis Lifeline</a></li>
-          <li><a href="https://www.crisistextline.org/" target="_blank">Crisis Text Line</a></li>
-        </ul>
+        <h3>Helpful Distractions</h3>
+        <div class="distraction-links">
+          <a href="https://www.youtube.com/results?search_query=calming+music" target="_blank" class="distraction-btn">
+            <span>🎵</span>
+            <span>Calming Music</span>
+          </a>
+          <a href="https://www.journaling.com/" target="_blank" class="distraction-btn">
+            <span>📝</span>
+            <span>Journaling</span>
+          </a>
+          <button class="distraction-btn" onclick="alert('Take a moment to draw or doodle. Express yourself freely.')">
+            <span>🎨</span>
+            <span>Draw Something</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Auth Modal -->
   <div class="modal" id="auth-modal">
-    <div class="modal-content">
+    <div class="modal-content auth-modal-content">
       <button class="close-modal" id="close-auth-modal">&times;</button>
-      <h2 id="auth-title">Login or Register</h2>
-      <form id="auth-form">
-        <input type="email" id="auth-email" placeholder="Email" required autocomplete="username">
-        <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password">
-        <button type="submit" id="auth-submit-btn">Login</button>
+      <h2 id="auth-title" class="modal-title">Welcome to Your Safe Space</h2>
+      <form id="auth-form" class="auth-form">
+        <div class="form-group">
+          <input type="email" id="auth-email" placeholder="Email" required autocomplete="username">
+        </div>
+        <div class="form-group">
+          <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password">
+        </div>
+        <button type="submit" id="auth-submit-btn" class="auth-btn">Login</button>
       </form>
-      <p id="auth-switch">Don’t have an account? <a href="#" id="switch-to-register">Register</a></p>
-      <p id="auth-error" style="color:#b00;"></p>
+      <p id="auth-switch" class="auth-switch">Don't have an account? <a href="#" id="switch-to-register">Register here</a></p>
+      <p id="auth-error" class="auth-error"></p>
     </div>
   </div>
 
   <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav" id="bottom-nav">
-    <!-- Filled dynamically -->
+  <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+    <!-- Filled dynamically when user is logged in -->
   </nav>
 
   <script src="script.js"></script>
