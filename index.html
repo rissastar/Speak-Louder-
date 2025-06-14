@@ -1,103 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Speak Louder, Love Harder</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>Healing Space</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>You are safe here. Healing begins with honesty.</h1>
+      <p>Explore tools, stories, and remembrance that speak to your soul.</p>
+      <button id="cta-btn">Start Your Journey</button>
+    </section>
 
-    <header>
-        <div class="logo">
-            <h1>Speak Louder, Love Harder</h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="feed.html">Feed</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="mental-health.html">Resources</a></li>
-                <li><a href="memorial-wall.html">Memorial</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
+    <!-- Quote Rotator -->
+    <section class="quotes">
+      <blockquote id="quote-text">"Healing is not linear." — Unknown</blockquote>
+    </section>
 
-            </ul>
-        </nav>
-        <div class="panic-button">
-            <button id="panicBtn">I Need Help</button>
-        </div>
-    </header>
+    <!-- Topic Grid -->
+    <section class="topic-grid" id="topic-grid">
+      <!-- JS Will inject content here -->
+    </section>
 
-    <main>
-        <section id="hero">
-            <div class="hero-content">
-                <h2>You are safe here. Healing begins with honesty.</h2>
-                <p>A digital galaxy where every feeling belongs, every story matters, and healing is a shared, sacred journey.</p>
-            </div>
-        </section>
+    <!-- Memorial Wall Button -->
+    <section class="memorial-section">
+      <button class="memorial-btn" onclick="window.location.href='memorial-wall.html'">
+        🕯️ Light a Candle for a Loved One
+      </button>
+    </section>
+  </main>
 
-        <section id="quote-rotator">
-            <p id="quote">"Every story matters."</p>
-        </section>
+  <!-- Panic Button (Sticky) -->
+  <button class="panic-btn" id="panic-btn">🚨 I Need Help</button>
 
-        <section id="features">
-            <div class="feature-card">
-                <h3>Soulful Feed</h3>
-                <p>Share stories, art, and affirmations. Filter by emotional energy.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Healing Tools</h3>
-                <p>Mood journal, prompts, guided meditations, and more.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Empathy-Driven Interactions</h3>
-                <p>Supportive reactions, empathy templates, and scheduled messages.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Safety & Privacy</h3>
-                <p>Anonymous sharing, trigger warnings, crisis support.</p>
-            </div>
-        </section>
-
-        <section id="memorial">
-            <h2>Memorial Wall</h2>
-            <p>Light a virtual candle and honor loved ones.</p>
-            <a href="memorial-wall.html" class="button">Visit Memorial Wall</a>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-links">
-            <a href="#">🌿 Linktree</a>
-            <a href="#">📘 Facebook Page</a>
-            <a href="resource-library.html">📚 Resource Library</a>
-            <a href="about.html">🧑‍💻 About & Team</a>
-            <a href="contact.html">📝 Feedback & Contact</a>
-        </div>
-        <p>&copy; 2025 Speak Louder, Love Harder</p>
-    </footer>
-
-    <!-- Panic Button Modal -->
-    <div id="panicModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Need Help?</h2>
-            <div class="modal-body">
-                <p>Calming resources:</p>
-                <ul>
-                    <li><a href="#">Calming Music Playlist</a></li>
-                    <li><a href="#">Breathing Exercise</a></li>
-                    <li><a href="#">Crisis Helpline</a></li>
-                </ul>
-            </div>
-        </div>
+  <!-- Panic Modal -->
+  <div class="modal" id="panic-modal">
+    <div class="modal-content">
+      <button class="close-modal" id="close-modal">&times;</button>
+      <h2>Take a Breath. You're Not Alone.</h2>
+      <div class="modal-section">
+        <h3>Distractions</h3>
+        <ul>
+          <li><a href="https://www.youtube.com/results?search_query=calming+music" target="_blank">Playlists</a></li>
+          <li><a href="https://www.journaling.com/" target="_blank">Journaling Prompt</a></li>
+          <li>Draw something on paper</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <h3>Grounding</h3>
+        <p>5-4-3-2-1: Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.</p>
+        <img src="breathing.gif" alt="Breathing GIF" class="breathing-gif" />
+      </div>
+      <div class="modal-section">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="tel:988">988 Suicide & Crisis Lifeline</a></li>
+          <li><a href="https://www.crisistextline.org/" target="_blank">Crisis Text Line</a></li>
+        </ul>
+      </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- Auth Modal -->
+  <div class="modal" id="auth-modal">
+    <div class="modal-content">
+      <button class="close-modal" id="close-auth-modal">&times;</button>
+      <h2 id="auth-title">Login or Register</h2>
+      <form id="auth-form">
+        <input type="email" id="auth-email" placeholder="Email" required autocomplete="username" />
+        <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password" />
+        <button type="submit" id="auth-submit-btn">Login</button>
+      </form>
+      <p id="auth-switch">
+        Don't have an account? <a href="#" id="switch-to-register">Register</a>
+      </p>
+      <p id="auth-error" style="color:#b00;"></p>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="explore.html">🧭 Explore</a></li>
+      <li><a href="#" id="nav-auth-btn">🔐 Login</a></li>
+    </ul>
+  </nav>
+
+  <script src="script.js"></script>
 </body>
 </html>
