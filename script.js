@@ -1,104 +1,44 @@
-// Initialize Supabase
-const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// Quote rotator
+// Rotate quotes
 const quotes = [
-  "Healing is not linear.",
-  "You are stronger than you think.",
-  "This too shall pass.",
-  "One day at a time.",
-  "Your story isn’t over."
+  "Healing takes time, and asking for help is a courageous step.",
+  "You are not a burden; you are a human being in need of care.",
+  "It’s okay to rest. Your worth is not measured by productivity.",
+  "You are not alone in your feelings.",
+  "You are doing the best you can, and that is enough."
 ];
-let qIndex = 0;
-const quoteText = document.getElementById('quote-text');
 
-function rotateQuotes() {
-  qIndex = (qIndex + 1) % quotes.length;
-  quoteText.innerText = `"${quotes[qIndex]}"`;
-}
-setInterval(rotateQuotes, 8000);
+document.getElementById('quote-text').innerText =
+  quotes[Math.floor(Math.random() * quotes.length)];
 
-// CTA scroll
-document.getElementById('cta-btn').addEventListener('click', () => {
-  document.querySelector('.topic-grid').scrollIntoView({ behavior: 'smooth' });
+// Panic modal toggle
+document.getElementById("panic-btn").addEventListener("click", () => {
+  document.getElementById("panic-modal").style.display = "flex";
+});
+document.getElementById("close-modal").addEventListener("click", () => {
+  document.getElementById("panic-modal").style.display = "none";
 });
 
-// Topic grid dummy data
-const topics = [
-  { title: 'Mindfulness', id: 'mindfulness' },
-  { title: 'Guided Meditation', id: 'meditation' },
-  { title: 'Journaling', id: 'journaling' },
-  { title: 'Community Stories', id: 'stories' }
-];
-const grid = document.getElementById('topic-grid');
-topics.forEach(t => {
-  const div = document.createElement('div');
-  div.className = 'topic-card';
-  div.innerHTML = `<h3>${t.title}</h3>`;
-  div.addEventListener('click', () => {
-    window.location.href = `${t.id}.html`;
-  });
-  grid.append(div);
+// Auth modal toggle
+document.getElementById("close-auth-modal").addEventListener("click", () => {
+  document.getElementById("auth-modal").style.display = "none";
 });
-
-// Modal utilities
-function toggleModal(modalId, show) {
-  document.getElementById(modalId).style.display = show ? 'block' : 'none';
-}
-document.getElementById('panic-btn').onclick = () => toggleModal('panic-modal', true);
-document.getElementById('close-modal').onclick = () => toggleModal('panic-modal', false);
-window.onclick = e => {
-  if (e.target.classList.contains('modal')) {
-    toggleModal('panic-modal', false);
-    toggleModal('auth-modal', false);
-  }
-};
-document.getElementById('nav-auth-btn').onclick = () => toggleModal('auth-modal', true);
-document.getElementById('close-auth-modal').onclick = () => toggleModal('auth-modal', false);
-
-// Auth form & logic
-let isRegisterMode = false;
-const authForm = document.getElementById('auth-form');
-const authTitle = document.getElementById('auth-title');
-const authSubmitBtn = document.getElementById('auth-submit-btn');
-const authSwitch = document.getElementById('switch-to-register');
-const authEmail = document.getElementById('auth-email');
-const authPassword = document.getElementById('auth-password');
-const authError = document.getElementById('auth-error');
-
-authSwitch.addEventListener('click', e => {
+document.getElementById("switch-to-register").addEventListener("click", (e) => {
   e.preventDefault();
-  isRegisterMode = !isRegisterMode;
-  authTitle.innerText = isRegisterMode ? 'Register' : 'Login';
-  authSubmitBtn.innerText = isRegisterMode ? 'Register' : 'Login';
-  authSwitch.innerText = isRegisterMode ? 'Login instead' : "Don't have an account? Register";
+  document.getElementById("auth-title").innerText = "Register";
+  document.getElementById("auth-submit-btn").innerText = "Register";
 });
 
-authForm.addEventListener('submit', async e => {
+// Auth handler (placeholder logic for now)
+document.getElementById("auth-form").addEventListener("submit", (e) => {
   e.preventDefault();
-  authError.innerText = '';
-  const email = authEmail.value;
-  const pass = authPassword.value;
-  try {
-    const { data, error } = isRegisterMode
-      ? await supabase.auth.signUp({ email, password: pass })
-      : await supabase.auth.signInWithPassword({ email, password: pass });
-    if (error) throw error;
-    toggleModal('auth-modal', false);
-    document.getElementById('nav-auth-btn').innerText = '🔓 Logout';
-    authForm.reset();
-  } catch (err) {
-    authError.innerText = err.message;
-  }
-});
+  const email = document.getElementById("auth-email").value;
+  const password = document.getElementById("auth-password").value;
 
-// Logout
-document.getElementById('nav-auth-btn').addEventListener('click', async () => {
-  const { data: session } = await supabase.auth.getSession();
-  if (session.session) {
-    await supabase.auth.signOut();
-    document.getElementById('nav-auth-btn').innerText = '🔐 Login';
+  // Placeholder login logic
+  if (email && password) {
+    alert(`Logged in as ${email}`);
+    document.getElementById("auth-modal").style.display = "none";
+  } else {
+    document.getElementById("auth-error").innerText = "Invalid email or password.";
   }
 });
