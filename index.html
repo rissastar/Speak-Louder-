@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <title>Healing Space</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href= "styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <!-- Supabase JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -15,24 +15,20 @@
     <section class="hero">
       <h1>You are safe here. Healing begins with honesty.</h1>
       <p>Explore tools, stories, and remembrance that speak to your soul.</p>
-      <button id="cta-btn">Start Your Journey</button>
+      <button id="cta-btn"></button>
     </section>
 
     <!-- Quote Rotator -->
     <section class="quotes">
-      <blockquote id="quote-text">"Healing is not linear." — Unknown</blockquote>
+      <blockquote id="quote-text"></blockquote>
     </section>
 
     <!-- Topic Grid -->
-    <section class="topic-grid" id="topic-grid">
-      <!-- JS Will inject content here -->
-    </section>
+    <section class="topic-grid"></section>
 
     <!-- Memorial Wall Button -->
     <section class="memorial-section">
-      <button class="memorial-btn" onclick="window.location.href='memorial-wall.html'">
-        🕯️ Light a Candle for a Loved One
-      </button>
+      <button class="memorial-btn" onclick="window.location.href='memorial-wall.html'">🕯️ Light a Candle for a Loved One</button>
     </section>
   </main>
 
@@ -55,7 +51,7 @@
       <div class="modal-section">
         <h3>Grounding</h3>
         <p>5-4-3-2-1: Name 5 things you see, 4 you feel, 3 you hear, 2 you smell, 1 you taste.</p>
-        <img src="breathing.gif" alt="Breathing GIF" class="breathing-gif" />
+        <img src="breathing.gif" alt="Breathing GIF" class="breathing-gif">
       </div>
       <div class="modal-section">
         <h3>Resources</h3>
@@ -73,8 +69,8 @@
       <button class="close-modal" id="close-auth-modal">&times;</button>
       <h2 id="auth-title">Login or Register</h2>
       <form id="auth-form">
-        <input type="email" id="auth-email" placeholder="Email" required autocomplete="username" />
-        <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password" />
+        <input type="email" id="auth-email" placeholder="Email" required autocomplete="username">
+        <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password">
         <button type="submit" id="auth-submit-btn">Login</button>
       </form>
       <p id="auth-switch">
@@ -85,13 +81,7 @@
   </div>
 
   <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav" id="bottom-nav">
-    <ul>
-      <li><a href="index.html">🏠 Home</a></li>
-      <li><a href="explore.html">🧭 Explore</a></li>
-      <li><a href="#" id="nav-auth-btn">🔐 Login</a></li>
-    </ul>
-  </nav>
+  <nav class="bottom-nav" id="bottom-nav"></nav>
 
   <script src="script.js"></script>
 </body>
