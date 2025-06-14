@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Profile Settings | Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(ellipse at top, #1a002c, #000);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .settings-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px #8a2be2;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #ddd;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    input[type="file"] {
+      color: #ccc;
+    }
+
+    .avatar-preview {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #8a2be2;
+      margin-bottom: 1rem;
+      object-fit: cover;
+      box-shadow: 0 0 15px #ff79c6;
+    }
+
+    .save-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #8a2be2;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .save-btn:hover {
+      background: #a450f1;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .back-link:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="settings-container">
+    <h2>🛠️ Edit Profile</h2>
+
+    <div class="form-group">
+      <label for="avatar">Profile Picture</label>
+      <input type="file" id="avatar" accept="image/*" onchange="previewAvatar(event)" />
+      <img id="avatarPreview" class="avatar-preview" src="https://i.imgur.com/uZc1D2D.png" alt="Avatar Preview" />
+    </div>
+
+    <div class="form-group">
+      <label for="displayName">Display Name</label>
+      <input type="text" id="displayName" value="Larissa Wood" />
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" value="rissastar" />
+    </div>
+
+    <div class="form-group">
+      <label for="pronouns">Pronouns</label>
+      <input type="text" id="pronouns" value="She/Her" />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" value="Nova Scotia, Canada" />
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status / Mood</label>
+      <select id="status">
+        <option>💫 Holding On</option>
+        <option>🌈 Healing Today</option>
+        <option>🌻 Growing</option>
+        <option>💖 Seeking Support</option>
+        <option>✨ Celebrating Life</option>
+      </select>
+    </div>
+
+    <button class="save-btn" onclick="saveSettings()">💾 Save Changes</button>
+
+    <a href="profile.html" class="back-link">← Back to My Profile</a>
+  </div>
+
+  <script>
+    function previewAvatar(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const output = document.getElementById('avatarPreview');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function saveSettings() {
+      alert('✅ Your changes have been saved! (This is just a mock function — integrate Supabase to make it live.)');
+    }
+  </script>
+
+</body>
+</html>
