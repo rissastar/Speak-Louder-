@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Profile Settings | Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -113,22 +112,22 @@
 
     <div class="form-group">
       <label for="displayName">Display Name</label>
-      <input type="text" id="displayName" value="Larissa Wood" />
+      <input type="text" id="displayName" />
     </div>
 
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" id="username" value="rissastar" />
+      <input type="text" id="username" />
     </div>
 
     <div class="form-group">
       <label for="pronouns">Pronouns</label>
-      <input type="text" id="pronouns" value="She/Her" />
+      <input type="text" id="pronouns" />
     </div>
 
     <div class="form-group">
       <label for="location">Location</label>
-      <input type="text" id="location" value="Nova Scotia, Canada" />
+      <input type="text" id="location" />
     </div>
 
     <div class="form-group">
@@ -148,18 +147,44 @@
   </div>
 
   <script>
+    // Save settings to localStorage
+    function saveSettings() {
+      const profile = {
+        displayName: document.getElementById('displayName').value,
+        username: document.getElementById('username').value,
+        pronouns: document.getElementById('pronouns').value,
+        location: document.getElementById('location').value,
+        status: document.getElementById('status').value,
+        avatar: document.getElementById('avatarPreview').src
+      };
+      localStorage.setItem('userProfile', JSON.stringify(profile));
+      alert('✅ Profile saved locally!');
+    }
+
+    // Load settings from localStorage
+    function loadSettings() {
+      const saved = localStorage.getItem('userProfile');
+      if (saved) {
+        const profile = JSON.parse(saved);
+        document.getElementById('displayName').value = profile.displayName || '';
+        document.getElementById('username').value = profile.username || '';
+        document.getElementById('pronouns').value = profile.pronouns || '';
+        document.getElementById('location').value = profile.location || '';
+        document.getElementById('status').value = profile.status || '';
+        document.getElementById('avatarPreview').src = profile.avatar || 'https://i.imgur.com/uZc1D2D.png';
+      }
+    }
+
+    // Preview uploaded avatar image
     function previewAvatar(event) {
       const reader = new FileReader();
       reader.onload = function () {
-        const output = document.getElementById('avatarPreview');
-        output.src = reader.result;
+        document.getElementById('avatarPreview').src = reader.result;
       };
       reader.readAsDataURL(event.target.files[0]);
     }
 
-    function saveSettings() {
-      alert('✅ Your changes have been saved! (This is just a mock function — integrate Supabase to make it live.)');
-    }
+    window.onload = loadSettings;
   </script>
 
 </body>
