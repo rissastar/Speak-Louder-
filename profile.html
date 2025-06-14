@@ -5,79 +5,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Profile | Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
-    body {
-      background: radial-gradient(circle at top, #1a002c, #000);
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
     .profile-container {
-      max-width: 600px;
+      max-width: 750px;
       margin: 2rem auto;
-      background: rgba(255, 255, 255, 0.05);
       padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px #8a2be2;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 1.5rem;
+      box-shadow: 0 0 25px #8a2be2;
       text-align: center;
     }
 
     .profile-avatar {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       border: 4px solid #ff79c6;
+      box-shadow: 0 0 20px #ff79c6;
       object-fit: cover;
-      box-shadow: 0 0 15px #ff79c6;
       margin-bottom: 1rem;
     }
 
     .display-name {
-      font-size: 2rem;
+      font-size: 2.4rem;
       font-weight: bold;
-      color: #fff;
+      margin-top: 0.5rem;
     }
 
     .username {
+      font-size: 1.1rem;
       color: #ccc;
-      font-size: 0.95rem;
       margin-bottom: 1rem;
     }
 
     .info-line {
       font-size: 1rem;
-      margin: 0.3rem 0;
+      margin: 0.4rem 0;
       color: #ddd;
     }
 
     .status-badge {
-      font-size: 1.2rem;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.1);
       display: inline-block;
       margin-top: 1rem;
+      padding: 0.6rem 1.3rem;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.1);
       border: 1px solid #8a2be2;
+      text-shadow: 0 0 5px #8a2be2;
     }
 
     .edit-btn {
-      display: inline-block;
       margin-top: 2rem;
-      padding: 0.8rem 1.5rem;
+      display: inline-block;
+      padding: 0.9rem 1.7rem;
       background: #8a2be2;
       color: #fff;
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
       font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 1rem;
       transition: background 0.3s;
     }
 
     .edit-btn:hover {
       background: #a450f1;
+    }
+
+    .section {
+      margin-top: 2.5rem;
+      text-align: left;
+    }
+
+    .section h3 {
+      font-size: 1.4rem;
+      color: #ff79c6;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.3rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1rem;
+    }
+
+    .stat-box {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 1rem;
+      padding: 1rem;
+      flex: 1;
+      margin: 0 0.5rem;
+      text-align: center;
+      box-shadow: 0 0 10px #6a0dad;
+    }
+
+    .stat-box span {
+      font-size: 1.8rem;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    .text-block {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 1rem;
+      box-shadow: 0 0 10px #444;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #888;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .stats {
+        flex-direction: column;
+      }
+
+      .stat-box {
+        margin: 0.5rem 0;
+      }
     }
   </style>
 </head>
@@ -87,29 +145,107 @@
     <img id="avatar" class="profile-avatar" src="https://i.imgur.com/uZc1D2D.png" alt="Profile Picture" />
     <div class="display-name" id="displayName">Your Name</div>
     <div class="username" id="username">@username</div>
-    
+
     <div class="info-line" id="pronouns">Pronouns: —</div>
     <div class="info-line" id="location">Location: —</div>
-    <div class="status-badge" id="status">🌈 Status</div>
+    <div class="status-badge" id="status">💫 Holding On</div>
 
     <a href="settings.html" class="edit-btn">⚙️ Edit Profile</a>
+
+    <!-- SUPPORT STATS -->
+    <div class="section">
+      <h3>Support Stats 💖</h3>
+      <div class="stats">
+        <div class="stat-box">
+          <span id="hugs">0</span>
+          <div class="stat-label">Hugs Received</div>
+        </div>
+        <div class="stat-box">
+          <span id="words">0</span>
+          <div class="stat-label">Kind Words Given</div>
+        </div>
+        <div class="stat-box">
+          <span id="days">0</span>
+          <div class="stat-label">Healing Days Logged</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEALING JOURNEY -->
+    <div class="section">
+      <h3>My Healing Journey 🌱</h3>
+      <div class="text-block" id="journey">
+        You haven’t added your healing story yet.
+      </div>
+    </div>
+
+    <!-- WALL OF EXPRESSION -->
+    <div class="section">
+      <h3>Wall of Expression 🖋️</h3>
+      <div class="text-block" id="expression">
+        No journal entries yet.
+      </div>
+    </div>
+
+    <!-- MY CIRCLES -->
+    <div class="section">
+      <h3>My Circles 💫</h3>
+      <div class="text-block" id="circles">
+        Not connected to any support circles yet.
+      </div>
+    </div>
+
+    <div class="footer">
+      ✨ Part of <strong>Speak Louder, Love Harder</strong> — A Sanctuary for Healing
+    </div>
   </div>
 
   <script>
-    function loadProfile() {
-      const saved = localStorage.getItem('userProfile');
-      if (saved) {
-        const profile = JSON.parse(saved);
-        document.getElementById('avatar').src = profile.avatar || 'https://i.imgur.com/uZc1D2D.png';
-        document.getElementById('displayName').textContent = profile.displayName || 'Your Name';
-        document.getElementById('username').textContent = profile.username ? `@${profile.username}` : '@username';
-        document.getElementById('pronouns').textContent = profile.pronouns ? `Pronouns: ${profile.pronouns}` : 'Pronouns: —';
-        document.getElementById('location').textContent = profile.location ? `Location: ${profile.location}` : 'Location: —';
-        document.getElementById('status').textContent = profile.status || '💫 Holding On';
+    const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NzI1MzgsImV4cCI6MjEwMTI0ODUzOH0.rW3MEURJSNynJ8hx7Aw28_6SGCkMznoZa5Zslx6NxMw';
+
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    async function loadProfile() {
+      const {
+        data: { user },
+        error: userError
+      } = await supabase.auth.getUser();
+
+      if (!user || userError) {
+        console.log("No user found, redirecting...");
+        window.location.href = "login.html";
+        return;
       }
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (error || !data) {
+        console.error("Could not load profile", error);
+        return;
+      }
+
+      document.getElementById('avatar').src = data.avatar_url || 'https://i.imgur.com/uZc1D2D.png';
+      document.getElementById('displayName').textContent = data.display_name || 'Your Name';
+      document.getElementById('username').textContent = data.username ? `@${data.username}` : '@username';
+      document.getElementById('pronouns').textContent = data.pronouns ? `Pronouns: ${data.pronouns}` : 'Pronouns: —';
+      document.getElementById('location').textContent = data.location ? `Location: ${data.location}` : 'Location: —';
+      document.getElementById('status').textContent = data.status || '💫 Holding On';
+
+      document.getElementById('hugs').textContent = data.hugs_received || 0;
+      document.getElementById('words').textContent = data.kind_words_given || 0;
+      document.getElementById('days').textContent = data.healing_days_logged || 0;
+
+      document.getElementById('journey').textContent = data.journey || 'You haven’t added your healing story yet.';
+      document.getElementById('expression').textContent = data.expression || 'No journal entries yet.';
+      document.getElementById('circles').textContent = data.circles || 'Not connected to any support circles yet.';
     }
 
-    window.onload = loadProfile;
+    document.addEventListener("DOMContentLoaded", loadProfile);
   </script>
 
 </body>
