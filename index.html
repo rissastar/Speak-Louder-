@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-  <title>Healing Space</title>
-  <link rel="stylesheet" href= "styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>Healing Space | Speak Louder, Love Harder</title>
+  <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Supabase JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -15,7 +14,7 @@
     <section class="hero">
       <h1>You are safe here. Healing begins with honesty.</h1>
       <p>Explore tools, stories, and remembrance that speak to your soul.</p>
-      <button id="cta-btn"></button>
+      <button id="cta-btn" onclick="document.getElementById('auth-modal').style.display='flex'">🌟 Join the Healing</button>
     </section>
 
     <!-- Quote Rotator -->
@@ -24,9 +23,34 @@
     </section>
 
     <!-- Topic Grid -->
-    <section class="topic-grid"></section>
+    <section class="topic-grid">
+      <h2>Explore Our Sanctuary</h2>
+      <div class="grid-links">
+        <a href="login.html">🔐 Login</a>
+        <a href="register.html">📝 Register</a>
+        <a href="logout.html">🚪 Logout</a>
+        <a href="profile.html">🙋 Profile</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <a href="feed.html">🧡 Community Feed</a>
+        <a href="feed2.html">🫂 Friends-Only Feed</a>
+        <a href="mental-health.html">🧠 Mental Health</a>
+        <a href="addiction.html">💊 Addiction Support</a>
+        <a href="abuse.html">🚫 Abuse Support</a>
+        <a href="terminal-illness.html">🏥 Terminal Illness</a>
+        <a href="foster-children.html">👶 Foster Care</a>
+        <a href="grief.html">🕊️ Grief & Loss</a>
+        <a href="childhood-trauma.html">🧸 Childhood Trauma</a>
+        <a href="lgbtq-community.html">🏳️‍🌈 LGBTQ+ Safe Space</a>
+        <a href="worksheets.html">📄 Worksheets</a>
+        <a href="grounding-techniques.html">🌍 Grounding Tools</a>
+        <a href="memorial-wall.html">🕯️ Memorial Wall</a>
+        <a href="about.html">💡 About Us</a>
+        <a href="faq.html">❓ FAQ</a>
+        <a href="contact.html">📬 Contact</a>
+      </div>
+    </section>
 
-    <!-- Memorial Wall Button -->
+    <!-- Memorial Button -->
     <section class="memorial-section">
       <button class="memorial-btn" onclick="window.location.href='memorial-wall.html'">🕯️ Light a Candle for a Loved One</button>
     </section>
@@ -43,7 +67,7 @@
       <div class="modal-section">
         <h3>Distractions</h3>
         <ul>
-          <li><a href="https://www.youtube.com/results?search_query=calming+music" target="_blank">Playlists</a></li>
+          <li><a href="https://www.youtube.com/results?search_query=calming+music" target="_blank">Calming Music</a></li>
           <li><a href="https://www.journaling.com/" target="_blank">Journaling Prompt</a></li>
           <li>Draw something on paper</li>
         </ul>
@@ -73,15 +97,15 @@
         <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password">
         <button type="submit" id="auth-submit-btn">Login</button>
       </form>
-      <p id="auth-switch">
-        Don't have an account? <a href="#" id="switch-to-register">Register</a>
-      </p>
+      <p id="auth-switch">Don’t have an account? <a href="#" id="switch-to-register">Register</a></p>
       <p id="auth-error" style="color:#b00;"></p>
     </div>
   </div>
 
   <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav" id="bottom-nav"></nav>
+  <nav class="bottom-nav" id="bottom-nav">
+    <!-- Filled dynamically -->
+  </nav>
 
   <script src="script.js"></script>
 </body>
