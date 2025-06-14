@@ -3,188 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile Settings | Speak Louder, Love Harder</title>
+  <title>Edit Profile | Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
     body {
-      background: radial-gradient(ellipse at top, #1a002c, #000);
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
     .settings-container {
-      max-width: 600px;
-      margin: 2rem auto;
-      background: rgba(255, 255, 255, 0.05);
+      max-width: 700px;
+      margin: auto;
       padding: 2rem;
-      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 1.5rem;
       box-shadow: 0 0 20px #8a2be2;
     }
 
-    h2 {
+    h1 {
       text-align: center;
+      margin-bottom: 2rem;
       font-size: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
+      color: #ff79c6;
     }
 
     label {
       display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #ddd;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
     }
 
-    input[type="text"],
-    select {
+    input, textarea {
       width: 100%;
-      padding: 0.75rem;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
       background: rgba(255, 255, 255, 0.1);
-      border: none;
-      border-radius: 8px;
       color: #fff;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    input[type="file"] {
-      color: #ccc;
-    }
-
-    .avatar-preview {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 3px solid #8a2be2;
       margin-bottom: 1rem;
-      object-fit: cover;
-      box-shadow: 0 0 15px #ff79c6;
     }
 
-    .save-btn {
-      width: 100%;
-      padding: 1rem;
+    button {
       background: #8a2be2;
-      border: none;
-      border-radius: 8px;
       color: #fff;
-      font-weight: 700;
-      font-size: 1rem;
+      padding: 1rem 2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
       cursor: pointer;
+      margin-top: 1rem;
       transition: background 0.3s;
     }
 
-    .save-btn:hover {
+    button:hover {
       background: #a450f1;
+    }
+
+    .status {
+      margin-top: 1rem;
+      font-size: 1rem;
+      text-align: center;
     }
 
     .back-link {
       display: block;
       text-align: center;
       margin-top: 2rem;
-      color: #ccc;
       text-decoration: none;
-      font-size: 0.95rem;
+      color: #aaa;
     }
 
     .back-link:hover {
       color: #fff;
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
   <div class="settings-container">
-    <h2>🛠️ Edit Profile</h2>
+    <h1>🛠️ Edit Your Profile</h1>
 
-    <div class="form-group">
-      <label for="avatar">Profile Picture</label>
-      <input type="file" id="avatar" accept="image/*" onchange="previewAvatar(event)" />
-      <img id="avatarPreview" class="avatar-preview" src="https://i.imgur.com/uZc1D2D.png" alt="Avatar Preview" />
-    </div>
+    <form id="profileForm">
+      <label for="display_name">Display Name</label>
+      <input type="text" id="display_name" placeholder="Your name..." />
 
-    <div class="form-group">
-      <label for="displayName">Display Name</label>
-      <input type="text" id="displayName" />
-    </div>
-
-    <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" id="username" />
-    </div>
+      <input type="text" id="username" placeholder="yourhandle" />
 
-    <div class="form-group">
       <label for="pronouns">Pronouns</label>
-      <input type="text" id="pronouns" />
-    </div>
+      <input type="text" id="pronouns" placeholder="she/her, he/him, they/them..." />
 
-    <div class="form-group">
       <label for="location">Location</label>
-      <input type="text" id="location" />
-    </div>
+      <input type="text" id="location" placeholder="City, Country..." />
 
-    <div class="form-group">
-      <label for="status">Status / Mood</label>
-      <select id="status">
-        <option>💫 Holding On</option>
-        <option>🌈 Healing Today</option>
-        <option>🌻 Growing</option>
-        <option>💖 Seeking Support</option>
-        <option>✨ Celebrating Life</option>
-      </select>
-    </div>
+      <label for="status">Status Emoji or Phrase</label>
+      <input type="text" id="status" placeholder="💫 Holding On" />
 
-    <button class="save-btn" onclick="saveSettings()">💾 Save Changes</button>
+      <label for="avatar_url">Avatar Image URL</label>
+      <input type="text" id="avatar_url" placeholder="https://..." />
 
-    <a href="profile.html" class="back-link">← Back to My Profile</a>
+      <label for="journey">My Healing Journey</label>
+      <textarea id="journey" rows="4" placeholder="Tell your healing story..."></textarea>
+
+      <label for="expression">Wall of Expression</label>
+      <textarea id="expression" rows="3" placeholder="Express your thoughts or journal entry..."></textarea>
+
+      <label for="circles">My Circles</label>
+      <textarea id="circles" rows="2" placeholder="List your support groups, friends, etc."></textarea>
+
+      <label for="hugs_received">Hugs Received</label>
+      <input type="number" id="hugs_received" min="0" />
+
+      <label for="kind_words_given">Kind Words Given</label>
+      <input type="number" id="kind_words_given" min="0" />
+
+      <label for="healing_days_logged">Healing Days Logged</label>
+      <input type="number" id="healing_days_logged" min="0" />
+
+      <button type="submit">💾 Save Changes</button>
+    </form>
+
+    <div class="status" id="statusMessage"></div>
+    <a class="back-link" href="profile.html">← Back to Profile</a>
   </div>
 
   <script>
-    // Save settings to localStorage
-    function saveSettings() {
-      const profile = {
-        displayName: document.getElementById('displayName').value,
+    const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NzI1MzgsImV4cCI6MjEwMTI0ODUzOH0.rW3MEURJSNynJ8hx7Aw28_6SGCkMznoZa5Zslx6NxMw';
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    async function loadProfileForm() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (error || !data) return;
+
+      for (let key in data) {
+        if (document.getElementById(key)) {
+          document.getElementById(key).value = data[key];
+        }
+      }
+    }
+
+    async function updateProfile(e) {
+      e.preventDefault();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const profileData = {
+        id: user.id,
+        display_name: document.getElementById('display_name').value,
         username: document.getElementById('username').value,
         pronouns: document.getElementById('pronouns').value,
         location: document.getElementById('location').value,
         status: document.getElementById('status').value,
-        avatar: document.getElementById('avatarPreview').src
+        avatar_url: document.getElementById('avatar_url').value,
+        journey: document.getElementById('journey').value,
+        expression: document.getElementById('expression').value,
+        circles: document.getElementById('circles').value,
+        hugs_received: parseInt(document.getElementById('hugs_received').value) || 0,
+        kind_words_given: parseInt(document.getElementById('kind_words_given').value) || 0,
+        healing_days_logged: parseInt(document.getElementById('healing_days_logged').value) || 0
       };
-      localStorage.setItem('userProfile', JSON.stringify(profile));
-      alert('✅ Profile saved locally!');
-    }
 
-    // Load settings from localStorage
-    function loadSettings() {
-      const saved = localStorage.getItem('userProfile');
-      if (saved) {
-        const profile = JSON.parse(saved);
-        document.getElementById('displayName').value = profile.displayName || '';
-        document.getElementById('username').value = profile.username || '';
-        document.getElementById('pronouns').value = profile.pronouns || '';
-        document.getElementById('location').value = profile.location || '';
-        document.getElementById('status').value = profile.status || '';
-        document.getElementById('avatarPreview').src = profile.avatar || 'https://i.imgur.com/uZc1D2D.png';
+      const { error } = await supabase
+        .from('profiles')
+        .upsert(profileData, { onConflict: ['id'] });
+
+      const statusMsg = document.getElementById('statusMessage');
+      if (error) {
+        statusMsg.textContent = '⚠️ Error saving profile.';
+        statusMsg.style.color = 'red';
+      } else {
+        statusMsg.textContent = '✅ Profile updated!';
+        statusMsg.style.color = 'lightgreen';
       }
     }
 
-    // Preview uploaded avatar image
-    function previewAvatar(event) {
-      const reader = new FileReader();
-      reader.onload = function () {
-        document.getElementById('avatarPreview').src = reader.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-
-    window.onload = loadSettings;
+    document.getElementById('profileForm').addEventListener('submit', updateProfile);
+    document.addEventListener('DOMContentLoaded', loadProfileForm);
   </script>
 
 </body>
