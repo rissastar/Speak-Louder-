@@ -1,242 +1,222 @@
-:root {
-  --purple: #a18cd1;
-  --pink: #fbc2eb;
-  --teal: #7fd8be;
-  --green: #a8e063;
-  --nav-bg: rgba(255,255,255,0.95);
-  --soft-glow: 0 0 16px 2px rgba(160, 140, 209, 0.2);
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', Arial, sans-serif;
-  background: url('calming-bg.jpg') center center/cover no-repeat fixed;
-  min-height: 100vh;
-  color: #222;
-}
-
+/* General Styles */
 body {
-  max-width: 480px;
-  margin: 0 auto;
-  background-color: rgba(255,255,255,0.85);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0a041c; /* Midnight Blue (slightly lighter) */
+    color: #f0f0f0; /* Stardust White */
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-/* Hero */
-.hero {
-  text-align: center;
-  padding: 2.5rem 1rem 1.5rem 1rem;
-}
-.hero h1 {
-  font-size: 1.6rem;
-  color: var(--purple);
-  margin-bottom: 0.6rem;
-}
-.hero p {
-  font-size: 1.1rem;
-  margin-bottom: 1.2rem;
-  color: #444;
-}
-#cta-btn {
-  background: linear-gradient(90deg, var(--purple), var(--pink), var(--teal));
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 0.85rem 2.2rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  box-shadow: var(--soft-glow);
-  margin-top: 0.5rem;
-  cursor: pointer;
-  transition: box-shadow 0.2s;
-}
-#cta-btn:hover {
-  box-shadow: 0 0 24px 4px var(--purple);
+a {
+    color: #e0b1cb; /* Aurora Violet (softer) */
+    text-decoration: none;
 }
 
-/* Quotes */
-.quotes {
-  margin: 1.5rem 0 1rem 0;
-  text-align: center;
-  min-height: 60px;
-}
-.quotes blockquote {
-  font-family: 'Pacifico', cursive;
-  font-size: 1.15rem;
-  color: var(--teal);
-  transition: opacity 0.7s;
-  opacity: 1;
+a:hover {
+    text-decoration: underline;
 }
 
-/* Topic Grid */
-.topic-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
-  padding: 1rem 0.5rem;
-}
-.topic-tile {
-  background: #fff;
-  border-radius: 1.2rem;
-  box-shadow: var(--soft-glow);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 0.5rem 0.7rem 0.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: box-shadow 0.2s, transform 0.2s;
-  border: 2px solid transparent;
-}
-.topic-tile:hover {
-  box-shadow: 0 0 18px 3px var(--teal);
-  border-color: var(--teal);
-  transform: translateY(-2px) scale(1.03);
-}
-.topic-icon {
-  font-size: 1.7rem;
-  margin-bottom: 0.45rem;
-}
-.topic-title {
-  font-weight: 700;
-  color: var(--purple);
-  margin-bottom: 0.2rem;
-  font-size: 1.1rem;
-}
-.topic-desc {
-  font-size: 0.92rem;
-  color: #555;
+.button {
+    background-color: #69459f; /* Aurora Violet (darker) */
+    color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 15px;
 }
 
-/* Memorial Section */
-.memorial-section {
-  margin: 1.5rem 0 1.5rem 0;
-  text-align: center;
+.button:hover {
+    background-color: #503575;
 }
-.memorial-btn {
-  background: linear-gradient(90deg, var(--pink), var(--purple));
-  color: #fff;
-  border: none;
-  border-radius: 999px;
-  padding: 0.8rem 1.8rem;
-  font-size: 1.05rem;
-  font-weight: 600;
-  box-shadow: var(--soft-glow);
-  cursor: pointer;
-  transition: box-shadow 0.2s;
+
+/* Header */
+header {
+    background-color: rgba(10, 4, 28, 0.7); /* Midnight Blue (semi-transparent) */
+    color: #f0f0f0;
+    padding: 1rem 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
-.memorial-btn:hover {
-  box-shadow: 0 0 22px 3px var(--pink);
+
+header .logo h1 {
+    margin: 0;
+    font-size: 1.7rem;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 1rem;
 }
 
 /* Panic Button */
-.panic-btn {
-  position: fixed;
-  bottom: 70px;
-  right: 18px;
-  background: linear-gradient(90deg, #ff416c, #ff4b2b);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 1.7rem;
-  box-shadow: 0 0 16px 3px #ff416c55;
-  z-index: 1001;
-  cursor: pointer;
-  transition: box-shadow 0.2s;
-}
-.panic-btn:hover {
-  box-shadow: 0 0 24px 5px #ff416c99;
+.panic-button {
+    margin-top: 1rem;
 }
 
-/* Panic Modal */
+#panicBtn {
+    background-color: #ff4d4d; /* Red Alert */
+    color: #f0f0f0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#panicBtn:hover {
+    background-color: #cc0000;
+}
+
+/* Main */
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Hero Section */
+#hero {
+    background-color: rgba(35, 19, 59, 0.5); /* Nebula Pink (light, transparent) */
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#hero h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* Quote Rotator */
+#quote-rotator {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* Features Section */
+#features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.feature-card {
+    width: 45%;
+    background-color: rgba(51, 29, 87, 0.3); /* Aurora Violet (lighter, transparent) */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    margin-top: 0;
+}
+
+/* Memorial Section */
+#memorial {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(10, 4, 28, 0.3); /* Midnight Blue (transparent) */
+    border-radius: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(10, 4, 28, 0.7);
+    color: #aaa;
+    font-size: 0.8rem;
+}
+
+.footer-links {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    margin: 0 10px;
+}
+
+/* Mobile-First Responsive Design */
+@media (max-width: 600px) {
+    header {
+        padding: 0.5rem 0;
+    }
+
+    header .logo h1 {
+        font-size: 1.4rem;
+    }
+
+    header nav ul li {
+        display: block;
+        margin: 0.5rem 0;
+    }
+
+    #features {
+        flex-direction: column;
+    }
+
+    .feature-card {
+        width: 90%;
+        margin: 0 auto 15px;
+    }
+}
+
+/* Panic Button Modal Styles */
+
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  left: 0; top: 0; width: 100%; height: 100%;
-  background: rgba(55, 25, 80, 0.75);
-  justify-content: center;
-  align-items: center;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+
 .modal-content {
-  background: #fff;
-  border-radius: 1.2rem;
-  max-width: 95vw;
-  width: 94vw;
-  padding: 1.5rem 1.2rem;
-  box-shadow: 0 0 32px 6px var(--purple);
-  position: relative;
-  text-align: left;
-}
-.close-modal {
-  position: absolute;
-  top: 0.7rem; right: 1.1rem;
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: #999;
-  cursor: pointer;
-}
-.modal-section {
-  margin-bottom: 1.1rem;
-}
-.breathing-gif {
-  width: 90px;
-  display: block;
-  margin: 0.7rem 0;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    color: #333; /* Set text color to a readable value */
+    border-radius: 10px;
+    position: relative;
 }
 
-/* Bottom Navigation Bar */
-.bottom-nav {
-  position: fixed;
-  bottom: 0; left: 0; width: 100vw;
-  background: var(--nav-bg);
-  box-shadow: 0 -1px 16px 0 var(--purple);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0.45rem 0 0.25rem 0;
-  z-index: 1002;
-}
-.nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #888;
-  font-size: 1.1rem;
-  text-decoration: none;
-  padding: 0.3rem 0.5rem;
-  transition: color 0.2s, font-weight 0.2s;
-  border: none;
-  background: none;
-  outline: none;
-}
-.nav-item.active {
-  color: var(--purple);
-  font-weight: 700;
-  text-shadow: 0 0 8px var(--purple);
-}
-.nav-icon {
-  font-size: 1.45rem;
-  margin-bottom: 0.08rem;
-}
-.special-btn {
-  background: linear-gradient(90deg, var(--teal), var(--purple));
-  color: #fff !important;
-  border-radius: 999px;
-  padding: 0.5rem 1.2rem;
-  font-weight: 700;
-  box-shadow: var(--soft-glow);
-  font-size: 1.06rem;
-  margin: 0 0.3rem;
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-@media (max-width: 400px) {
-  .hero h1 { font-size: 1.12rem; }
-  .hero p { font-size: 0.98rem; }
-  .quotes blockquote { font-size: 1.01rem; }
-  .topic-title { font-size: 0.97rem; }
-  .memorial-btn { font-size: 0.97rem; }
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 2px 16px;
 }
