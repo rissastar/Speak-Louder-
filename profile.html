@@ -2,251 +2,892 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Profile | Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>My Profile | Healing Space</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .profile-container {
-      max-width: 750px;
-      margin: 2rem auto;
-      padding: 2rem;
+    /* Profile-specific styles */
+    .profile-header {
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 1.5rem;
-      box-shadow: 0 0 25px #8a2be2;
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       text-align: center;
+      position: relative;
     }
 
     .profile-avatar {
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      border: 4px solid #ff79c6;
-      box-shadow: 0 0 20px #ff79c6;
+      border: 4px solid #64ffda;
+      margin: 0 auto 1rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(100, 255, 218, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .profile-avatar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(100, 255, 218, 0.5);
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      margin-bottom: 1rem;
     }
 
-    .display-name {
-      font-size: 2.4rem;
-      font-weight: bold;
-      margin-top: 0.5rem;
+    .avatar-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: #64ffda;
+      width: 100%;
+      height: 100%;
     }
 
-    .username {
+    .edit-avatar {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #64ffda;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .edit-avatar:hover {
+      transform: scale(1.1);
+      background: #45b7d1;
+    }
+
+    .profile-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .profile-username {
       font-size: 1.1rem;
-      color: #ccc;
+      color: rgba(255, 255, 255, 0.7);
       margin-bottom: 1rem;
     }
 
-    .info-line {
-      font-size: 1rem;
-      margin: 0.4rem 0;
-      color: #ddd;
+    .profile-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
     }
 
     .status-badge {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.6rem 1.3rem;
-      font-size: 1.1rem;
-      border-radius: 50px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid #8a2be2;
-      text-shadow: 0 0 5px #8a2be2;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(100, 255, 218, 0.1);
+      border: 1px solid rgba(100, 255, 218, 0.3);
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: #64ffda;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
     }
 
-    .edit-btn {
-      margin-top: 2rem;
-      display: inline-block;
-      padding: 0.9rem 1.7rem;
-      background: #8a2be2;
-      color: #fff;
-      font-weight: 600;
-      border: none;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: background 0.3s;
-    }
-
-    .edit-btn:hover {
-      background: #a450f1;
-    }
-
-    .section {
-      margin-top: 2.5rem;
-      text-align: left;
-    }
-
-    .section h3 {
-      font-size: 1.4rem;
-      color: #ff79c6;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.3rem;
-    }
-
-    .stats {
+    .support-stats {
       display: flex;
-      justify-content: space-around;
-      margin-top: 1rem;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
     }
 
-    .stat-box {
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: 1rem;
-      padding: 1rem;
-      flex: 1;
-      margin: 0 0.5rem;
+    .stat-item {
       text-align: center;
-      box-shadow: 0 0 10px #6a0dad;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      min-width: 120px;
+      transition: all 0.3s ease;
     }
 
-    .stat-box span {
-      font-size: 1.8rem;
+    .stat-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #64ffda;
       display: block;
     }
 
     .stat-label {
-      font-size: 0.95rem;
-      color: #aaa;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 0.25rem;
     }
 
-    .text-block {
-      padding: 1rem;
-      background: rgba(255, 255, 255, 0.07);
-      border-radius: 1rem;
-      box-shadow: 0 0 10px #444;
+    /* Tab Navigation */
+    .profile-tabs {
+      max-width: 1200px;
+      margin: 2rem auto;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .footer {
-      margin-top: 3rem;
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
       font-size: 0.9rem;
-      color: #888;
-      text-align: center;
+      font-weight: 500;
     }
 
-    @media (max-width: 600px) {
-      .stats {
-        flex-direction: column;
-      }
+    .tab-btn.active {
+      background: rgba(100, 255, 218, 0.2);
+      color: #64ffda;
+    }
 
-      .stat-box {
-        margin: 0.5rem 0;
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Posts Section */
+    .posts-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .post-filters {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .filter-btn.active {
+      background: rgba(100, 255, 218, 0.2);
+      border-color: #64ffda;
+      color: #64ffda;
+    }
+
+    .post-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .post-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #64ffda;
+    }
+
+    .post-meta {
+      flex: 1;
+    }
+
+    .post-author {
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+
+    .post-date {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .post-content {
+      margin-bottom: 1rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #64ffda;
+    }
+
+    /* Healing Journey Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #64ffda, #45b7d1);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-left: 1rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 1.5rem;
+      width: 20px;
+      height: 20px;
+      background: #64ffda;
+      border-radius: 50%;
+      border: 3px solid #0a0a0a;
+      box-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+    }
+
+    .milestone-date {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0.5rem;
+    }
+
+    .milestone-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #64ffda;
+      margin-bottom: 0.5rem;
+    }
+
+    .milestone-desc {
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+    }
+
+    /* Wall of Expression */
+    .expression-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .expression-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .expression-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .expression-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .expression-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+    }
+
+    .expression-desc {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Resources Section */
+    .resource-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .resource-category {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+    }
+
+    .category-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #64ffda;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .resource-list {
+      list-style: none;
+    }
+
+    .resource-item {
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      border-left: 3px solid #64ffda;
+      transition: all 0.3s ease;
+    }
+
+    .resource-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(5px);
+    }
+
+    .resource-title {
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+
+    .resource-desc {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Circles Section */
+    .circles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .circle-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .circle-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .circle-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 3px solid #64ffda;
+      margin: 0 auto 1rem;
+      overflow: hidden;
+    }
+
+    .circle-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .circle-name {
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .circle-status {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 1rem;
+    }
+
+    .message-btn {
+      background: rgba(100, 255, 218, 0.2);
+      border: 1px solid #64ffda;
+      color: #64ffda;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+    }
+
+    .message-btn:hover {
+      background: rgba(100, 255, 218, 0.3);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .profile-header {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+      
+      .profile-info {
+        gap: 1rem;
+      }
+      
+      .support-stats {
+        gap: 1rem;
+      }
+      
+      .profile-tabs {
+        margin: 1rem;
+        padding: 0.25rem;
+      }
+      
+      .tab-content {
+        padding: 1rem;
+      }
+      
+      .posts-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
+      
+      .post-filters {
+        justify-content: center;
+      }
+      
+      .timeline {
+        padding-left: 1.5rem;
+      }
+      
+      .timeline-item {
+        margin-left: 0.5rem;
+      }
+      
+      .expression-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .resource-categories {
+        grid-template-columns: 1fr;
+      }
+      
+      .circles-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       }
     }
   </style>
 </head>
 <body>
-
-  <div class="profile-container">
-    <img id="avatar" class="profile-avatar" src="https://i.imgur.com/uZc1D2D.png" alt="Profile Picture" />
-    <div class="display-name" id="displayName">Your Name</div>
-    <div class="username" id="username">@username</div>
-
-    <div class="info-line" id="pronouns">Pronouns: —</div>
-    <div class="info-line" id="location">Location: —</div>
-    <div class="status-badge" id="status">💫 Holding On</div>
-
-    <a href="settings.html" class="edit-btn">⚙️ Edit Profile</a>
-
-    <!-- SUPPORT STATS -->
-    <div class="section">
-      <h3>Support Stats 💖</h3>
-      <div class="stats">
-        <div class="stat-box">
-          <span id="hugs">0</span>
-          <div class="stat-label">Hugs Received</div>
-        </div>
-        <div class="stat-box">
-          <span id="words">0</span>
-          <div class="stat-label">Kind Words Given</div>
-        </div>
-        <div class="stat-box">
-          <span id="days">0</span>
-          <div class="stat-label">Healing Days Logged</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- HEALING JOURNEY -->
-    <div class="section">
-      <h3>My Healing Journey 🌱</h3>
-      <div class="text-block" id="journey">
-        You haven’t added your healing story yet.
-      </div>
-    </div>
-
-    <!-- WALL OF EXPRESSION -->
-    <div class="section">
-      <h3>Wall of Expression 🖋️</h3>
-      <div class="text-block" id="expression">
-        No journal entries yet.
-      </div>
-    </div>
-
-    <!-- MY CIRCLES -->
-    <div class="section">
-      <h3>My Circles 💫</h3>
-      <div class="text-block" id="circles">
-        Not connected to any support circles yet.
-      </div>
-    </div>
-
-    <div class="footer">
-      ✨ Part of <strong>Speak Louder, Love Harder</strong> — A Sanctuary for Healing
-    </div>
+  <!-- Animated Space Background -->
+  <div class="stars-bg">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
   </div>
 
-  <script>
-    const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NzI1MzgsImV4cCI6MjEwMTI0ODUzOH0.rW3MEURJSNynJ8hx7Aw28_6SGCkMznoZa5Zslx6NxMw';
+  <main>
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-avatar" onclick="editAvatar()">
+        <div class="avatar-placeholder">👤</div>
+        <button class="edit-avatar">✏️</button>
+      </div>
+      
+      <h1 class="profile-name">Sarah Journey</h1>
+      <p class="profile-username">@sarahsjourney</p>
+      
+      <div class="profile-info">
+        <div class="profile-detail">
+          <span>🏷️</span>
+          <span>she/her</span>
+        </div>
+        <div class="profile-detail">
+          <span>📍</span>
+          <span>Portland, OR</span>
+        </div>
+        <div class="profile-detail">
+          <span>📅</span>
+          <span>Joined March 2024</span>
+        </div>
+      </div>
+      
+      <div class="status-badge">
+        <span>🌈</span>
+        <span>Healing Today</span>
+      </div>
+      
+      <div class="support-stats">
+        <div class="stat-item">
+          <span class="stat-number">127</span>
+          <span class="stat-label">🌟 Hugs Received</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">89</span>
+          <span class="stat-label">🌈 Kind Words Given</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">45</span>
+          <span class="stat-label">🕊 Healing Days</span>
+        </div>
+      </div>
+    </div>
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    <!-- Tab Navigation -->
+    <div class="profile-tabs">
+      <button class="tab-btn active" data-tab="posts">
+        <span>🧾</span>
+        <span>Posts</span>
+      </button>
+      <button class="tab-btn" data-tab="journey">
+        <span>🪞</span>
+        <span>Healing Journey</span>
+      </button>
+      <button class="tab-btn" data-tab="expression">
+        <span>🎨</span>
+        <span>Wall of Expression</span>
+      </button>
+      <button class="tab-btn" data-tab="resources">
+        <span>📚</span>
+        <span>My Resources</span>
+      </button>
+      <button class="tab-btn" data-tab="circles">
+        <span>👥</span>
+        <span>My Circles</span>
+      </button>
+    </div>
 
-    async function loadProfile() {
-      const {
-        data: { user },
-        error: userError
-      } = await supabase.auth.getUser();
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <!-- Posts Tab -->
+      <div class="tab-panel active" id="posts">
+        <div class="posts-header">
+          <h2>My Posts</h2>
+          <div class="post-filters">
+            <button class="filter-btn active">All</button>
+            <button class="filter-btn">Friends Only</button>
+            <button class="filter-btn">Private</button>
+          </div>
+        </div>
+        
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-avatar">
+              <div class="avatar-placeholder" style="font-size: 1.2rem;">👤</div>
+            </div>
+            <div class="post-meta">
+              <div class="post-author">Sarah Journey</div>
+              <div class="post-date">2 hours ago • Friends Only</div>
+            </div>
+          </div>
+          <div class="post-content">
+            Today marks 30 days since I started my healing journey. Some days are harder than others, but I'm learning to be gentle with myself. Thank you to everyone in this community for your support. 💚
+          </div>
+          <div class="post-actions">
+            <button class="action-btn">
+              <span>🌟</span>
+              <span>12</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span>
+              <span>5</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span>
+              <span>Share</span>
+            </button>
+          </div>
+        </div>
 
-      if (!user || userError) {
-        console.log("No user found, redirecting...");
-        window.location.href = "login.html";
-        return;
-      }
+        <div class="post-card">
+          <div class="post-header">
+            <div class="post-avatar">
+              <div class="avatar-placeholder" style="font-size: 1.2rem;">👤</div>
+            </div>
+            <div class="post-meta">
+              <div class="post-author">Sarah Journey</div>
+              <div class="post-date">1 day ago • Public</div>
+            </div>
+          </div>
+          <div class="post-content">
+            "You are braver than you believe, stronger than you seem, and more loved than you know." - A.A. Milne
+            
+            This quote got me through today. Sometimes we need reminders of our own strength. 🌻
+          </div>
+          <div class="post-actions">
+            <button class="action-btn">
+              <span>🌟</span>
+              <span>28</span>
+            </button>
+            <button class="action-btn">
+              <span>💬</span>
+              <span>8</span>
+            </button>
+            <button class="action-btn">
+              <span>🔗</span>
+              <span>Share</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', user.id)
-        .single();
+      <!-- Healing Journey Tab -->
+      <div class="tab-panel" id="journey">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: #64ffda;">My Healing Timeline</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="milestone-date">March 15, 2024</div>
+            <div class="milestone-title">🌱 Started My Journey</div>
+            <div class="milestone-desc">Joined the Healing Space community and took my first step toward recovery. It felt scary but also hopeful.</div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="milestone-date">March 22, 2024</div>
+            <div class="milestone-title">👥 First Support Group</div>
+            <div class="milestone-desc">Attended my first support group meeting. Met amazing people who understand what I'm going through.</div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="milestone-date">April 1, 2024</div>
+            <div class="milestone-title">📝 Started Journaling</div>
+            <div class="milestone-desc">Began daily journaling practice. Writing helps me process my emotions and track my progress.</div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="milestone-date">April 10, 2024</div>
+            <div class="milestone-title">🎨 Creative Expression</div>
+            <div class="milestone-desc">Discovered art therapy. Painting has become my way of expressing feelings I can't put into words.</div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="milestone-date">April 20, 2024</div>
+            <div class="milestone-title">🌟 Shared My Story</div>
+            <div class="milestone-desc">Finally felt brave enough to share part of my story publicly. The response was overwhelming and supportive.</div>
+          </div>
+        </div>
+      </div>
 
-      if (error || !data) {
-        console.error("Could not load profile", error);
-        return;
-      }
+      <!-- Wall of Expression Tab -->
+      <div class="tab-panel" id="expression">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: #64ffda;">My Creative Expression</h2>
+        <div class="expression-grid">
+          <div class="expression-item">
+            <div class="expression-icon">🎨</div>
+            <div class="expression-title">Watercolor Healing</div>
+            <div class="expression-desc">A series of paintings representing my emotional journey</div>
+          </div>
+          
+          <div class="expression-item">
+            <div class="expression-icon">📝</div>
+            <div class="expression-title">Poetry Collection</div>
+            <div class="expression-desc">Words that helped me process difficult feelings</div>
+          </div>
+          
+          <div class="expression-item">
+            <div class="expression-icon">🎵</div>
+            <div class="expression-title">Healing Playlist</div>
+            <div class="expression-desc">Songs that lift me up on hard days</div>
+          </div>
+          
+          <div class="expression-item">
+            <div class="expression-icon">📸</div>
+            <div class="expression-title">Nature Photography</div>
+            <div class="expression-desc">Finding beauty in everyday moments</div>
+          </div>
+          
+          <div class="expression-item">
+            <div class="expression-icon">✨</div>
+            <div class="expression-title">Gratitude Board</div>
+            <div class="expression-desc">Visual reminders of things I'm grateful for</div>
+          </div>
+          
+          <div class="expression-item">
+            <div class="expression-icon">🌈</div>
+            <div class="expression-title">Hope Collage</div>
+            <div class="expression-desc">Images and words that represent my dreams</div>
+          </div>
+        </div>
+      </div>
 
-      document.getElementById('avatar').src = data.avatar_url || 'https://i.imgur.com/uZc1D2D.png';
-      document.getElementById('displayName').textContent = data.display_name || 'Your Name';
-      document.getElementById('username').textContent = data.username ? `@${data.username}` : '@username';
-      document.getElementById('pronouns').textContent = data.pronouns ? `Pronouns: ${data.pronouns}` : 'Pronouns: —';
-      document.getElementById('location').textContent = data.location ? `Location: ${data.location}` : 'Location: —';
-      document.getElementById('status').textContent = data.status || '💫 Holding On';
+      <!-- Resources Tab -->
+      <div class="tab-panel" id="resources">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: #64ffda;">My Healing Toolkit</h2>
+        <div class="resource-categories">
+          <div class="resource-category">
+            <h3 class="category-title">
+              <span>🌍</span>
+              <span>Grounding Techniques</span>
+            </h3>
+            <ul class="resource-list">
+              <li class="resource-item">
+                <div class="resource-title">5-4-3-2-1 Technique</div>
+                <div class="resource-desc">My go-to grounding exercise for anxiety</div>
+              </li>
+              <li class="resource-item">
+                <div class="resource-title">Box Breathing</div>
+                <div class="resource-desc">4-4-4-4 breathing pattern for calm</div>
+              </li>
+              <li class="resource-item">
+                <div class="resource-title">Body Scan Meditation</div>
+                <div class="resource-desc">10-minute guided meditation</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="resource-category">
+            <h3 class="category-title">
+              <span>📄</span>
+              <span>Worksheets</span>
+            </h3>
+            <ul class="resource-list">
+              <li class="resource-item">
+                <div class="resource-title">Mood Tracker</div>
+                <div class="resource-desc">Daily emotional check-ins</div>
+              </li>
+              <li class="resource-item">
+                <div class="resource-title">Thought Challenger</div>
+                <div class="resource-desc">CBT worksheet for negative thoughts</div>
+              </li>
+              <li class="resource-item">
+                <div class="resource-title">Gratitude Journal</div>
+                <div class="resource-desc">Weekly gratitude reflections</div>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="resource-category">
+            <h3 class="category-title">
+              <span>🔗</span>
+              <span>Helpful Links</span>
+            </h3>
+            <ul class="resource-list">
+              <li class="resource-item">
+                <div class="resource-title">Crisis Text Line</div>
+                <div class="resource-desc">24/7 support when I need it most</div>
+              </li>
+              <li class="resource-item">
+                <div class="resource-title">Headspace App</div>
+                <div class="resource-desc">Meditation and mindfulness</div>
+              </li>
+              <li class="resource-item">
+                <div class="resource-title">Local Support Groups</div>
+                <div class="resource-desc">In-person community resources</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-      document.getElementById('hugs').textContent = data.hugs_received || 0;
-      document.getElementById('words').textContent = data.kind_words_given || 0;
-      document.getElementById('days').textContent = data.healing_days_logged || 0;
-
-      document.getElementById('journey').textContent = data.journey || 'You haven’t added your healing story yet.';
-      document.getElementById('expression').textContent = data.expression || 'No journal entries yet.';
-      document.getElementById('circles').textContent = data.circles || 'Not connected to any support circles yet.';
-    }
-
-    document.addEventListener("DOMContentLoaded", loadProfile);
-  </script>
-
-</body>
-</html>
+      <!-- Circles Tab -->
+      <div class="tab-panel" id="circles">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: #64ffda;">My Healing Circle</h2>
+        <div class="circles-grid">
+          <div class="circle-card">
+            <div class="circle-avatar">
+              <div class="avatar-placeholder" style="font-size: 1.5rem;">💫</div>
+            </div>
+            <div class="circle-name">Alex Sunshine</div>
+            <div class="circle-status">🌟 Thriving Today</div>
+            <button class="message-btn">Message</button>
+          </div>
+          
+          <div class="circle-card">
