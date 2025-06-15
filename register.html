@@ -554,11 +554,36 @@ outline-offset: 2px;
   </button>
 
   <script>
-    // Initialize Supabase
-    const supabaseUrl = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+    <script>
+  const supabaseUrl = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // use your full key
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('register-form');
+    const message = document.getElementById('register-message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password
+      });
+
+      if (error) {
+        message.textContent = '❌ ' + error.message;
+      } else {
+        message.textContent = '✅ Registration successful! Redirecting...';
+
+        // ✅ Redirect to profile.html after signup
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1000);
+        
     // Password strength checker
     function checkPasswordStrength(password) {
       const strengthFill = document.getElementById('strengthFill');
