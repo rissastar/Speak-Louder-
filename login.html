@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -13,424 +14,428 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  color: #ffffff;
-  background: #0a0a0a;
-  overflow-x: hidden;
-  line-height: 1.6;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+font-family: ‘Inter’, sans-serif;
+color: #ffffff;
+background: #0a0a0a;
+overflow-x: hidden;
+line-height: 1.6;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 /* Animated Space Background */
 .stars-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: linear-gradient(135deg, #000428 0%, #004e92 100%);
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -1;
+background: linear-gradient(135deg, #000428 0%, #004e92 100%);
 }
 
 .stars, .stars2, .stars3 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  animation: animateStars linear infinite;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+animation: animateStars linear infinite;
 }
 
 .stars {
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, #eee, transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
-    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
-    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
-    radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
-  background-repeat: repeat;
-  background-size: 200px 100px;
-  animation-duration: 100s;
+background-image:
+radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+radial-gradient(2px 2px at 160px 30px, #ddd, transparent);
+background-repeat: repeat;
+background-size: 200px 100px;
+animation-duration: 100s;
 }
 
 .stars2 {
-  background-image: 
-    radial-gradient(1px 1px at 40px 60px, #fff, transparent),
-    radial-gradient(1px 1px at 120px 10px, rgba(255,255,255,0.7), transparent),
-    radial-gradient(1px 1px at 160px 90px, #eee, transparent);
-  background-repeat: repeat;
-  background-size: 300px 150px;
-  animation-duration: 150s;
+background-image:
+radial-gradient(1px 1px at 40px 60px, #fff, transparent),
+radial-gradient(1px 1px at 120px 10px, rgba(255,255,255,0.7), transparent),
+radial-gradient(1px 1px at 160px 90px, #eee, transparent);
+background-repeat: repeat;
+background-size: 300px 150px;
+animation-duration: 150s;
 }
 
 .stars3 {
-  background-image: 
-    radial-gradient(1px 1px at 10px 10px, rgba(255,255,255,0.5), transparent),
-    radial-gradient(1px 1px at 150px 150px, rgba(255,255,255,0.3), transparent);
-  background-repeat: repeat;
-  background-size: 250px 200px;
-  animation-duration: 200s;
+background-image:
+radial-gradient(1px 1px at 10px 10px, rgba(255,255,255,0.5), transparent),
+radial-gradient(1px 1px at 150px 150px, rgba(255,255,255,0.3), transparent);
+background-repeat: repeat;
+background-size: 250px 200px;
+animation-duration: 200s;
 }
 
 @keyframes animateStars {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(-2000px);
-  }
+from {
+transform: translateY(0px);
+}
+to {
+transform: translateY(-2000px);
+}
 }
 
 /* Login Container */
 .login-container {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 3rem;
-  max-width: 450px;
-  width: 100%;
-  margin: 2rem;
-  backdrop-filter: blur(20px);
-  position: relative;
-  overflow: hidden;
-  animation: fadeInUp 1s ease-out;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 20px;
+padding: 3rem;
+max-width: 450px;
+width: 100%;
+margin: 2rem;
+backdrop-filter: blur(20px);
+position: relative;
+overflow: hidden;
+animation: fadeInUp 1s ease-out;
 }
 
 .login-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-  transition: left 0.5s ease;
+content: ‘’;
+position: absolute;
+top: 0;
+left: -100%;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+transition: left 0.5s ease;
 }
 
 .login-container:hover::before {
-  left: 100%;
+left: 100%;
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
 }
 
 /* Header */
 .login-header {
-  text-align: center;
-  margin-bottom: 2rem;
+text-align: center;
+margin-bottom: 2rem;
 }
 
 .login-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #64ffda;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+font-size: 2.5rem;
+font-weight: 700;
+margin-bottom: 0.5rem;
+color: #64ffda;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .login-subtitle {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  font-weight: 300;
-  color: #ffffff;
+font-size: 1.1rem;
+opacity: 0.9;
+font-weight: 300;
+color: #ffffff;
 }
 
 /* Back Link */
 .back-link {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  color: #64ffda;
-  text-decoration: none;
-  font-size: 1.5rem;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 10px;
+position: absolute;
+top: 1rem;
+left: 1rem;
+color: #64ffda;
+text-decoration: none;
+font-size: 1.5rem;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+padding: 0.5rem;
+border-radius: 10px;
 }
 
 .back-link:hover {
-  background: rgba(100, 255, 218, 0.1);
-  transform: translateX(-2px);
+background: rgba(100, 255, 218, 0.1);
+transform: translateX(-2px);
 }
 
 /* Form Styles */
 .login-form {
-  margin-bottom: 1.5rem;
+margin-bottom: 1.5rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+margin-bottom: 1.5rem;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #ffffff;
-  font-size: 0.9rem;
+display: block;
+margin-bottom: 0.5rem;
+font-weight: 500;
+color: #ffffff;
+font-size: 0.9rem;
 }
 
 .form-group input {
-  width: 100%;
-  padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+width: 100%;
+padding: 1rem;
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 10px;
+background: rgba(255, 255, 255, 0.05);
+color: #ffffff;
+font-size: 1rem;
+transition: all 0.3s ease;
 }
 
 .form-group input:focus {
-  outline: none;
-  border-color: #64ffda;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
+outline: none;
+border-color: #64ffda;
+background: rgba(255, 255, 255, 0.1);
+box-shadow: 0 0 20px rgba(100, 255, 218, 0.2);
 }
 
 .form-group input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+color: rgba(255, 255, 255, 0.6);
 }
 
 /* Submit Button */
 .submit-btn {
-  width: 100%;
-  padding: 1rem;
-  background: rgba(100, 255, 218, 0.2);
-  border: 2px solid #64ffda;
-  color: #64ffda;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+width: 100%;
+padding: 1rem;
+background: rgba(100, 255, 218, 0.2);
+border: 2px solid #64ffda;
+color: #64ffda;
+font-size: 1.1rem;
+font-weight: 600;
+border-radius: 10px;
+cursor: pointer;
+transition: all 0.3s ease;
+text-transform: uppercase;
+letter-spacing: 1px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 0.5rem;
+margin-bottom: 1.5rem;
 }
 
 .submit-btn:hover {
-  background: rgba(100, 255, 218, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
+background: rgba(100, 255, 218, 0.3);
+transform: translateY(-2px);
+box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
 }
 
 .submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+opacity: 0.6;
+cursor: not-allowed;
+transform: none;
+box-shadow: none;
 }
 
 /* Loading Spinner */
 .spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid transparent;
-  border-top: 2px solid #64ffda;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  display: none;
+width: 20px;
+height: 20px;
+border: 2px solid transparent;
+border-top: 2px solid #64ffda;
+border-radius: 50%;
+animation: spin 1s linear infinite;
+display: none;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
 }
 
 /* Links */
 .form-links {
-  text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
+text-align: center;
+color: rgba(255, 255, 255, 0.8);
+font-size: 0.9rem;
 }
 
 .form-links a {
-  color: #64ffda;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
+color: #64ffda;
+text-decoration: none;
+font-weight: 500;
+transition: all 0.3s ease;
 }
 
 .form-links a:hover {
-  text-decoration: underline;
-  color: #ffffff;
+text-decoration: underline;
+color: #ffffff;
 }
 
 .form-links p {
-  margin-bottom: 0.5rem;
+margin-bottom: 0.5rem;
 }
 
 /* Error Message */
 .error-message {
-  color: #ff4757;
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background: rgba(255, 71, 87, 0.1);
-  border: 1px solid rgba(255, 71, 87, 0.3);
-  border-radius: 10px;
-  display: none;
+color: #ff4757;
+text-align: center;
+font-size: 0.9rem;
+margin-top: 1rem;
+padding: 0.75rem;
+background: rgba(255, 71, 87, 0.1);
+border: 1px solid rgba(255, 71, 87, 0.3);
+border-radius: 10px;
+display: none;
 }
 
 .error-message.show {
-  display: block;
-  animation: slideIn 0.3s ease;
+display: block;
+animation: slideIn 0.3s ease;
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+from {
+opacity: 0;
+transform: translateY(-10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
 }
 
 /* Success Message */
 .success-message {
-  color: #2ed573;
-  text-align: center;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background: rgba(46, 213, 115, 0.1);
-  border: 1px solid rgba(46, 213, 115, 0.3);
-  border-radius: 10px;
-  display: none;
+color: #2ed573;
+text-align: center;
+font-size: 0.9rem;
+margin-top: 1rem;
+padding: 0.75rem;
+background: rgba(46, 213, 115, 0.1);
+border: 1px solid rgba(46, 213, 115, 0.3);
+border-radius: 10px;
+display: none;
 }
 
 .success-message.show {
-  display: block;
-  animation: slideIn 0.3s ease;
+display: block;
+animation: slideIn 0.3s ease;
 }
 
 /* Panic Button */
 .panic-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #ff4757;
-  border: none;
-  color: white;
-  padding: 1rem 1.5rem;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
-  transition: all 0.3s ease;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  animation: pulseGlow 3s infinite;
+position: fixed;
+bottom: 20px;
+right: 20px;
+background: #ff4757;
+border: none;
+color: white;
+padding: 1rem 1.5rem;
+border-radius: 50px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
+transition: all 0.3s ease;
+z-index: 1000;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+animation: pulseGlow 3s infinite;
 }
 
 .panic-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 25px rgba(255, 71, 87, 0.6);
+transform: scale(1.05);
+box-shadow: 0 6px 25px rgba(255, 71, 87, 0.6);
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
-  }
-  50% {
-    box-shadow: 0 6px 30px rgba(255, 71, 87, 0.8);
-  }
+0%, 100% {
+box-shadow: 0 4px 20px rgba(255, 71, 87, 0.4);
+}
+50% {
+box-shadow: 0 6px 30px rgba(255, 71, 87, 0.8);
+}
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .login-container {
-    padding: 2rem;
-    margin: 1rem;
-  }
-  
-  .login-title {
-    font-size: 2rem;
-  }
-  
-  .back-link {
-    position: static;
-    margin-bottom: 1rem;
-    align-self: flex-start;
-  }
-  
-  .panic-btn {
-    bottom: 15px;
-    right: 15px;
-    padding: 0.875rem 1.25rem;
-  }
-  
-  .panic-text {
-    display: none;
-  }
+.login-container {
+padding: 2rem;
+margin: 1rem;
+}
+
+.login-title {
+font-size: 2rem;
+}
+
+.back-link {
+position: static;
+margin-bottom: 1rem;
+align-self: flex-start;
+}
+
+.panic-btn {
+bottom: 15px;
+right: 15px;
+padding: 0.875rem 1.25rem;
+}
+
+.panic-text {
+display: none;
+}
 }
 
 @media (max-width: 480px) {
-  .login-container {
-    padding: 1.5rem;
-  }
-  
-  .login-title {
-    font-size: 1.8rem;
-  }
-  
-  .submit-btn {
-    font-size: 1rem;
-  }
+.login-container {
+padding: 1.5rem;
+}
+
+.login-title {
+font-size: 1.8rem;
+}
+
+.submit-btn {
+font-size: 1rem;
+}
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+
+- {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
   }
-  
-  .stars, .stars2, .stars3 {
-    animation: none;
-  }
+
+.stars, .stars2, .stars3 {
+animation: none;
+}
 }
 
 /* Focus styles for keyboard navigation */
 .submit-btn:focus,
 .back-link:focus,
 .panic-btn:focus {
-  outline: 2px solid #64ffda;
-  outline-offset: 2px;
+outline: 2px solid #64ffda;
+outline-offset: 2px;
 }
 
 input:focus {
-  outline: 2px solid #64ffda;
-  outline-offset: 2px;
+outline: 2px solid #64ffda;
+outline-offset: 2px;
 }
-  </style>
+</style>
+
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Supabase Client -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.39.0/supabase.min.js"></script>
 </head>
 <body>
   <!-- Animated Space Background -->
@@ -441,50 +446,78 @@ input:focus {
   </div>
 
   <!-- Login Container -->
+
   <div class="login-container">
     <a href="index.html" class="back-link">
       <span>←</span>
       <span>Back to Home</span>
     </a>
-    
-    <div class="login-header">
-      <h1 class="login-title">Welcome Back</h1>
-      <p class="login-subtitle">Enter your safe space</p>
-    </div>
 
-    <form class="login-form" id="loginForm">
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="your.email@example.com" required autocomplete="username">
-      </div>
-      
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
-      </div>
-      
-      <button type="submit" class="submit-btn" id="submitBtn">
-        <span class="spinner" id="spinner"></span>
-        <span id="btnText">🔐 Sign In</span>
-      </button>
-    </form>
+```
+<div class="login-header">
+  <h1 class="login-title">Welcome Back</h1>
+  <p class="login-subtitle">Enter your safe space</p>
+</div>
 
-    <div class="form-links">
-      <p>Don't have an account? <a href="register.html">Create one here</a></p>
-      <p><a href="#" onclick="alert('Password reset functionality would be implemented here.')">Forgot your password?</a></p>
-    </div>
+<form class="login-form" id="loginForm">
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="your.email@example.com" required autocomplete="username">
+  </div>
+  
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" required autocomplete="current-password">
+  </div>
+  
+  <button type="submit" class="submit-btn" id="submitBtn">
+    <span class="spinner" id="spinner"></span>
+    <span id="btnText">🔐 Sign In</span>
+  </button>
+</form>
 
-    <div class="error-message" id="errorMessage"></div>
-    <div class="success-message" id="successMessage"></div>
+<div class="form-links">
+  <p>Don't have an account? <a href="register.html">Create one here</a></p>
+  <p><a href="#" id="forgotPasswordLink">Forgot your password?</a></p>
+</div>
+
+<div class="error-message" id="errorMessage"></div>
+<div class="success-message" id="successMessage"></div>
+```
+
   </div>
 
   <!-- Panic Button -->
+
   <button class="panic-btn" onclick="alert('Crisis resources would be available here. In a real app, this would open crisis support resources.')">
     <span>🚨</span>
     <span class="panic-text">I Need Help</span>
   </button>
 
   <script>
+    // Initialize Supabase
+    const supabaseUrl = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+
+    // Check if user is already logged in
+    checkAuthState();
+
+    async function checkAuthState() {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        // User is already logged in, redirect to profile
+        const successMessage = document.getElementById('successMessage');
+        successMessage.textContent = 'You are already logged in. Redirecting...';
+        successMessage.classList.add('show');
+        
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1000);
+      }
+    }
+
     // Login form handling
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -508,32 +541,40 @@ input:focus {
       btnText.textContent = 'Signing In...';
       
       try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // In a real app, you would make an actual API call here
-        // For demo purposes, we'll accept any email/password combination
-        if (email && password) {
-          // Store user session (in a real app, this would be handled by your auth system)
-          localStorage.setItem('userLoggedIn', 'true');
-          localStorage.setItem('userEmail', email);
-          
-          // Show success message
-          successMessage.textContent = 'Login successful! Redirecting...';
-          successMessage.classList.add('show');
-          
-          // Redirect to profile after a short delay
-          setTimeout(() => {
-            window.location.href = 'profile.html';
-          }, 1000);
-          
-        } else {
-          throw new Error('Please fill in all fields');
+        // Sign in with Supabase
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+        if (error) {
+          throw error;
         }
+
+        // Login successful
+        successMessage.textContent = 'Login successful! Redirecting...';
+        successMessage.classList.add('show');
+        
+        // Redirect to profile after a short delay
+        setTimeout(() => {
+          window.location.href = 'profile.html';
+        }, 1000);
         
       } catch (error) {
-        // Show error message
-        errorMessage.textContent = error.message || 'An error occurred during login. Please try again.';
+        console.error('Login error:', error);
+        
+        // Show user-friendly error message
+        let errorText = 'An error occurred during login. Please try again.';
+        
+        if (error.message.includes('Invalid login credentials')) {
+          errorText = 'Invalid email or password. Please check your credentials and try again.';
+        } else if (error.message.includes('Email not confirmed')) {
+          errorText = 'Please check your email and confirm your account before signing in.';
+        } else if (error.message.includes('Too many requests')) {
+          errorText = 'Too many login attempts. Please wait a moment and try again.';
+        }
+        
+        errorMessage.textContent = errorText;
         errorMessage.classList.add('show');
         
         // Reset button state
@@ -543,17 +584,52 @@ input:focus {
       }
     });
 
-    // Check if user is already logged in
-    if (localStorage.getItem('userLoggedIn') === 'true') {
-      // Show message and redirect
-      const successMessage = document.getElementById('successMessage');
-      successMessage.textContent = 'You are already logged in. Redirecting...';
-      successMessage.classList.add('show');
+    // Forgot password handling
+    document.getElementById('forgotPasswordLink').addEventListener('click', async function(e) {
+      e.preventDefault();
       
-      setTimeout(() => {
-        window.location.href = 'profile.html';
-      }, 1000);
-    }
+      const email = document.getElementById('email').value;
+      const errorMessage = document.getElementById('errorMessage');
+      const successMessage = document.getElementById('successMessage');
+      
+      // Clear previous messages
+      errorMessage.classList.remove('show');
+      successMessage.classList.remove('show');
+      
+      if (!email) {
+        errorMessage.textContent = 'Please enter your email address first.';
+        errorMessage.classList.add('show');
+        return;
+      }
+      
+      try {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.origin + '/reset-password.html'
+        });
+        
+        if (error) {
+          throw error;
+        }
+        
+        successMessage.textContent = 'Password reset email sent! Check your inbox.';
+        successMessage.classList.add('show');
+        
+      } catch (error) {
+        console.error('Password reset error:', error);
+        errorMessage.textContent = 'Error sending password reset email. Please try again.';
+        errorMessage.classList.add('show');
+      }
+    });
+
+    // Listen for auth state changes
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN') {
+        console.log('User signed in:', session.user);
+      } else if (event === 'SIGNED_OUT') {
+        console.log('User signed out');
+      }
+    });
   </script>
+
 </body>
 </html>
