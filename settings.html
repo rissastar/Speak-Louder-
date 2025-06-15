@@ -2,201 +2,855 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Profile | Speak Louder, Love Harder</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>Settings | Healing Space</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
+    /* Base styles from profile page */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(to bottom, #0a001a, #1a002c, #000);
-      color: #fff;
-      margin: 0;
-      padding: 2rem;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      color: #ffffff;
+      overflow-x: hidden;
     }
 
-    .settings-container {
-      max-width: 700px;
-      margin: auto;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 1.5rem;
-      box-shadow: 0 0 20px #8a2be2;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2rem;
-      color: #ff79c6;
-    }
-
-    label {
-      display: block;
-      margin: 1rem 0 0.5rem;
-      font-weight: bold;
-    }
-
-    input, textarea {
+    /* Animated Space Background */
+    .stars-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 0.8rem;
-      border-radius: 10px;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .stars, .stars2, .stars3 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+
+    .stars {
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: zoom 20s infinite linear;
+    }
+
+    .stars2 {
+      background-image: 
+        radial-gradient(1px 1px at 10px 10px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 40px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.9), transparent);
+      background-repeat: repeat;
+      background-size: 300px 200px;
+      animation: zoom 25s infinite linear;
+    }
+
+    .stars3 {
+      background-image: 
+        radial-gradient(1px 1px at 20px 20px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 60px 60px, #fff, transparent),
+        radial-gradient(2px 2px at 100px 30px, rgba(255,255,255,0.6), transparent);
+      background-repeat: repeat;
+      background-size: 400px 300px;
+      animation: zoom 30s infinite linear;
+    }
+
+    @keyframes zoom {
+      from { transform: scale(0) rotate(0deg); }
+      to { transform: scale(1) rotate(360deg); }
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    /* Settings Page Specific Styles */
+    .settings-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .settings-header {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+
+    .settings-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #64ffda;
+      margin-bottom: 0.5rem;
+    }
+
+    .settings-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.1rem;
+    }
+
+    .settings-nav {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow-x: auto;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: transparent;
       border: none;
+      border-radius: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-btn.active {
+      background: rgba(100, 255, 218, 0.2);
+      color: #64ffda;
+    }
+
+    .nav-btn:hover {
       background: rgba(255, 255, 255, 0.1);
-      color: #fff;
+      color: #ffffff;
+    }
+
+    .settings-content {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .settings-section {
+      display: none;
+      padding: 2rem;
+    }
+
+    .settings-section.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #64ffda;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: #64ffda;
+      box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.2);
+    }
+
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+      transition: 0.4s;
+      border-radius: 24px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .toggle-slider {
+      background-color: #64ffda;
+    }
+
+    input:checked + .toggle-slider:before {
+      transform: translateX(26px);
+    }
+
+    .preference-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .preference-info {
+      flex: 1;
+    }
+
+    .preference-title {
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+
+    .preference-desc {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: #64ffda;
+      color: #0a0a0a;
+    }
+
+    .btn-primary:hover {
+      background: #45b7d1;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-danger {
+      background: rgba(255, 99, 99, 0.2);
+      color: #ff6b6b;
+      border: 1px solid rgba(255, 99, 99, 0.3);
+    }
+
+    .btn-danger:hover {
+      background: rgba(255, 99, 99, 0.3);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: flex-end;
+    }
+
+    .profile-picture-upload {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .profile-preview {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid #64ffda;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: rgba(100, 255, 218, 0.1);
+      color: #64ffda;
+    }
+
+    .upload-info {
+      flex: 1;
+    }
+
+    .upload-title {
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 0.25rem;
+    }
+
+    .upload-desc {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0.5rem;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .upload-btn {
+      background: rgba(100, 255, 218, 0.2);
+      border: 1px solid #64ffda;
+      color: #64ffda;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background: rgba(100, 255, 218, 0.3);
+    }
+
+    .danger-zone {
+      background: rgba(255, 99, 99, 0.1);
+      border: 1px solid rgba(255, 99, 99, 0.3);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .danger-title {
+      color: #ff6b6b;
+      font-weight: 600;
       margin-bottom: 1rem;
     }
 
-    button {
-      background: #8a2be2;
-      color: #fff;
-      padding: 1rem 2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: background 0.3s;
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      color: #ffffff;
+      font-weight: 500;
+      z-index: 1000;
+      transform: translateX(100%);
+      transition: all 0.3s ease;
     }
 
-    button:hover {
-      background: #a450f1;
+    .notification.show {
+      transform: translateX(0);
     }
 
-    .status {
-      margin-top: 1rem;
-      font-size: 1rem;
-      text-align: center;
+    .notification.success {
+      background: rgba(76, 217, 100, 0.9);
     }
 
-    .back-link {
-      display: block;
-      text-align: center;
-      margin-top: 2rem;
-      text-decoration: none;
-      color: #aaa;
+    .notification.error {
+      background: rgba(255, 99, 99, 0.9);
     }
 
-    .back-link:hover {
-      color: #fff;
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .settings-container {
+        margin: 0 0.5rem;
+      }
+      
+      .settings-header {
+        padding: 1.5rem;
+      }
+      
+      .settings-title {
+        font-size: 2rem;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .form-actions {
+        flex-direction: column;
+      }
+      
+      .profile-picture-upload {
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="settings-container">
-    <h1>🛠️ Edit Your Profile</h1>
-
-    <form id="profileForm">
-      <label for="display_name">Display Name</label>
-      <input type="text" id="display_name" placeholder="Your name..." />
-
-      <label for="username">Username</label>
-      <input type="text" id="username" placeholder="yourhandle" />
-
-      <label for="pronouns">Pronouns</label>
-      <input type="text" id="pronouns" placeholder="she/her, he/him, they/them..." />
-
-      <label for="location">Location</label>
-      <input type="text" id="location" placeholder="City, Country..." />
-
-      <label for="status">Status Emoji or Phrase</label>
-      <input type="text" id="status" placeholder="💫 Holding On" />
-
-      <label for="avatar_url">Avatar Image URL</label>
-      <input type="text" id="avatar_url" placeholder="https://..." />
-
-      <label for="journey">My Healing Journey</label>
-      <textarea id="journey" rows="4" placeholder="Tell your healing story..."></textarea>
-
-      <label for="expression">Wall of Expression</label>
-      <textarea id="expression" rows="3" placeholder="Express your thoughts or journal entry..."></textarea>
-
-      <label for="circles">My Circles</label>
-      <textarea id="circles" rows="2" placeholder="List your support groups, friends, etc."></textarea>
-
-      <label for="hugs_received">Hugs Received</label>
-      <input type="number" id="hugs_received" min="0" />
-
-      <label for="kind_words_given">Kind Words Given</label>
-      <input type="number" id="kind_words_given" min="0" />
-
-      <label for="healing_days_logged">Healing Days Logged</label>
-      <input type="number" id="healing_days_logged" min="0" />
-
-      <button type="submit">💾 Save Changes</button>
-    </form>
-
-    <div class="status" id="statusMessage"></div>
-    <a class="back-link" href="profile.html">← Back to Profile</a>
+  <!-- Animated Space Background -->
+  <div class="stars-bg">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
   </div>
 
+  <main>
+    <div class="settings-container">
+      <!-- Settings Header -->
+      <div class="settings-header">
+        <h1 class="settings-title">⚙️ Settings</h1>
+        <p class="settings-subtitle">Customize your Healing Space experience</p>
+      </div>
+
+      <!-- Settings Navigation -->
+      <div class="settings-nav">
+        <button class="nav-btn active" data-section="profile">
+          <span>👤</span>
+          <span>Profile</span>
+        </button>
+        <button class="nav-btn" data-section="privacy">
+          <span>🔒</span>
+          <span>Privacy</span>
+        </button>
+        <button class="nav-btn" data-section="notifications">
+          <span>🔔</span>
+          <span>Notifications</span>
+        </button>
+        <button class="nav-btn" data-section="preferences">
+          <span>🎨</span>
+          <span>Preferences</span>
+        </button>
+        <button class="nav-btn" data-section="account">
+          <span>⚡</span>
+          <span>Account</span>
+        </button>
+      </div>
+
+      <!-- Settings Content -->
+      <div class="settings-content">
+        <!-- Profile Settings -->
+        <div class="settings-section active" id="profile">
+          <h2 class="section-title">
+            <span>👤</span>
+            <span>Profile Information</span>
+          </h2>
+
+          <div class="profile-picture-upload">
+            <div class="profile-preview" id="profilePreview">👤</div>
+            <div class="upload-info">
+              <div class="upload-title">Profile Picture</div>
+              <div class="upload-desc">Upload a photo to personalize your profile</div>
+              <input type="file" id="profilePicture" class="file-input" accept="image/*">
+              <label for="profilePicture" class="upload-btn">Choose File</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Display Name</label>
+            <input type="text" id="displayName" class="form-input" placeholder="Enter your display name">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" id="username" class="form-input" placeholder="@yourusername">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Pronouns</label>
+              <select id="pronouns" class="form-select">
+                <option value="">Select pronouns</option>
+                <option value="she/her">she/her</option>
+                <option value="he/him">he/him</option>
+                <option value="they/them">they/them</option>
+                <option value="she/they">she/they</option>
+                <option value="he/they">he/they</option>
+                <option value="custom">Custom</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" id="location" class="form-input" placeholder="City, State">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Bio</label>
+            <textarea id="bio" class="form-textarea" placeholder="Tell us about your healing journey..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Current Status</label>
+            <select id="status" class="form-select">
+              <option value="healing">🌈 Healing Today</option>
+              <option value="thriving">🌟 Thriving</option>
+              <option value="struggling">💙 Taking it slow</option>
+              <option value="recovering">🌱 Growing</option>
+              <option value="supporting">🤝 Here to help</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="resetProfile()">Reset</button>
+            <button type="button" class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+          </div>
+        </div>
+
+        <!-- Privacy Settings -->
+        <div class="settings-section" id="privacy">
+          <h2 class="section-title">
+            <span>🔒</span>
+            <span>Privacy & Safety</span>
+          </h2>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Profile Visibility</div>
+              <div class="preference-desc">Allow others to view your profile</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="profileVisibility" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Show Online Status</div>
+              <div class="preference-desc">Let others see when you're online</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="onlineStatus" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Allow Direct Messages</div>
+              <div class="preference-desc">Receive messages from other users</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="allowDMs" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Show Healing Journey</div>
+              <div class="preference-desc">Display your timeline publicly</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="showJourney" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Who can see your posts?</label>
+            <select id="postVisibility" class="form-select">
+              <option value="public">Everyone</option>
+              <option value="friends">Friends only</option>
+              <option value="circles">My circles only</option>
+              <option value="private">Only me</option>
+            </select>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="savePrivacy()">Save Privacy Settings</button>
+          </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="settings-section" id="notifications">
+          <h2 class="section-title">
+            <span>🔔</span>
+            <span>Notifications</span>
+          </h2>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Push Notifications</div>
+              <div class="preference-desc">Receive notifications on your device</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="pushNotifications" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Email Notifications</div>
+              <div class="preference-desc">Receive updates via email</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="emailNotifications" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">New Messages</div>
+              <div class="preference-desc">Notify when you receive messages</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="messageNotifications" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Support Responses</div>
+              <div class="preference-desc">Notify when someone responds to your posts</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="supportNotifications" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Daily Check-ins</div>
+              <div class="preference-desc">Remind me to check in daily</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="dailyCheckins">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quiet Hours</label>
+            <div class="form-row">
+              <input type="time" id="quietStart" class="form-input" value="22:00">
+              <input type="time" id="quietEnd" class="form-input" value="08:00">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="saveNotifications()">Save Notification Settings</button>
+          </div>
+        </div>
+
+        <!-- Preferences -->
+        <div class="settings-section" id="preferences">
+          <h2 class="section-title">
+            <span>🎨</span>
+            <span>Display Preferences</span>
+          </h2>
+
+          <div class="form-group">
+            <label class="form-label">Theme</label>
+            <select id="theme" class="form-select">
+              <option value="dark">🌙 Dark Mode</option>
+              <option value="light">☀️ Light Mode</option>
+              <option value="auto">🔄 Auto (System)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Language</label>
+            <select id="language" class="form-select">
+              <option value="en">🇺🇸 English</option>
+              <option value="es">🇪🇸 Español</option>
+              <option value="fr">🇫🇷 Français</option>
+              <option value="de">🇩🇪 Deutsch</option>
+            </select>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Animations</div>
+              <div class="preference-desc">Enable smooth animations and transitions</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="animations" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Sound Effects</div>
+              <div class="preference-desc">Play sounds for interactions</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="soundEffects">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="preference-item">
+            <div class="preference-info">
+              <div class="preference-title">Reduce Motion</div>
+              <div class="preference-desc">Minimize animations for accessibility</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="reduceMotion">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary" onclick="savePreferences()">Save Preferences</button>
+          </div>
+        </div>
+
+        <!-- Account Settings -->
+        <div class="settings-section" id="account">
+          <h2 class="section-title">
+            <span>⚡</span>
+            <span>Account Management</span>
+          </h2>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="your.email@example.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Change Password</label>
+            <input type="password" id="currentPassword" class="form-input" placeholder="Current password" style="margin-bottom: 0.5rem;">
+            <input type="password" id="newPassword" class="form-input" placeholder="New password" style="margin-bottom: 0.5rem;">
+            <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm new password">
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="changePassword()">Change Password</button>
+          </div>
+
+          <div class="danger-zone">
+            <h3 class="danger-title">⚠️ Danger Zone</h3>
+            <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
+              These actions are permanent and cannot be undone.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-danger" onclick="exportData()">📁 Export My Data</button>
+              <button type="button" class="btn btn-danger" onclick="deleteAccount()">🗑️ Delete Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="notification" class="notification"></div>
+
   <script>
+    // Supabase Configuration
     const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NzI1MzgsImV4cCI6MjEwMTI0ODUzOH0.rW3MEURJSNynJ8hx7Aw28_6SGCkMznoZa5Zslx6NxMw';
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    async function loadProfileForm() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        window.location.href = 'login.html';
-        return;
-      }
+    // Current user data
+    let currentUser = null;
+    let userSettings = {};
 
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', user.id)
-        .single();
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', async function() {
+      await initializeUser();
+      loadUserSettings();
+      setupEventListeners();
+    });
 
-      if (error || !data) return;
-
-      for (let key in data) {
-        if (document.getElementById(key)) {
-          document.getElementById(key).value = data[key];
+    // Initialize user session
+    async function initializeUser() {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        currentUser = user;
+        
+        if (!currentUser) {
+          // For demo purposes, create a mock user
+          currentUser = {
+            id: 'demo-user-' + Date.now(),
+            email: 'sarah@example.com'
+          };
         }
-      }
-    }
-
-    async function updateProfile(e) {
-      e.preventDefault();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
-
-      const profileData = {
-        id: user.id,
-        display_name: document.getElementById('display_name').value,
-        username: document.getElementById('username').value,
-        pronouns: document.getElementById('pronouns').value,
-        location: document.getElementById('location').value,
-        status: document.getElementById('status').value,
-        avatar_url: document.getElementById('avatar_url').value,
-        journey: document.getElementById('journey').value,
-        expression: document.getElementById('expression').value,
-        circles: document.getElementById('circles').value,
-        hugs_received: parseInt(document.getElementById('hugs_received').value) || 0,
-        kind_words_given: parseInt(document.getElementById('kind_words_given').value) || 0,
-        healing_days_logged: parseInt(document.getElementById('healing_days_logged').value) || 0
-      };
-
-      const { error } = await supabase
-        .from('profiles')
-        .upsert(profileData, { onConflict: ['id'] });
-
-      const statusMsg = document.getElementById('statusMessage');
-      if (error) {
-        statusMsg.textContent = '⚠️ Error saving profile.';
-        statusMsg.style.color = 'red';
-      } else {
-        statusMsg.textContent = '✅ Profile updated!';
-        statusMsg.style.color = 'lightgreen';
-      }
-    }
-
-    document.getElementById('profileForm').addEventListener('submit', updateProfile);
-    document.addEventListener('DOMContentLoaded', loadProfileForm);
-  </script>
-
-</body>
-</html>
