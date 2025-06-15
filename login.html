@@ -494,27 +494,36 @@ outline-offset: 2px;
     <span class="panic-text">I Need Help</span>
   </button>
 
-  <script>
-    // Initialize Supabase
-    const supabaseUrl = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
+ <script>
+  const supabaseUrl = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // (keep as-is)
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    // Check if user is already logged in
-    checkAuthState();
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('login-form');
+    const message = document.getElementById('login-message');
 
-    async function checkAuthState() {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (user) {
-        // User is already logged in, redirect to profile
-        const successMessage = document.getElementById('successMessage');
-        successMessage.textContent = 'You are already logged in. Redirecting...';
-        successMessage.classList.add('show');
-        
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        message.textContent = '❌ ' + error.message;
+      } else {
+        message.textContent = '✅ Login successful! Redirecting...';
+
+        // ✅ Redirect to profile.html after login
         setTimeout(() => {
           window.location.href = 'profile.html';
         }, 1000);
+      }
+    });
+  });
+</script>
       }
     }
 
