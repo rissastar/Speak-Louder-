@@ -3,510 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-  <title>Healing Space | Speak Louder, Love Harder</title>
+  <title>Speak Louder, Love Harder</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="manifest" href="manifest.json" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <!-- Animated Galaxy Background -->
-  <div class="galaxy-bg">
-    <!-- Example: multiple layers of nebulae, stars, subtle animations -->
-    <canvas id="galaxyCanvas"></canvas>
-  </div>
+
+  <!-- Galaxy background -->
+  <canvas id="galaxyCanvas"></canvas>
 
   <main id="main-content">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1 class="hero-title">
-          Welcome to Your Healing Sanctuary.<br />
-          <span class="highlight">Together, We Grow Stronger.</span>
-        </h1>
-        <p class="hero-subtitle">
-          Explore tools, stories, and remembrance designed to nurture your soul.
-        </p>
-        <button
-          id="cta-btn"
-          class="cta-button"
-          onclick="document.getElementById('auth-modal').style.display='flex'"
-          aria-label="Join the Healing - open login and register"
-        >
-          <span class="btn-icon">🌟</span>
-          <span>Join the Healing</span>
-        </button>
-      </div>
+    <h1 class="hero-title">Welcome to Your Healing Sanctuary<br><span class="highlight">Together, We Grow Stronger.</span></h1>
+    <p class="hero-sub">Explore tools, stories, and remembrance designed to nurture your soul.</p>
+    <button id="cta-btn" class="cta-button">🌟 Join the Healing</button>
+
+    <div class="quote-rotator" aria-label="Inspirational quotes">
+      <p id="quote-text" class="quote-text"></p>
+      <p id="quote-author" class="quote-author"></p>
+      <div id="quote-dots" class="quote-dots"></div>
+    </div>
+
+    <section class="info-section">
+      <h2>About Us</h2>
+      <p>“Speak Louder, Love Harder” is a trauma-informed digital sanctuary created to support your healing journey through community, compassion, and creative expression. It's a safe, gentle space for everyone—especially survivors, grievers, and seekers of peace.</p>
+
+      <h2>FAQ</h2>
+      <p><strong>Who is this for?</strong> Anyone seeking healing, growth, or emotional connection in a safe, trauma-aware environment.</p>
+      <p><strong>What can I do here?</strong> Explore healing tools, engage with the community feed, and reflect in memorial spaces.</p>
+      <p><strong>How do I join?</strong> Click “Join the Healing” to open your login/register options.</p>
+      <p><strong>Is my data safe?</strong> Absolutely. We use secure protocols and honor your privacy and visibility preferences.</p>
     </section>
 
-    <!-- About Us & FAQ full content below header -->
-    <section class="info-sections">
-      <article id="about-us" class="info-article">
-        <h2>About Us</h2>
-        <p>
-          Speak Louder, Love Harder is a trauma-informed digital sanctuary created to support your healing journey.
-          Here, you’ll find a compassionate community, emotional tools, and resources designed to empower and nurture.
-          Our mission is to provide a safe space where honesty leads to growth and connection.
-        </p>
-      </article>
-
-      <article id="faq" class="info-article">
-        <h2>Frequently Asked Questions (FAQ)</h2>
-        <p>
-          <strong>What is Speak Louder, Love Harder?</strong><br />
-          It's a wellness platform focused on healing from trauma, addiction, grief, and more, providing resources,
-          support, and community connections.<br /><br />
-
-          <strong>How do I join?</strong><br />
-          Simply click "Join the Healing" above to register or log in.<br /><br />
-
-          <strong>Is my information safe?</strong><br />
-          Yes. We prioritize privacy and use secure technologies to protect your data.<br /><br />
-
-          <strong>Can I use the platform anonymously?</strong><br />
-          You can control your visibility settings and participate safely.<br /><br />
-
-          <strong>Who can I contact for support?</strong><br />
-          Use the Panic Button for emergency resources or reach out via the Contact page.<br /><br />
-
-          <strong>Where can I find additional help?</strong><br />
-          Explore our support topics or join the community feed to connect with others.
-        </p>
-      </article>
-    </section>
-
-    <!-- Quote Rotator -->
-    <section class="quotes" aria-label="Inspirational quotes">
-      <div class="quote-container">
-        <blockquote id="quote-text" class="quote-text" aria-live="polite" aria-atomic="true"></blockquote>
-        <div class="quote-dots" role="tablist" aria-label="Quote navigation dots">
-          <!-- Dots generated dynamically by script -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Topic Grid -->
-    <section class="topic-grid" aria-label="Explore our sanctuary topics">
-      <div class="container">
-        <h2 class="section-title">Explore Our Sanctuary</h2>
-        <div class="grid-links">
-          <!-- Only buttons for login & register; others relevant support/tools -->
-          <button
-            class="grid-item auth-item"
-            onclick="document.getElementById('auth-modal').style.display='flex'"
-            aria-label="Login or Register"
-          >
-            <span class="item-icon">🔐</span>
-            <span class="item-title">Login / Register</span>
-            <span class="item-desc">Access or join your healing community</span>
-          </button>
-
-          <a href="feed.html" class="grid-item community-item" aria-label="Community Feed - Connect with others">
-            <span class="item-icon">🧡</span>
-            <span class="item-title">Community Feed</span>
-            <span class="item-desc">Connect with others</span>
-          </a>
-
-          <a href="mental-health.html" class="grid-item support-item" aria-label="Mental Health Support">
-            <span class="item-icon">🧠</span>
-            <span class="item-title">Mental Health</span>
-            <span class="item-desc">Find your strength</span>
-          </a>
-
-          <a href="addiction.html" class="grid-item support-item" aria-label="Addiction Support">
-            <span class="item-icon">💊</span>
-            <span class="item-title">Addiction Support</span>
-            <span class="item-desc">Recovery resources</span>
-          </a>
-
-          <a href="abuse.html" class="grid-item support-item" aria-label="Abuse Support">
-            <span class="item-icon">🚫</span>
-            <span class="item-title">Abuse Support</span>
-            <span class="item-desc">You are not alone</span>
-          </a>
-
-          <a href="terminal-illness.html" class="grid-item support-item" aria-label="Terminal Illness Support">
-            <span class="item-icon">🏥</span>
-            <span class="item-title">Terminal Illness</span>
-            <span class="item-desc">Comfort and care</span>
-          </a>
-
-          <a href="foster-children.html" class="grid-item support-item" aria-label="Foster Care Support">
-            <span class="item-icon">👶</span>
-            <span class="item-title">Foster Care</span>
-            <span class="item-desc">Building new families</span>
-          </a>
-
-          <a href="grief.html" class="grid-item support-item" aria-label="Grief & Loss Support">
-            <span class="item-icon">🕊️</span>
-            <span class="item-title">Grief & Loss</span>
-            <span class="item-desc">Honoring memories</span>
-          </a>
-
-          <a href="childhood-trauma.html" class="grid-item support-item" aria-label="Childhood Trauma Support">
-            <span class="item-icon">🧸</span>
-            <span class="item-title">Childhood Trauma</span>
-            <span class="item-desc">Healing your inner child</span>
-          </a>
-
-          <a href="lgbtq-community.html" class="grid-item support-item" aria-label="LGBTQ+ Safe Space">
-            <span class="item-icon">🏳️‍🌈</span>
-            <span class="item-title">LGBTQ+ Safe Space</span>
-            <span class="item-desc">Love is love</span>
-          </a>
-
-          <a href="worksheets.html" class="grid-item tools-item" aria-label="Worksheets for self-reflection">
-            <span class="item-icon">📄</span>
-            <span class="item-title">Worksheets</span>
-            <span class="item-desc">Self-reflection tools</span>
-          </a>
-
-          <a href="grounding-techniques.html" class="grid-item tools-item" aria-label="Grounding tools">
-            <span class="item-icon">🌍</span>
-            <span class="item-title">Grounding Tools</span>
-            <span class="item-desc">Find your center</span>
-          </a>
-
-          <a href="memorial-wall.html" class="grid-item memorial-item" aria-label="Memorial Wall">
-            <span class="item-icon">🕯️</span>
-            <span class="item-title">Memorial Wall</span>
-            <span class="item-desc">Remember with love</span>
-          </a>
-
-          <!-- Suggestions -->
-          <a href="hope-jar.html" class="grid-item suggestions-item" aria-label="Hope Jar">
-            <span class="item-icon">🌟</span>
-            <span class="item-title">Hope Jar</span>
-            <span class="item-desc">Add your hopeful wishes</span>
-          </a>
-
-          <a href="quick-exit.html" class="grid-item suggestions-item" aria-label="Quick Exit Button">
-            <span class="item-icon">🚪</span>
-            <span class="item-title">Quick Exit</span>
-            <span class="item-desc">Leave safely, quickly</span>
-          </a>
-
-          <a href="star-naming.html" class="grid-item suggestions-item" aria-label="Star Naming Dedication Wall">
-            <span class="item-icon">🌌</span>
-            <span class="item-title">Star Dedication</span>
-            <span class="item-desc">Dedicate a star or constellation</span>
-          </a>
-        </div>
+    <section class="grid-section">
+      <div class="grid-links">
+        <button class="grid-item auth-item" onclick="openModal(authModal)">🔐 Login / Register</button>
+        <a href="feed.html" class="grid-item community-item">🧡 Community Feed</a>
+        <a href="mental-health.html" class="grid-item support-item">🧠 Mental Health</a>
+        <a href="addiction.html" class="grid-item support-item">💊 Addiction Support</a>
+        <a href="abuse.html" class="grid-item support-item">🚫 Abuse Support</a>
+        <a href="terminal-illness.html" class="grid-item support-item">🏥 Terminal Illness</a>
+        <a href="foster-children.html" class="grid-item support-item">👶 Foster Care</a>
+        <a href="grief.html" class="grid-item support-item">🕊️ Grief & Loss</a>
+        <a href="childhood-trauma.html" class="grid-item support-item">🧸 Childhood Trauma</a>
+        <a href="lgbtq-community.html" class="grid-item support-item">🏳️‍🌈 LGBTQ+ Safe Space</a>
+        <a href="worksheets.html" class="grid-item tools-item">📄 Worksheets</a>
+        <a href="grounding-techniques.html" class="grid-item tools-item">🌍 Grounding Tools</a>
+        <a href="memorial-wall.html" class="grid-item memorial-item">🕯️ Memorial Wall</a>
+        <a href="hope-jar.html" class="grid-item suggestions-item">🌟 Hope Jar</a>
+        <a href="quick-exit.html" class="grid-item suggestions-item">🚪 Quick Exit</a>
+        <a href="star-naming.html" class="grid-item suggestions-item">🌌 Star Dedication</a>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Connect With Us</h4>
-        <div class="social-links">
-          <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener" aria-label="Linktree">
-            <span class="social-icon">🌐</span>
-            <span>Linktree</span>
-          </a>
-          <a href="https://www.facebook.com/share/18zfa62wfi/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook">
-            <span class="social-icon">📘</span>
-            <span>Facebook</span>
-          </a>
-        </div>
-      </div>
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-btn" aria-label="Close">&times;</button>
+      <h2>Welcome</h2>
+      <p>Choose an option to start:</p>
+      <button id="login-btn" class="modal-btn">Login</button>
+      <button id="register-btn" class="modal-btn">Register</button>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Healing Space. All rights reserved. Made with 💜</p>
+  </div>
+
+  <!-- Panic Button + Modal -->
+  <button id="panic-btn" class="panic-btn" aria-label="Panic Button">🆘</button>
+  <div id="panic-modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-btn" aria-label="Close">&times;</button>
+      <h2>Need Immediate Help?</h2>
+      <ul>
+        <li><strong>Canada:</strong> Talk Suicide Canada – 1‑833‑456‑4566</li>
+        <li><strong>USA:</strong> 988 Suicide & Crisis Lifeline – Dial 988</li>
+        <li><strong>UK:</strong> Samaritans – 116 123</li>
+        <li><strong>Worldwide:</strong> <a href="https://findahelpline.com" target="_blank">findahelpline.com</a></li>
+      </ul>
+      <p>Ground yourself: breathe deeply, tune in to your body. You are not alone.</p>
     </div>
+  </div>
+
+  <footer>
+    <div class="social-links">
+      <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
+      <a href="https://www.facebook.com/share/18zfa62wfi/" target="_blank">📘 Facebook</a>
+    </div>
+    <p>&copy; 2025 Healing Space. Made with 💜</p>
   </footer>
 
-  <!-- Panic Button (Sticky) -->
-  <button class="panic-btn" id="panic-btn" aria-label="Emergency help button">
-    <span class="panic-icon">🚨</span>
-    <span class="panic-text">I Need Help</span>
-  </button>
-
-  <!-- Panic Modal -->
-  <div
-    class="modal"
-    id="panic-modal"
-    role="dialog"
-    aria-labelledby="panic-title"
-    aria-hidden="true"
-    aria-modal="true"
-  >
-    <div class="modal-content panic-modal-content">
-      <button class="close-modal" id="close-panic-modal" aria-label="Close emergency help">&times;</button>
-      <h2 id="panic-title" class="modal-title">Take a Breath. You're Not Alone.</h2>
-
-      <div class="modal-section">
-        <h3>Immediate Help</h3>
-        <div class="crisis-resources">
-          <a href="tel:988" class="crisis-btn primary" aria-label="US 988 Suicide and Crisis Lifeline">
-            <span>📞</span>
-            <div>
-              <strong>988 Suicide & Crisis Lifeline (US)</strong>
-              <small>24/7 Crisis Support</small>
-            </div>
-          </a>
-          <a href="tel:1-833-456-4566" class="crisis-btn" aria-label="Canada Suicide Prevention Service">
-            <span>📞</span>
-            <div>
-              <strong>Canada Suicide Prevention Service</strong>
-              <small>24/7 Crisis Support</small>
-            </div>
-          </a>
-          <a href="https://www.crisistextline.org/" target="_blank" rel="noopener" class="crisis-btn" aria-label="Crisis Text Line">
-            <span>💬</span>
-            <div>
-              <strong>Crisis Text Line</strong>
-              <small>Text HOME to 741741</small>
-            </div>
-          </a>
-          <a href="https://www.opencounseling.com/suicide-hotlines" target="_blank" rel="noopener" class="crisis-btn" aria-label="Worldwide Suicide Hotlines Directory">
-            <span>🌍</span>
-            <div>
-              <strong>Worldwide Hotlines</strong>
-              <small>Find help wherever you are</small>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <div class="modal-section">
-        <h3>Grounding Exercise</h3>
-        <div class="grounding-exercise">
-          <p class="grounding-text">Take slow, deep breaths and try the 5-4-3-2-1 technique:</p>
-          <ul class="grounding-list">
-            <li><strong>5</strong> things you can see</li>
-            <li><strong>4</strong> things you can touch</li>
-            <li><strong>3</strong> things you can hear</li>
-            <li><strong>2</strong> things you can smell</li>
-            <li><strong>1</strong> thing you can taste</li>
-          </ul>
-          <div class="breathing-guide">
-            <div class="breathing-circle"></div>
-            <p class="breathing-text">Breathe with the circle</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-section">
-        <h3>Helpful Distractions</h3>
-        <div class="distraction-links">
-          <a href="https://www.youtube.com/results?search_query=calming+music" target="_blank" rel="noopener" class="distraction-btn" aria-label="Calming music on YouTube">
-            <span>🎵</span>
-            <span>Calming Music</span>
-          </a>
-          <button
-            class="distraction-btn"
-            onclick="window.open('grounding-techniques.html', '_blank')"
-            aria-label="Grounding Tools"
-          >
-            <span>🧘</span>
-            <span>Grounding Tools</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Auth Modal -->
-  <div
-    class="modal"
-    id="auth-modal"
-    role="dialog"
-    aria-labelledby="auth-title"
-    aria-hidden="true"
-    aria-modal="true"
-  >
-    <div class="modal-content auth-modal-content">
-      <button class="close-modal" id="close-auth-modal" aria-label="Close authentication">&times;</button>
-      <h2 id="auth-title" class="modal-title">Welcome to Your Safe Space</h2>
-      <!-- Your separate login/register module content can load here -->
-      <p class="auth-instructions">Please login or register to continue your healing journey.</p>
-      <div class="auth-buttons">
-        <button onclick="window.location.href='login.html'" class="auth-btn">Login</button>
-        <button onclick="window.location.href='register.html'" class="auth-btn">Register</button>
-      </div>
-    </div>
-  </div>
-
   <script src="script.js"></script>
-  <script>
-    // Sample quotes for rotator
-    const quotes = [
-      "Healing is not linear, and that's okay.",
-      "You are worthy of love and kindness.",
-      "One step at a time is progress.",
-      "Your story matters.",
-      "It's okay to ask for help.",
-      "You are stronger than you think.",
-      "Self-care is not selfish.",
-      "This too shall pass.",
-      "Be gentle with yourself.",
-      "Hope is a powerful healer.",
-      "You are not alone.",
-      "Every breath is a new beginning.",
-      "Growth comes from facing challenges.",
-      "Embrace your journey.",
-      "Light shines brightest in darkness.",
-      "Love begins with acceptance.",
-      "You have the power to heal.",
-      "Courage is in every small step.",
-      "Peace comes from within.",
-      "Together, we rise."
-    ];
-
-    let currentQuoteIndex = 0;
-
-    const quoteTextEl = document.getElementById("quote-text");
-    const quoteDotsEl = document.querySelector(".quote-dots");
-
-    function createDots() {
-      for (let i = 0; i < quotes.length; i++) {
-        const dot = document.createElement("span");
-        dot.className = "dot";
-        dot.setAttribute("role", "tab");
-        dot.setAttribute("aria-selected", i === 0 ? "true" : "false");
-        dot.setAttribute("tabindex", "0");
-        dot.addEventListener("click", () => showQuote(i));
-        dot.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            showQuote(i);
-          }
-        });
-        quoteDotsEl.appendChild(dot);
-      }
-    }
-
-    function showQuote(index) {
-      currentQuoteIndex = index;
-      quoteTextEl.textContent = quotes[index];
-      Array.from(quoteDotsEl.children).forEach((dot, i) => {
-        dot.classList.toggle("active", i === index);
-        dot.setAttribute("aria-selected", i === index ? "true" : "false");
-      });
-    }
-
-    function rotateQuotes() {
-      currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-      showQuote(currentQuoteIndex);
-    }
-
-    createDots();
-    showQuote(0);
-    setInterval(rotateQuotes, 12000); // Change quote every 12 seconds
-
-    // Panic Button and Modal Handling
-    const panicBtn = document.getElementById("panic-btn");
-    const panicModal = document.getElementById("panic-modal");
-    const closePanicModalBtn = document.getElementById("close-panic-modal");
-
-    panicBtn.addEventListener("click", () => {
-      panicModal.style.display = "flex";
-      panicModal.setAttribute("aria-hidden", "false");
-      closePanicModalBtn.focus();
-    });
-
-    closePanicModalBtn.addEventListener("click", () => {
-      panicModal.style.display = "none";
-      panicModal.setAttribute("aria-hidden", "true");
-      panicBtn.focus();
-    });
-
-    // Auth Modal Handling
-    const authModal = document.getElementById("auth-modal");
-    const closeAuthModalBtn = document.getElementById("close-auth-modal");
-    const ctaBtn = document.getElementById("cta-btn");
-
-    ctaBtn.addEventListener("click", () => {
-      authModal.style.display = "flex";
-      authModal.setAttribute("aria-hidden", "false");
-      closeAuthModalBtn.focus();
-    });
-
-    closeAuthModalBtn.addEventListener("click", () => {
-      authModal.style.display = "none";
-      authModal.setAttribute("aria-hidden", "true");
-      ctaBtn.focus();
-    });
-
-    // Close modals on Escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        if (panicModal.style.display === "flex") {
-          panicModal.style.display = "none";
-          panicModal.setAttribute("aria-hidden", "true");
-          panicBtn.focus();
-        }
-        if (authModal.style.display === "flex") {
-          authModal.style.display = "none";
-          authModal.setAttribute("aria-hidden", "true");
-          ctaBtn.focus();
-        }
-      }
-    });
-
-    // Galaxy Canvas Setup - simple starfield & nebula effect example
-    const canvas = document.getElementById('galaxyCanvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-
-    function createStars(count) {
-      stars = [];
-      for (let i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          radius: Math.random() * 1.5 + 0.3,
-          alpha: Math.random(),
-          alphaChange: (Math.random() * 0.01) + 0.001
-        });
-      }
-    }
-    createStars(300);
-
-    function drawStars() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Background gradient resembling a nebula
-      const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 50, canvas.width / 2, canvas.height / 2, canvas.width);
-      gradient.addColorStop(0, '#0b0f1a');
-      gradient.addColorStop(0.5, '#1e2a47');
-      gradient.addColorStop(1, '#0b0f1a');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw stars with twinkling effect
-      stars.forEach(star => {
-        star.alpha += star.alphaChange;
-        if (star.alpha <= 0 || star.alpha >= 1) star.alphaChange *= -1;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-        ctx.shadowColor = 'white';
-        ctx.shadowBlur = star.radius * 2;
-        ctx.fill();
-      });
-    }
-
-    function animate() {
-      drawStars();
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    // Adjust canvas size on resize
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      createStars(300);
-    });
-  </script>
 </body>
 </html>
