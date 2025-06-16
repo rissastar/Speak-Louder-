@@ -16,7 +16,7 @@
     <div class="stars3"></div>
   </div>
 
-  <main>
+  <main id="main-content">
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
@@ -163,17 +163,51 @@
     </section>
   </main>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Healing Space</h3>
+        <p>A safe sanctuary for healing, growth, and connection.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Connect With Us</h4>
+        <div class="social-links">
+          <a href="https://linktr.ee/rissa.star" target="_blank" rel="noopener">
+            <span class="social-icon">🌐</span>
+            <span>Linktree</span>
+          </a>
+          <a href="https://www.facebook.com/share/18zfa62wfi/?mibextid=wwXIfr" target="_blank" rel="noopener">
+            <span class="social-icon">📘</span>
+            <span>Facebook</span>
+          </a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Healing Space. All rights reserved. Made with 💜</p>
+    </div>
+  </footer>
+
   <!-- Panic Button (Sticky) -->
-  <button class="panic-btn" id="panic-btn">
+  <button class="panic-btn" id="panic-btn" aria-label="Emergency help button">
     <span class="panic-icon">🚨</span>
     <span class="panic-text">I Need Help</span>
   </button>
 
   <!-- Panic Modal -->
-  <div class="modal" id="panic-modal">
+  <div class="modal" id="panic-modal" role="dialog" aria-labelledby="panic-title" aria-hidden="true">
     <div class="modal-content panic-modal-content">
-      <button class="close-modal" id="close-modal">&times;</button>
-      <h2 class="modal-title">Take a Breath. You're Not Alone.</h2>
+      <button class="close-modal" id="close-panic-modal" aria-label="Close emergency help">&times;</button>
+      <h2 id="panic-title" class="modal-title">Take a Breath. You're Not Alone.</h2>
       
       <div class="modal-section">
         <h3>Immediate Help</h3>
@@ -220,10 +254,10 @@
             <span>🎵</span>
             <span>Calming Music</span>
           </a>
-          <a href="https://www.journaling.com/" target="_blank" class="distraction-btn">
-            <span>📝</span>
-            <span>Journaling</span>
-          </a>
+          <button class="distraction-btn" onclick="window.open('grounding-techniques.html', '_blank')">
+            <span>🧘</span>
+            <span>Grounding Tools</span>
+          </button>
           <button class="distraction-btn" onclick="alert('Take a moment to draw or doodle. Express yourself freely.')">
             <span>🎨</span>
             <span>Draw Something</span>
@@ -234,26 +268,26 @@
   </div>
 
   <!-- Auth Modal -->
-  <div class="modal" id="auth-modal">
+  <div class="modal" id="auth-modal" role="dialog" aria-labelledby="auth-title" aria-hidden="true">
     <div class="modal-content auth-modal-content">
-      <button class="close-modal" id="close-auth-modal">&times;</button>
+      <button class="close-modal" id="close-auth-modal" aria-label="Close authentication">&times;</button>
       <h2 id="auth-title" class="modal-title">Welcome to Your Safe Space</h2>
       <form id="auth-form" class="auth-form">
         <div class="form-group">
-          <input type="email" id="auth-email" placeholder="Email" required autocomplete="username">
+          <input type="email" id="auth-email" placeholder="Email" required autocomplete="username" aria-label="Email address">
         </div>
         <div class="form-group">
-          <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password">
+          <input type="password" id="auth-password" placeholder="Password" required autocomplete="current-password" aria-label="Password">
         </div>
         <button type="submit" id="auth-submit-btn" class="auth-btn">Login</button>
       </form>
       <p id="auth-switch" class="auth-switch">Don't have an account? <a href="#" id="switch-to-register">Register here</a></p>
-      <p id="auth-error" class="auth-error"></p>
+      <p id="auth-error" class="auth-error" role="alert"></p>
     </div>
   </div>
 
   <!-- Bottom Navigation Bar -->
-  <nav class="bottom-nav" id="bottom-nav" style="display: none;">
+  <nav class="bottom-nav" id="bottom-nav" style="display: none;" aria-label="Main navigation">
     <!-- Filled dynamically when user is logged in -->
   </nav>
 
