@@ -9,8 +9,8 @@
 </head>
 <body>
 
-  <!-- Galaxy background -->
-  <canvas id="auroraCanvas"></canvas>
+  <!-- Animated star-rainbow background -->
+  <canvas id="galaxyCanvas"></canvas>
 
   <main id="main-content">
     <h1 class="hero-title">Welcome to Your Healing Sanctuary<br><span class="highlight">Together, We Grow Stronger.</span></h1>
@@ -25,18 +25,18 @@
 
     <section class="info-section">
       <h2>About Us</h2>
-      <p>“Speak Louder, Love Harder” is a trauma-informed digital sanctuary created to support your healing journey through community, compassion, and creative expression. It's a safe, gentle space for everyone—especially survivors, grievers, and seekers of peace.</p>
+      <p>“Speak Louder, Love Harder” is a trauma-informed digital sanctuary created to support your healing journey.</p>
 
       <h2>FAQ</h2>
-      <p><strong>Who is this for?</strong> Anyone seeking healing, growth, or emotional connection in a safe, trauma-aware environment.</p>
-      <p><strong>What can I do here?</strong> Explore healing tools, engage with the community feed, and reflect in memorial spaces.</p>
-      <p><strong>How do I join?</strong> Click “Join the Healing” to open your login/register options.</p>
-      <p><strong>Is my data safe?</strong> Absolutely. We use secure protocols and honor your privacy and visibility preferences.</p>
+      <p><strong>Who is this for?</strong> Anyone seeking healing in a safe, trauma-aware environment.</p>
+      <p><strong>What can I do here?</strong> Explore healing tools, community feed, memorial spaces.</p>
+      <p><strong>How do I join?</strong> Click “Join the Healing” to login or register.</p>
+      <p><strong>Is my data safe?</strong> Yes. We use secure protocols and honor your privacy preferences.</p>
     </section>
 
     <section class="grid-section">
       <div class="grid-links">
-        <button class="grid-item auth-item" onclick="openModal(authModal)">🔐 Login / Register</button>
+        <button class="grid-item auth-item" onclick="openModal()">🔐 Login / Register</button>
         <a href="feed.html" class="grid-item community-item">🧡 Community Feed</a>
         <a href="mental-health.html" class="grid-item support-item">🧠 Mental Health</a>
         <a href="addiction.html" class="grid-item support-item">💊 Addiction Support</a>
@@ -56,15 +56,9 @@
     </section>
   </main>
 
-  <!-- Auth Modal -->
+  <!-- Unified Auth Modal -->
   <div id="auth-modal" class="modal" aria-hidden="true">
-    <div class="modal-content">
-      <button class="close-btn" aria-label="Close">&times;</button>
-      <h2>Welcome</h2>
-      <p>Choose an option to start:</p>
-      <button id="login-btn" class="modal-btn">Login</button>
-      <button id="register-btn" class="modal-btn">Register</button>
-    </div>
+    <div class="modal-content"></div>
   </div>
 
   <!-- Panic Button + Modal -->
@@ -83,14 +77,14 @@
     </div>
   </div>
 
-  <footer>
+   <footer>
     <div class="social-links">
       <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
-      <a href="https://www.facebook.com/share/18zfa62wfi/" target="_blank">📘 Facebook</a>
+      <a href="https://facebook.com/" target="_blank">📘 Facebook</a>
     </div>
     <p>&copy; 2025 Healing Space. Made with 💜</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" type="module"></script>
 </body>
 </html>
