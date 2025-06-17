@@ -1,118 +1,82 @@
-// Supabase Config
-const SUPABASE_URL = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // truncated for brevity
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-// Quote Rotator
-const quotes = [
-  { text: "Healing is not linear.", author: "Unknown" },
-  { text: "You are enough, just as you are.", author: "Meghan Markle" },
-  { text: "Stars can't shine without darkness.", author: "D.H. Sidebottom" },
-  { text: "Trauma is a fact of life. Healing is a possibility.", author: "Peter A. Levine" },
-  // ... add up to 20
-];
+const supabaseUrl = 'https://zgjfbbfnldxlvzstnfzy.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpnamZiYmZubGR4bHZ6c3RuZnp5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk2NDczNzIsImV4cCI6MjA2NTIyMzM3Mn0.-Lt8UIAqI5ySoyyTGzRs3JVBhdcZc8zKxiLH6qbu3dU';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-let currentQuote = 0;
-function showQuote(index) {
-  const q = quotes[index];
-  document.getElementById('quote-text').textContent = `"${q.text}"`;
-  document.getElementById('quote-author').textContent = `– ${q.author}`;
-}
-setInterval(() => {
-  currentQuote = (currentQuote + 1) % quotes.length;
-  showQuote(currentQuote);
-}, 6000);
-showQuote(currentQuote);
+// Modal controls
+function openModal(modal) { modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); }
+function closeModal(modal) { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
 
-// Modal Controls
-const authModal = document.getElementById('auth-modal');
-document.getElementById('cta-btn').onclick = () => authModal.style.display = 'flex';
 document.querySelectorAll('.close-btn').forEach(btn => {
-  btn.onclick = () => {
-    btn.closest('.modal').style.display = 'none';
-  };
+  btn.onclick = (e) => closeModal(e.target.closest('.modal'));
 });
 
-// Panic Button
-document.getElementById('panic-btn').onclick = () => {
-  document.getElementById('panic-modal').style.display = 'flex';
-};
+document.getElementById('cta-btn').onclick = () => openModal(document.getElementById('auth-modal'));
+document.getElementById('panic-btn').onclick = () => openModal(document.getElementById('panic-modal'));
 
-// Auth Buttons
+// Auth buttons
 document.getElementById('login-btn').onclick = async () => {
-  const email = prompt("Enter your email:");
-  const password = prompt("Enter your password:");
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) alert("Login failed: " + error.message);
-  else alert("Login successful!");
+  const email = prompt('Enter your email:');
+  const password = prompt('Enter your password:');
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) alert(error.message); else { alert('Logged in!'); closeModal(document.getElementById('auth-modal')); }
 };
 
 document.getElementById('register-btn').onclick = async () => {
-  const email = prompt("Enter your email:");
-  const password = prompt("Enter a password (6+ characters):");
-  const { error } = await supabase.auth.signUp({ email, password });
-  if (error) alert("Registration failed: " + error.message);
-  else alert("Registration email sent! Please confirm your address.");
+  const email = prompt('Enter your email:');
+  const password = prompt('Choose a password:');
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  if (error) alert(error.message);
+  else { alert('Check your email for confirmation!'); closeModal(document.getElementById('auth-modal')); }
 };
 
-// script.js
+// Quote rotator
+const quotes = [
+  { text: 'Healing takes time, but you’re worth every minute.', author: '— Rissa Star' },
+  { text: 'You’re not broken, just healing.', author: '— Anonymous' },
+  { text: 'One step forward is still forward.', author: '— Unknown' },
+];
+let qi = 0;
+const qt = document.getElementById('quote-text');
+const qa = document.getElementById('quote-author');
+const dots = document.getElementById('quote-dots');
 
-// Aurora + Cloud canvas animation
-const canvas = document.getElementById('auroraCanvas');
-const ctx = canvas.getContext('2d');
-
-let w, h;
-function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
+function showQuote(i) {
+  qt.innerText = quotes[i].text;
+  qa.innerText = quotes[i].author;
+  Array.from(dots.children).forEach((d,j) => d.classList.toggle('active', j === i));
 }
-window.addEventListener('resize', resize);
+quotes.forEach((_,i) => {
+  const s = document.createElement('span');
+  s.onclick = () => { qi = i; showQuote(qi); };
+  dots.appendChild(s);
+});
+showQuote(0);
+setInterval(() => { qi = (qi+1)%quotes.length; showQuote(qi); }, 8000);
+
+// Canvas background
+const canvas = document.getElementById('galaxyCanvas');
+const ctx = canvas.getContext('2d');
+let w, h, stars = [];
+function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; stars = Array(200).fill().map(() => ({ x: Math.random()*w, y: Math.random()*h, r: Math.random()*1.2, dx: Math.random()*0.5-0.25, dy: -Math.random()*0.5, hue: Math.random()*360 })); }
+window.onresize = resize;
 resize();
 
-// Create cloud particles
-let clouds = [];
-for (let i = 0; i < 50; i++) {
-  clouds.push({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    radius: 50 + Math.random() * 100,
-    speed: 0.2 + Math.random() * 0.5,
-    opacity: 0.1 + Math.random() * 0.3
-  });
-}
-
-// Aurora gradient waves
-function drawAurora(time) {
-  let gradient = ctx.createLinearGradient(0, 0, w, h);
-  gradient.addColorStop(0, `hsl(${(time / 100) % 360}, 100%, 70%)`);
-  gradient.addColorStop(1, `hsl(${(time / 100 + 60) % 360}, 100%, 50%)`);
-
-  ctx.globalAlpha = 0.05;
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, w, h);
-  ctx.globalAlpha = 1;
-}
-
-// Cloud puffs
-function drawClouds() {
-  clouds.forEach(c => {
+function animate() {
+  ctx.fillStyle = '#050506';
+  ctx.fillRect(0,0,w,h);
+  stars.forEach(s => {
+    s.x += s.dx; s.y += s.dy;
+    if (s.x<0||s.x>w||s.y<0){ s.x=Math.random()*w; s.y=h; }
     ctx.beginPath();
-    ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${c.opacity})`;
+    const grad = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*4);
+    grad.addColorStop(0, `hsla(${s.hue},80%,80%,1)`);
+    grad.addColorStop(1, 'transparent');
+    ctx.fillStyle = grad;
+    ctx.arc(s.x,s.y,s.r*4,0,Math.PI*2);
     ctx.fill();
-    c.x += c.speed;
-    if (c.x - c.radius > w) {
-      c.x = -c.radius;
-      c.y = Math.random() * h;
-    }
   });
-}
-
-// Animation loop
-function animate(time) {
-  ctx.clearRect(0, 0, w, h);
-  drawAurora(time);
-  drawClouds();
   requestAnimationFrame(animate);
 }
-animate(0);
+animate();
