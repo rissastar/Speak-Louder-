@@ -64,6 +64,10 @@ closes.forEach(btn=> btn.addEventListener("click", e=>{
   m.style.display="none"; m.setAttribute("aria-hidden","true");
 }));
 
+// Optional: redirect buttons
+    document.getElementById("login-btn").onclick = () => window.location.href = "login.html";
+    document.getElementById("register-btn").onclick = () => window.location.href = "register.html";
+
 document.addEventListener("keydown", e=>{
   if(e.key==="Escape"){
     [authModal,panicModal].forEach(m=>{
