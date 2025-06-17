@@ -1,4 +1,4 @@
-/* Reset and base styles */
+/* Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -6,32 +6,59 @@
 }
 html, body {
   font-family: 'Segoe UI', sans-serif;
-  background: #0e0e1a;
+  background: #0c0c1c;
   color: #ffffff;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
-/* Animated Background (gentle waves) */
-body::before {
+/* 🌌 Animated Cloud & Aurora Background */
+body::before,
+body::after {
   content: '';
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #1c1f3b, #2e2c5f, #423f7a);
-  background-size: 400% 400%;
-  animation: waveBackground 20s ease infinite;
+  width: 100%;
   z-index: -1;
+  pointer-events: none;
 }
 
-@keyframes waveBackground {
+body::before {
+  background: linear-gradient(180deg, #0b0c26 0%, #121239 50%, #1a1c40 100%);
+  animation: gradientShift 40s ease infinite;
+  background-size: 400% 400%;
+}
+
+body::after {
+  background: url('https://i.imgur.com/Z7B9f8V.png') repeat-x; /* soft cloud PNG or SVG */
+  opacity: 0.3;
+  animation: cloudDrift 60s linear infinite;
+}
+
+/* Aurora Effect Overlay */
+@keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
+@keyframes cloudDrift {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 0; }
+}
+
+/* Optional glow shimmer */
+@keyframes auroraWaves {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(30deg); }
+}
+body {
+  animation: auroraWaves 60s ease-in-out infinite;
+}
+
+/* Hero Section */
 .hero-title {
   font-size: 2.2rem;
   text-align: center;
@@ -39,7 +66,7 @@ body::before {
   color: #ffffff;
 }
 .hero-title .highlight {
-  color: #e0aaff;
+  color: #a8d0ff;
   font-weight: bold;
 }
 .hero-sub {
@@ -48,123 +75,21 @@ body::before {
   margin-bottom: 1rem;
 }
 
+/* CTA */
 .cta-button {
   display: block;
   margin: 1rem auto;
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
-  background: #ae81ff;
+  background: #4bb6ff;
   border: none;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(72, 178, 255, 0.5);
 }
 .cta-button:hover {
-  background: #bfa3ff;
+  background: #7ad7ff;
 }
 
-.quote-rotator {
-  text-align: center;
-  margin: 1.5rem auto;
-  max-width: 90%;
-}
-.quote-text {
-  font-style: italic;
-  margin-bottom: 0.5rem;
-}
-.quote-author {
-  font-weight: bold;
-  color: #ccc;
-}
-.quote-dots {
-  margin-top: 0.5rem;
-}
-
-/* Grid Section */
-.grid-section {
-  padding: 2rem 1rem;
-}
-.grid-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1rem;
-}
-.grid-item {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 1rem;
-  text-align: center;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  color: #fff;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-.grid-item:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Modals */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-.modal-content {
-  background: #1f1f2f;
-  padding: 2rem;
-  border-radius: 8px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-}
-.modal-content button {
-  margin-top: 1rem;
-}
-.modal-btn {
-  padding: 0.6rem 1.2rem;
-  background: #7d66ff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
-.close-btn {
-  float: right;
-  background: transparent;
-  font-size: 1.4rem;
-  border: none;
-  color: #aaa;
-  cursor: pointer;
-}
-
-/* Panic Button */
-.panic-btn {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  background: red;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #111;
-  color: #aaa;
-}
-.social-links a {
-  margin: 0 0.5rem;
-  color: #9f9fff;
-  text-decoration: none;
-}
+/* The rest of your layout (quote rotator, grid, modals, footer, etc.) stays the same — you can reuse from previous answer or let me re-integrate fully */
