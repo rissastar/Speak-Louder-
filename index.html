@@ -1,90 +1,570 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-  <title>Speak Louder, Love Harder</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="manifest.json" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Speak Louder, Love Harder</title>
+<meta name="theme-color" content="#8e44ad" />
+<link rel="manifest" href="manifest.json" />
+<style>
+  /* Basic Reset */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f0f4ff, #ffffff);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: #8e44ad;
+    color: white;
+    padding: 1.8rem 1rem;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.6rem;
+  }
+  header p {
+    margin-top: 0.3rem;
+    font-weight: 600;
+  }
+  main {
+    flex: 1;
+    max-width: 900px;
+    margin: 1rem auto 2rem;
+    padding: 0 1rem;
+  }
+  section.category {
+    margin-bottom: 2.4rem;
+    border-radius: 10px;
+    background: #fff;
+    padding: 1.5rem 1.2rem;
+    box-shadow: 0 4px 10px rgb(142 68 173 / 0.15);
+  }
+  section.category h2 {
+    color: #8e44ad;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.7rem;
+  }
+  ul.toolkit-list {
+    list-style: none;
+    padding-left: 1rem;
+    margin: 0;
+  }
+  ul.toolkit-list li {
+    margin-bottom: 0.6rem;
+  }
+  ul.toolkit-list li button {
+    background: #d63384;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 7px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  ul.toolkit-list li button:hover {
+    background: #aa2364;
+  }
+
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  .modal-overlay.active {
+    display: flex;
+  }
+  .modal {
+    background: white;
+    max-width: 480px;
+    width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    padding: 1.5rem 1.8rem 2rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+  }
+  .modal h3 {
+    margin-top: 0;
+    color: #8e44ad;
+  }
+  .modal p {
+    line-height: 1.45;
+  }
+  .modal a {
+    color: #d63384;
+    text-decoration: none;
+  }
+  .modal a:hover {
+    text-decoration: underline;
+  }
+  .modal .close-btn {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #8e44ad;
+    cursor: pointer;
+  }
+
+  /* Language toggle */
+  #lang-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: #d63384;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 4px 10px rgb(214 51 132 / 0.5);
+    transition: background-color 0.3s ease;
+  }
+  #lang-toggle:hover {
+    background: #aa2364;
+  }
+
+  /* Info spots */
+  section.infospots {
+    background: #fdf6ff;
+    padding: 1.8rem 1rem;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 12px rgb(214 51 132 / 0.2);
+  }
+  section.infospots h2 {
+    color: #d63384;
+    margin-top: 0;
+  }
+  .info-links {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .info-links a {
+    background: #d63384;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    min-width: 140px;
+    text-align: center;
+  }
+  .info-links a:hover {
+    background: #aa2364;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    background: #8e44ad;
+    color: white;
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Upload section (placeholder) */
+  #upload-section {
+    max-width: 480px;
+    margin: 0 auto 3rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgb(142 68 173 / 0.1);
+    padding: 1.5rem;
+  }
+  #upload-section h2 {
+    color: #8e44ad;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  #upload-section label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+  }
+  #upload-section input[type="file"] {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  #upload-section button {
+    background: #d63384;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  #upload-section button:hover {
+    background: #aa2364;
+  }
+</style>
 </head>
 <body>
 
-  <!-- Animated star-rainbow background -->
-  <canvas id="galaxyCanvas"></canvas>
+<button id="lang-toggle" aria-label="Toggle Language">Français</button>
 
-  <main id="main-content">
-    <h1 class="hero-title">Welcome to Your Healing Sanctuary<br><span class="highlight">Together, We Grow Stronger.</span></h1>
-    <p class="hero-sub">Explore tools, stories, and remembrance designed to nurture your soul.</p>
-    <button id="cta-btn" class="cta-button">🌟 Join the Healing</button>
+<header>
+  <h1 data-en="Speak Louder, Love Harder" data-fr="Parler plus fort, aimer plus fort">Speak Louder, Love Harder</h1>
+  <p data-en="Free, Mobile-Friendly Toolkits for Healing, Support, and Advocacy" 
+     data-fr="Outils gratuits et mobiles pour la guérison, le soutien et la défense">Free, Mobile-Friendly Toolkits for Healing, Support, and Advocacy</p>
+</header>
 
-    <div class="quote-rotator" aria-label="Inspirational quotes">
-      <p id="quote-text" class="quote-text"></p>
-      <p id="quote-author" class="quote-author"></p>
-      <div id="quote-dots" class="quote-dots"></div>
+<main>
+
+  <!-- Mental Health -->
+  <section class="category" id="mental-health">
+    <h2 data-en="🧠 Mental Health & Self-Regulation" data-fr="🧠 Santé mentale et autorégulation">🧠 Mental Health & Self-Regulation</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="mental-emotion-wheel" aria-haspopup="dialog" aria-controls="modal">Emotion Wheel & Expression Toolkits</button></li>
+      <li><button data-toolkit="mental-grounding" aria-haspopup="dialog" aria-controls="modal">5-4-3-2-1 Grounding Guide</button></li>
+      <li><button data-toolkit="mental-window" aria-haspopup="dialog" aria-controls="modal">Window of Tolerance Diagram</button></li>
+      <li><button data-toolkit="mental-cognitive" aria-haspopup="dialog" aria-controls="modal">Cognitive Triangle Visuals</button></li>
+      <li><button data-toolkit="mental-self-awareness" aria-haspopup="dialog" aria-controls="modal">Self-Awareness Worksheets</button></li>
+      <li><button data-toolkit="mental-therapist-aid" aria-haspopup="dialog" aria-controls="modal">Therapist Aid Tools</button></li>
+      <li><button data-toolkit="mental-confidence" aria-haspopup="dialog" aria-controls="modal">Confidence and Self-Esteem Workbooks</button></li>
+      <li><button data-toolkit="mental-boundaries" aria-haspopup="dialog" aria-controls="modal">Boundaries & Values Worksheets</button></li>
+      <li><button data-toolkit="mental-inner-child" aria-haspopup="dialog" aria-controls="modal">Inner Child & Parts Work (IFS)</button></li>
+    </ul>
+  </section>
+
+  <!-- Addiction & Recovery -->
+  <section class="category" id="addiction-recovery">
+    <h2 data-en="💊 Addiction & Recovery" data-fr="💊 Toxicomanie et rétablissement">💊 Addiction & Recovery</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="addiction-relapse" aria-haspopup="dialog" aria-controls="modal">Relapse Prevention Plans</button></li>
+      <li><button data-toolkit="addiction-na-readings" aria-haspopup="dialog" aria-controls="modal">NA Daily Readings</button></li>
+      <li><button data-toolkit="addiction-alkohallek" aria-haspopup="dialog" aria-controls="modal">“Al Kohallek Goes 12-Stepping” Workbook</button></li>
+      <li><button data-toolkit="addiction-smart" aria-haspopup="dialog" aria-controls="modal">SMART Recovery Tools</button></li>
+      <li><button data-toolkit="addiction-motivational" aria-haspopup="dialog" aria-controls="modal">Motivational Interviewing Resources</button></li>
+      <li><button data-toolkit="addiction-mindfulness" aria-haspopup="dialog" aria-controls="modal">Mindfulness & DBT-based Recovery PDFs</button></li>
+    </ul>
+  </section>
+
+  <!-- Trauma & Healing -->
+  <section class="category" id="trauma-healing">
+    <h2 data-en="💜 Trauma & Emotional Healing" data-fr="💜 Traumatisme et guérison émotionnelle">💜 Trauma & Emotional Healing</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="trauma-growth" aria-haspopup="dialog" aria-controls="modal">Post-Traumatic Growth Guide</button></li>
+      <li><button data-toolkit="trauma-timeline" aria-haspopup="dialog" aria-controls="modal">Healing Timeline Tracker</button></li>
+      <li><button data-toolkit="trauma-triggers" aria-haspopup="dialog" aria-controls="modal">Triggers & Coping Cards</button></li>
+      <li><button data-toolkit="trauma-somatic" aria-haspopup="dialog" aria-controls="modal">Somatic Techniques Worksheets</button></li>
+      <li><button data-toolkit="trauma-shame" aria-haspopup="dialog" aria-controls="modal">Shame Resilience Materials</button></li>
+      <li><button data-toolkit="trauma-ifs" aria-haspopup="dialog" aria-controls="modal">IFS Parts Exploration</button></li>
+    </ul>
+  </section>
+
+  <!-- Domestic Violence -->
+  <section class="category" id="dv-abuse">
+    <h2 data-en="🚨 Domestic Violence & Abuse Support" data-fr="🚨 Violence domestique et soutien">🚨 Domestic Violence & Abuse Support</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="dv-safety-planning" aria-haspopup="dialog" aria-controls="modal">Safety Planning Worksheets</button></li>
+      <li><button data-toolkit="dv-shelter-directory" aria-haspopup="dialog" aria-controls="modal">DV Shelter Directory (ShelterSafe)</button></li>
+      <li><button data-toolkit="dv-ns-homes" aria-haspopup="dialog" aria-controls="modal">Nova Scotia Transition Homes</button></li>
+      <li><button data-toolkit="dv-healthy-relationships" aria-haspopup="dialog" aria-controls="modal">Healthy Relationship Checklists</button></li>
+      <li><button data-toolkit="dv-my-story" aria-haspopup="dialog" aria-controls="modal">My Story, My Terms Toolkit</button></li>
+    </ul>
+  </section>
+
+  <!-- Sexual Assault -->
+  <section class="category" id="sexual-assault">
+    <h2 data-en="👣 Sexual Assault Resources" data-fr="👣 Ressources sur les agressions sexuelles">👣 Sexual Assault Resources</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="sa-crisis-lines" aria-haspopup="dialog" aria-controls="modal">24/7 SA Crisis Lines</button></li>
+      <li><button data-toolkit="sa-ns-services" aria-haspopup="dialog" aria-controls="modal">Nova Scotia Sexual Assault Services</button></li>
+      <li><button data-toolkit="sa-esvc-links" aria-haspopup="dialog" aria-controls="modal">National ESVC Links</button></li>
+      <li><button data-toolkit="sa-consent-education" aria-haspopup="dialog" aria-controls="modal">Consent Education Materials</button></li>
+      <li><button data-toolkit="sa-self-compassion" aria-haspopup="dialog" aria-controls="modal">Self-Compassion Worksheets</button></li>
+    </ul>
+  </section>
+
+  <!-- LGBTQ2S+ -->
+  <section class="category" id="lgbtq2s">
+    <h2 data-en="🏳️‍🌈 LGBTQ2S+ & Intersectional Support" data-fr="🏳️‍🌈 Soutien LGBTQ2S+ et intersectionnel">🏳️‍🌈 LGBTQ2S+ & Intersectional Support</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="lgbtq-identity" aria-haspopup="dialog" aria-controls="modal">Identity Exploration Tools</button></li>
+      <li><button data-toolkit="lgbtq-trauma-informed" aria-haspopup="dialog" aria-controls="modal">Trauma-Informed Queer Support Guides</button></li>
+      <li><button data-toolkit="lgbtq-inclusive" aria-haspopup="dialog" aria-controls="modal">Inclusive Mental Health PDFs</button></li>
+    </ul>
+  </section>
+
+  <!-- Foster Care -->
+  <section class="category" id="foster-care">
+    <h2 data-en="🧸 Foster Care & Youth Advocacy" data-fr="🧸 Soins en famille d'accueil et défense des jeunes">🧸 Foster Care & Youth Advocacy</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="foster-youth-canada" aria-haspopup="dialog" aria-controls="modal">Youth in Care Canada</button></li>
+      <li><button data-toolkit="foster-lifebook" aria-haspopup="dialog" aria-controls="modal">Lifebook Workbook (IFAPA)</button></li>
+      <li><button data-toolkit="foster-big-life" aria-haspopup="dialog" aria-controls="modal">Big Life Journal for Teens</button></li>
+      <li><button data-toolkit="foster-cfs-ns" aria-haspopup="dialog" aria-controls="modal">CFS Nova Scotia Services</button></li>
+      <li><button data-toolkit="foster-emotional-coping" aria-haspopup="dialog" aria-controls="modal">Emotional Coping Tools for Foster Youth</button></li>
+    </ul>
+  </section>
+
+  <!-- Pit Bull Advocacy -->
+  <section class="category" id="pitbull-advocacy">
+    <h2 data-en="🐾 Pit Bull Advocacy" data-fr="🐾 Plaidoyer pour les pit bulls">🐾 Pit Bull Advocacy</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="pitbull-myths" aria-haspopup="dialog" aria-controls="modal">Myths vs. Facts Infographics</button></li>
+      <li><button data-toolkit="pitbull-toronto" aria-haspopup="dialog" aria-controls="modal">Toronto Humane Society Advocacy Toolkit</button></li>
+      <li><button data-toolkit="pitbull-responsible" aria-haspopup="dialog" aria-controls="modal">Responsible Pet Ownership Worksheets</button></li>
+      <li><button data-toolkit="pitbull-safety" aria-haspopup="dialog" aria-controls="modal">Dog Safety Checklists</button></li>
+    </ul>
+  </section>
+
+  <!-- Chronic Illness CF -->
+  <section class="category" id="chronic-cf">
+    <h2 data-en="🩺 Chronic Illness: Cystic Fibrosis (CF)" data-fr="🩺 Maladie chronique : fibrose kystique (CF)">🩺 Chronic Illness: Cystic Fibrosis (CF)</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="cf-links" aria-haspopup="dialog" aria-controls="modal">CF Canada + CFF Links</button></li>
+      <li><button data-toolkit="cf-tracker" aria-haspopup="dialog" aria-controls="modal">Daily Tracker Templates (Bearable, printable)</button></li>
+      <li><button data-toolkit="cf-breathing" aria-haspopup="dialog" aria-controls="modal">Breathing & Energy Tools</button></li>
+      <li><button data-toolkit="cf-medication" aria-haspopup="dialog" aria-controls="modal">Medication Scheduling Sheets</button></li>
+    </ul>
+  </section>
+
+  <!-- Chronic Illness Cirrhosis -->
+  <section class="category" id="chronic-cirrhosis">
+    <h2 data-en="🩸 Chronic Illness: Cirrhosis + Liver Support" data-fr="🩸 Maladie chronique : cirrhose et soutien du foie">🩸 Chronic Illness: Cirrhosis + Liver Support</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="cirrhosis-diet" aria-haspopup="dialog" aria-controls="modal">Cirrhosis Diet & Fluid Intake Log</button></li>
+      <li><button data-toolkit="cirrhosis-umich" aria-haspopup="dialog" aria-controls="modal">University of Michigan Cirrhosis Toolkit</button></li>
+      <li><button data-toolkit="cirrhosis-canadian" aria-haspopup="dialog" aria-controls="modal">Canadian Liver Foundation Materials</button></li>
+      <li><button data-toolkit="cirrhosis-tipss" aria-haspopup="dialog" aria-controls="modal">TIPSS Procedure Handout</button></li>
+      <li><button data-toolkit="cirrhosis-meal-ideas" aria-haspopup="dialog" aria-controls="modal">Low Sodium Meal Ideas</button></li>
+      <li><button data-toolkit="cirrhosis-tracking" aria-haspopup="dialog" aria-controls="modal">Daily Salt & Water Tracking</button></li>
+    </ul>
+  </section>
+
+  <!-- Self Care -->
+  <section class="category" id="self-care">
+    <h2 data-en="💕 Self-Care & Coping Workbooks" data-fr="💕 Livres d'exercices d'auto-soin et d'adaptation">💕 Self-Care & Coping Workbooks</h2>
+    <ul class="toolkit-list">
+      <li><button data-toolkit="selfcare-30day" aria-haspopup="dialog" aria-controls="modal">30-Day Self-Kindness Challenge</button></li>
+      <li><button data-toolkit="selfcare-confidence" aria-haspopup="dialog" aria-controls="modal">Confidence Workbook (Cardiff)</button></li>
+      <li><button data-toolkit="selfcare-crisis-plan" aria-haspopup="dialog" aria-controls="modal">Crisis Self-Care Plan</button></li>
+      <li><button data-toolkit="selfcare-journal" aria-haspopup="dialog" aria-controls="modal">Journal Prompt Sheets</button></li>
+      <li><button data-toolkit="selfcare-mood-tracker" aria-haspopup="dialog" aria-controls="modal">Mood Tracker Logs</button></li>
+      <li><button data-toolkit="selfcare-motivation" aria-haspopup="dialog" aria-controls="modal">Motivation & Change Guide</button></li>
+      <li><button data-toolkit="selfcare-body-soothing" aria-haspopup="dialog" aria-controls="modal">Body-Based Self-Soothing Techniques</button></li>
+    </ul>
+  </section>
+
+  <!-- Info spots -->
+  <section class="infospots">
+    <h2 data-en="📍 Information Spots" data-fr="📍 Zones d'information">📍 Information Spots</h2>
+    <p data-en="These direct-access links help you take action, find support, and educate yourself through trusted sources."
+       data-fr="Ces liens d'accès direct vous aident à agir, trouver du soutien et vous éduquer grâce à des sources fiables.">
+      These direct-access links help you take action, find support, and educate yourself through trusted sources.
+    </p>
+    <div class="info-links">
+      <a href="https://www.crisisservicescanada.ca/en/" target="_blank" rel="noopener" aria-label="Crisis Hotlines Canada and U.S.">Crisis Hotlines (Canada & U.S.)</a>
+      <a href="https://www.mentalhealthcommission.ca/English" target="_blank" rel="noopener" aria-label="Mental Health and Recovery Directories">Mental Health & Recovery Directories</a>
+      <a href="https://www.sheltersafe.ca/" target="_blank" rel="noopener" aria-label="Domestic Violence and Shelter Maps">Domestic Violence & Shelter Maps</a>
+      <a href="https://www.liver.ca/" target="_blank" rel="noopener" aria-label="Liver and Cystic Fibrosis Organizations">Liver & CF Organizations</a>
+      <a href="https://www.torontohumanesociety.com/" target="_blank" rel="noopener" aria-label="Pet Advocacy Resources">Pet Advocacy Resources</a>
+      <a href="https://youthincare.ca/" target="_blank" rel="noopener" aria-label="Foster Care Support Lines">Foster Care Support Lines</a>
+      <a href="https://www.nsvac.ca/resources/" target="_blank" rel="noopener" aria-label="Sexual Assault Reporting Tools">Sexual Assault Reporting Tools</a>
     </div>
+  </section>
 
-    <section class="info-section">
-      <h2>About Us</h2>
-      <p>“Speak Louder, Love Harder” is a trauma-informed digital sanctuary created to support your healing journey.</p>
+  <!-- Custom Upload Demo -->
+  <section id="upload-section" aria-label="Add Your Own Toolkit or Worksheet">
+    <h2 data-en="Add Your Own Toolkit or Worksheet" data-fr="Ajoutez votre propre trousse d'outils ou feuille de travail">Add Your Own Toolkit or Worksheet</h2>
+    <p data-en="(Demo upload - files won’t be saved; just UI demo)" data-fr="(Démo de téléchargement - les fichiers ne seront pas enregistrés ; juste une démonstration d'interface utilisateur)">
+      (Demo upload - files won’t be saved; just UI demo)
+    </p>
+    <form id="upload-form">
+      <label for="file-upload" data-en="Choose a PDF or image file" data-fr="Choisissez un fichier PDF ou image">Choose a PDF or image file</label>
+      <input type="file" id="file-upload" name="file-upload" accept=".pdf,image/*" />
+      <button type="submit" data-en="Upload" data-fr="Télécharger">Upload</button>
+    </form>
+    <p id="upload-status" role="status" aria-live="polite"></p>
+  </section>
 
-      <h2>FAQ</h2>
-      <p><strong>Who is this for?</strong> Anyone seeking healing in a safe, trauma-aware environment.</p>
-      <p><strong>What can I do here?</strong> Explore healing tools, community feed, memorial spaces.</p>
-      <p><strong>How do I join?</strong> Click “Join the Healing” to login or register.</p>
-      <p><strong>Is my data safe?</strong> Yes. We use secure protocols and honor your privacy preferences.</p>
-    </section>
+</main>
 
-    <section class="grid-section">
-      <div class="grid-links">
-        <button class="grid-item auth-item" onclick="openModal()">🔐 Login / Register</button>
-        <a href="feed.html" class="grid-item community-item">🧡 Community Feed</a>
-        <a href="mental-health.html" class="grid-item support-item">🧠 Mental Health</a>
-        <a href="addiction.html" class="grid-item support-item">💊 Addiction Support</a>
-        <a href="abuse.html" class="grid-item support-item">🚫 Abuse Support</a>
-        <a href="terminal-illness.html" class="grid-item support-item">🏥 Terminal Illness</a>
-        <a href="foster-children.html" class="grid-item support-item">👶 Foster Care</a>
-        <a href="grief.html" class="grid-item support-item">🕊️ Grief & Loss</a>
-        <a href="childhood-trauma.html" class="grid-item support-item">🧸 Childhood Trauma</a>
-        <a href="lgbtq-community.html" class="grid-item support-item">🏳️‍🌈 LGBTQ+ Safe Space</a>
-        <a href="worksheets.html" class="grid-item tools-item">📄 Worksheets</a>
-        <a href="grounding-techniques.html" class="grid-item tools-item">🌍 Grounding Tools</a>
-        <a href="memorial-wall.html" class="grid-item memorial-item">🕯️ Memorial Wall</a>
-        <a href="hope-jar.html" class="grid-item suggestions-item">🌟 Hope Jar</a>
-        <a href="quick-exit.html" class="grid-item suggestions-item">🚪 Quick Exit</a>
-        <a href="star-naming.html" class="grid-item suggestions-item">🌌 Star Dedication</a>
-      </div>
-    </section>
-  </main>
+<footer>
+  <p>© 2025 Speak Louder, Love Harder • Created with care for those who need it</p>
+</footer>
 
-  <!-- Unified Auth Modal -->
-  <div id="auth-modal" class="modal" aria-hidden="true">
-    <div class="modal-content"></div>
+<!-- Modal Template -->
+<div class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" id="modal">
+  <div class="modal" role="document">
+    <button class="close-btn" aria-label="Close modal">&times;</button>
+    <h3 id="modal-title">Toolkit Title</h3>
+    <div id="modal-content">
+      <p>Toolkit content will appear here.</p>
+    </div>
+    <div id="modal-links"></div>
   </div>
+</div>
 
-  <!-- Panic Button + Modal -->
-  <button id="panic-btn" class="panic-btn" aria-label="Panic Button">🆘</button>
-  <div id="panic-modal" class="modal" aria-hidden="true">
-    <div class="modal-content">
-      <button class="close-btn" aria-label="Close">&times;</button>
-      <h2>Need Immediate Help?</h2>
-      <ul>
-        <li><strong>Canada:</strong> Talk Suicide Canada – 1‑833‑456‑4566</li>
-        <li><strong>USA:</strong> 988 Suicide & Crisis Lifeline – Dial 988</li>
-        <li><strong>UK:</strong> Samaritans – 116 123</li>
-        <li><strong>Worldwide:</strong> <a href="https://findahelpline.com" target="_blank">findahelpline.com</a></li>
-      </ul>
-      <p>Ground yourself: breathe deeply, tune in to your body. You are not alone.</p>
-    </div>
-  </div>
+<script>
+  // Data for toolkits content EN and FR
+  const toolkits = {
+    "mental-emotion-wheel": {
+      en: {
+        title: "Emotion Wheel & Expression Toolkits",
+        content: `<p>The Emotion Wheel is a powerful tool to help identify and express feelings clearly. Use our printable Emotion Wheel PDF and interactive expression guides to connect with your emotions.</p>`,
+        links: [
+          { text: "Download Emotion Wheel PDF", url: "https://www.mindtools.com/pages/article/newTCS_99.htm" }
+        ]
+      },
+      fr: {
+        title: "Roue des émotions et trousses d'expression",
+        content: `<p>La roue des émotions est un outil puissant pour aider à identifier et exprimer clairement les sentiments. Utilisez notre PDF imprimable de la roue des émotions et des guides d'expression interactifs pour vous connecter à vos émotions.</p>`,
+        links: [
+          { text: "Télécharger la roue des émotions (PDF)", url: "https://www.mindtools.com/pages/article/newTCS_99.htm" }
+        ]
+      }
+    },
+    "mental-grounding": {
+      en: {
+        title: "5-4-3-2-1 Grounding Guide",
+        content: `<p>This grounding technique helps anchor you in the present moment using your five senses. Follow our step-by-step guide and worksheet to practice mindfulness and reduce anxiety.</p>`,
+        links: [
+          { text: "5-4-3-2-1 Grounding Worksheet PDF", url: "https://positivepsychology.com/wp-content/uploads/2019/09/5-4-3-2-1-grounding-technique.pdf" }
+        ]
+      },
+      fr: {
+        title: "Guide d'ancrage 5-4-3-2-1",
+        content: `<p>Cette technique d'ancrage vous aide à vous ancrer dans le moment présent en utilisant vos cinq sens. Suivez notre guide étape par étape et la feuille de travail pour pratiquer la pleine conscience et réduire l'anxiété.</p>`,
+        links: [
+          { text: "Feuille de travail d'ancrage 5-4-3-2-1 (PDF)", url: "https://positivepsychology.com/wp-content/uploads/2019/09/5-4-3-2-1-grounding-technique.pdf" }
+        ]
+      }
+    },
+    // ... Add all other toolkits similarly with EN and FR content and links
+    // For brevity, only these two shown here; in actual site add all your toolkits following same pattern
+  };
 
-   <footer>
-    <div class="social-links">
-      <a href="https://linktr.ee/rissa.star" target="_blank">🌐 Linktree</a>
-      <a href="https://facebook.com/" target="_blank">📘 Facebook</a>
-    </div>
-    <p>&copy; 2025 Healing Space. Made with 💜</p>
-  </footer>
+  // Modal Elements
+  const modalOverlay = document.getElementById('modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalContent = document.getElementById('modal-content');
+  const modalLinks = document.getElementById('modal-links');
+  const closeBtn = modalOverlay.querySelector('.close-btn');
 
-  <script src="script.js" type="module"></script>
+  // Language Toggle
+  const langToggle = document.getElementById('lang-toggle');
+  let currentLang = 'en'; // default
+
+  // Function to set language UI text (data-en / data-fr)
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute(`data-${lang}`);
+    });
+    langToggle.textContent = lang === 'en' ? 'Français' : 'English';
+  }
+
+  // Modal open function
+  function openModal(toolkitId) {
+    if (!toolkits[toolkitId]) {
+      modalTitle.textContent = "Content not found";
+      modalContent.innerHTML = "<p>Sorry, this toolkit content is unavailable.</p>";
+      modalLinks.innerHTML = "";
+      modalOverlay.classList.add('active');
+      modalOverlay.focus();
+      return;
+    }
+    const data = toolkits[toolkitId][currentLang] || toolkits[toolkitId]['en'];
+    modalTitle.textContent = data.title;
+    modalContent.innerHTML = data.content;
+
+    // Build links list
+    if (data.links && data.links.length > 0) {
+      modalLinks.innerHTML = '<h4>Resources:</h4><ul>';
+      data.links.forEach(link => {
+        modalLinks.innerHTML += `<li><a href="${link.url}" target="_blank" rel="noopener">${link.text}</a></li>`;
+      });
+      modalLinks.innerHTML += '</ul>';
+    } else {
+      modalLinks.innerHTML = '';
+    }
+
+    modalOverlay.classList.add('active');
+    modalOverlay.focus();
+  }
+
+  // Close modal function
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+  }
+
+  // Event listeners for toolkit buttons
+  document.querySelectorAll('.toolkit-list button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const toolkitId = btn.getAttribute('data-toolkit');
+      openModal(toolkitId);
+    });
+  });
+
+  // Close modal events
+  closeBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Language toggle event
+  langToggle.addEventListener('click', () => {
+    setLanguage(currentLang === 'en' ? 'fr' : 'en');
+  });
+
+  // Initialize language on page load
+  setLanguage(currentLang);
+
+  // Upload demo (just UI, no actual upload)
+  const uploadForm = document.getElementById('upload-form');
+  const uploadStatus = document.getElementById('upload-status');
+  uploadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fileInput = document.getElementById('file-upload');
+    if (fileInput.files.length === 0) {
+      uploadStatus.textContent = currentLang === 'en' ? "Please select a file to upload." : "Veuillez sélectionner un fichier à télécharger.";
+      return;
+    }
+    uploadStatus.textContent = currentLang === 'en' ? "Upload feature coming soon!" : "Fonction de téléchargement à venir!";
+    fileInput.value = "";
+  });
+
+  // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker registered'))
+      .catch(err => console.warn('Service Worker registration failed:', err));
+  }
+</script>
+
 </body>
 </html>
