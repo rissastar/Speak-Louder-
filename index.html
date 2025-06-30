@@ -12,11 +12,13 @@
       font-family: 'Courier New', monospace;
       text-align: center;
       padding: 20px;
+      max-width: 600px;
+      margin: auto;
     }
     h1 {
       color: #00ffff;
       text-shadow: 0 0 5px #00ffff;
-      font-size: 28px;
+      font-size: 26px;
     }
     .menu {
       display: flex;
@@ -26,23 +28,24 @@
     }
     .menu a {
       text-decoration: none;
-      color: #ff00ff;
+      color: #00ffcc;
       background-color: #222;
-      border: 2px solid #ff00ff;
+      border: 2px solid #00ffcc;
       padding: 15px;
       border-radius: 10px;
       font-size: 18px;
-      box-shadow: 0 0 5px #ff00ff;
+      box-shadow: 0 0 5px #00ffcc;
+      transition: 0.2s ease;
     }
     .menu a:hover {
       background-color: #333;
-      box-shadow: 0 0 10px #ff00ff;
+      box-shadow: 0 0 10px #00ffcc;
     }
   </style>
 </head>
 <body>
   <h1>🎮 Project Reboot: 1998 Edition</h1>
-  <p>Select a mission:</p>
+  <p>Select your level:</p>
   <div class="menu">
     <a href="section1.html">🧠 System Boot</a>
     <a href="section2.html">📊 Glitch Report</a>
@@ -52,7 +55,6 @@
     <a href="section6.html">🌟 Rebuild Your Code</a>
     <a href="bonus.html">🛠️ Retro Toolkit</a>
   </div>
-
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js')
