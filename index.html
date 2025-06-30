@@ -1,16 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>System Boot</title>
-<style>
-body { background-color: #111; color: #fff; font-family: 'Courier New', monospace; padding: 20px; }
-h1 { color: #00ffff; text-shadow: 0 0 5px #00ffff; }
-label { color: #ffaa00; display: block; margin-top: 15px; }
-textarea { width: 100%; height: 80px; background: #222; color: #fff; border: 2px solid #ff00ff; padding: 10px; }
-</style></head><body>
-<h1>🧠 Section 1: System Boot</h1>
-<p>Start with self-awareness and gentle honesty.</p>
-<label>How are you feeling right now?</label><textarea></textarea>
-<label>What brought you here today?</label><textarea></textarea>
-<label>What do you want from this journey?</label><textarea></textarea>
-</body></html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Reboot: 1998 Edition</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #00ffff;
+      text-shadow: 0 0 5px #00ffff;
+      font-size: 28px;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 40px;
+    }
+    .menu a {
+      text-decoration: none;
+      color: #ff00ff;
+      background-color: #222;
+      border: 2px solid #ff00ff;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 18px;
+      box-shadow: 0 0 5px #ff00ff;
+    }
+    .menu a:hover {
+      background-color: #333;
+      box-shadow: 0 0 10px #ff00ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Project Reboot: 1998 Edition</h1>
+  <p>Select a mission:</p>
+  <div class="menu">
+    <a href="section1.html">🧠 System Boot</a>
+    <a href="section2.html">📊 Glitch Report</a>
+    <a href="section3.html">🎮 Feelings Factory</a>
+    <a href="section4.html">⚔️ Boss Battles</a>
+    <a href="section5.html">🛸 Memory Lane</a>
+    <a href="section6.html">🌟 Rebuild Your Code</a>
+    <a href="bonus.html">🛠️ Retro Toolkit</a>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(() => console.log('✅ Service Worker Registered'));
+    }
+  </script>
+</body>
+</html>
