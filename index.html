@@ -4,11 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Project Reboot: 1998 Edition</title>
-  <link rel="manifest" href="manifest.json">
   <style>
     body {
-      background-color: #111;
-      color: #fff;
+      background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+      color: #fceaff;
       font-family: 'Courier New', monospace;
       text-align: center;
       padding: 20px;
@@ -16,8 +15,8 @@
       margin: auto;
     }
     h1 {
-      color: #00ffff;
-      text-shadow: 0 0 5px #00ffff;
+      color: #ffb6f9;
+      text-shadow: 0 0 5px #ffb6f9;
       font-size: 26px;
     }
     .menu {
@@ -28,23 +27,23 @@
     }
     .menu a {
       text-decoration: none;
-      color: #00ffcc;
-      background-color: #222;
-      border: 2px solid #00ffcc;
+      color: #91f5d2;
+      background-color: #352f44;
+      border: 2px solid #91f5d2;
       padding: 15px;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 18px;
-      box-shadow: 0 0 5px #00ffcc;
+      box-shadow: 0 0 6px #91f5d2;
       transition: 0.2s ease;
     }
     .menu a:hover {
-      background-color: #333;
-      box-shadow: 0 0 10px #00ffcc;
+      background-color: #403658;
+      box-shadow: 0 0 12px #91f5d2;
     }
   </style>
 </head>
 <body>
-  <h1>🎮 Project Reboot: 1998 Edition</h1>
+  <h1>🌈 Project Reboot: 1998 Edition</h1>
   <p>Select your level:</p>
   <div class="menu">
     <a href="section1.html">🧠 System Boot</a>
@@ -55,11 +54,5 @@
     <a href="section6.html">🌟 Rebuild Your Code</a>
     <a href="bonus.html">🛠️ Retro Toolkit</a>
   </div>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('✅ Service Worker Registered'));
-    }
-  </script>
 </body>
 </html>
