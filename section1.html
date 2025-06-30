@@ -1,16 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>System Boot</title>
 <style>
-body { background-color: #111; color: #fff; font-family: 'Courier New', monospace; padding: 20px; }
-h1 { color: #00ffff; text-shadow: 0 0 5px #00ffff; }
-label { color: #ffaa00; display: block; margin-top: 15px; }
-textarea { width: 100%; height: 80px; background: #222; color: #fff; border: 2px solid #ff00ff; padding: 10px; }
-</style></head><body>
+body {
+  background-color: #111;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+h1 {
+  color: #00ffff;
+  text-shadow: 0 0 5px #00ffff;
+}
+label {
+  color: #ffaa00;
+  display: block;
+  margin-top: 15px;
+  font-size: 16px;
+}
+textarea {
+  width: 100%;
+  height: 80px;
+  background: #222;
+  color: #fff;
+  border: 2px solid #ff00ff;
+  padding: 10px;
+  font-size: 14px;
+}
+button {
+  background: #00ffff;
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 0 5px #00ffff;
+  margin-top: 15px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
 <h1>🧠 Section 1: System Boot</h1>
 <p>Start with self-awareness and gentle honesty.</p>
-<label>How are you feeling right now?</label><textarea></textarea>
-<label>What brought you here today?</label><textarea></textarea>
-<label>What do you want from this journey?</label><textarea></textarea>
-</body></html>
+
+<label for="q1">How are you feeling right now?</label>
+<textarea id="q1"></textarea>
+
+<label for="q2">What brought you here today?</label>
+<textarea id="q2"></textarea>
+
+<label for="q3">What do you want from this journey?</label>
+<textarea id="q3"></textarea>
+
+<button onclick="saveAnswers()">💾 Save My Answers</button>
+<button onclick="resetAnswers()">🧹 Reset</button>
+
+<script>
+function saveAnswers() {
+  localStorage.setItem('section1_q1', document.getElementById('q1').value);
+  localStorage.setItem('section1_q2', document.getElementById('q2').value);
+  localStorage.setItem('section1_q3', document.getElementById('q3').value);
+  alert('✅ Saved to device!');
+}
+function resetAnswers() {
+  document.getElementById('q1').value = '';
+  document.getElementById('q2').value = '';
+  document.getElementById('q3').value = '';
+  localStorage.removeItem('section1_q1');
+  localStorage.removeItem('section1_q2');
+  localStorage.removeItem('section1_q3');
+}
+window.onload = () => {
+  document.getElementById('q1').value = localStorage.getItem('section1_q1') || '';
+  document.getElementById('q2').value = localStorage.getItem('section1_q2') || '';
+  document.getElementById('q3').value = localStorage.getItem('section1_q3') || '';
+}
+</script>
+</body>
+</html>
